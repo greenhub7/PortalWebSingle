@@ -1,0 +1,529 @@
+@* SolMed 2026 - Near Miss Variables - CLAP/SMR *@
+@model Domain.NearMissVariables
+
+<div class="row">
+    @* CRITERIOS CLÍNICOS / DISFUNCIÓN ÓRGANO-SISTEMA *@
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="font-weight-bold mb-2">CRITERIOS CLÍNICOS / DISFUNCIÓN ÓRGANO-SISTEMA</label>
+
+            @* Cardiovascular *@
+            <div class="mt-2">
+                <span class="font-weight-bold small">Cardiovascular</span>
+                <div class="ml-2">
+                    @* Shock *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 120px;">Shock</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Shock" value="no" id="shockNo"
+                                   @(Model?.Shock == false ? "checked" : "") />
+                            <label class="form-check-label" for="shockNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Shock" value="si" id="shockSi"
+                                   @(Model?.Shock == true ? "checked" : "") />
+                            <label class="form-check-label" for="shockSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Paro cardíaco *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 120px;">Paro cardíaco</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="CardiacArrest" value="no" id="cardiacArrestNo"
+                                   @(Model?.CardiacArrest == false ? "checked" : "") />
+                            <label class="form-check-label" for="cardiacArrestNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="CardiacArrest" value="si" id="cardiacArrestSi"
+                                   @(Model?.CardiacArrest == true ? "checked" : "") />
+                            <label class="form-check-label" for="cardiacArrestSi">si</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* Hepático *@
+            <div class="mt-2">
+                <span class="font-weight-bold small">Hepático</span>
+                <div class="ml-2">
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 120px;">Ictericia en preeclampsia</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="JaundiceInPreeclampsia" value="no" id="jaundiceNo"
+                                   @(Model?.JaundiceInPreeclampsia == false ? "checked" : "") />
+                            <label class="form-check-label" for="jaundiceNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="JaundiceInPreeclampsia" value="si" id="jaundiceSi"
+                                   @(Model?.JaundiceInPreeclampsia == true ? "checked" : "") />
+                            <label class="form-check-label" for="jaundiceSi">si</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* Respiratorio *@
+            <div class="mt-2">
+                <span class="font-weight-bold small">Respiratorio</span>
+                <div class="ml-2">
+                    @* Cianosis aguda *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 120px;">Cianosis aguda</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="AcuteCyanosis" value="no" id="cyanosisNo"
+                                   @(Model?.AcuteCyanosis == false ? "checked" : "") />
+                            <label class="form-check-label" for="cyanosisNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="AcuteCyanosis" value="si" id="cyanosisSi"
+                                   @(Model?.AcuteCyanosis == true ? "checked" : "") />
+                            <label class="form-check-label" for="cyanosisSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Respiración jadeante (gasping) *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 120px;">Resp. jadeante (gasping)</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Gasping" value="no" id="gaspingNo"
+                                   @(Model?.Gasping == false ? "checked" : "") />
+                            <label class="form-check-label" for="gaspingNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Gasping" value="si" id="gaspingSi"
+                                   @(Model?.Gasping == true ? "checked" : "") />
+                            <label class="form-check-label" for="gaspingSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Taquipnea severa FR > 40 rpm *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 120px;">Taquipnea severa FR > 40 rpm</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="SevereTachypnea" value="no" id="tachypneaNo"
+                                   @(Model?.SevereTachypnea == false ? "checked" : "") />
+                            <label class="form-check-label" for="tachypneaNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="SevereTachypnea" value="si" id="tachypneaSi"
+                                   @(Model?.SevereTachypnea == true ? "checked" : "") />
+                            <label class="form-check-label" for="tachypneaSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Bradipnea severa FR < 6 rpm *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 120px;">Bradipnea severa FR < 6 rpm</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="SevereBradypnea" value="no" id="bradypneaNo"
+                                   @(Model?.SevereBradypnea == false ? "checked" : "") />
+                            <label class="form-check-label" for="bradypneaNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="SevereBradypnea" value="si" id="bradypneaSi"
+                                   @(Model?.SevereBradypnea == true ? "checked" : "") />
+                            <label class="form-check-label" for="bradypneaSi">si</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* Renal *@
+            <div class="mt-2">
+                <span class="font-weight-bold small">Renal</span>
+                <div class="ml-2">
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 120px;">Oliguria resistente a líquidos o diuréticos</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="OliguriaUnresponsiveToFluidsOrDiuretics" value="no" id="oliguriaResistNo"
+                                   @(Model?.OliguriaUnresponsiveToFluidsOrDiuretics == false ? "checked" : "") />
+                            <label class="form-check-label" for="oliguriaResistNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="OliguriaUnresponsiveToFluidsOrDiuretics" value="si" id="oliguriaResistSi"
+                                   @(Model?.OliguriaUnresponsiveToFluidsOrDiuretics == true ? "checked" : "") />
+                            <label class="form-check-label" for="oliguriaResistSi">si</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* Hematológicos/coagulación *@
+            <div class="mt-2">
+                <span class="font-weight-bold small">Hematológicos/coagulación</span>
+                <div class="ml-2">
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 120px;">Alteraciones de la coagulación</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="CoagulationDisorders" value="no" id="coagulationNo"
+                                   @(Model?.CoagulationDisorders == false ? "checked" : "") />
+                            <label class="form-check-label" for="coagulationNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="CoagulationDisorders" value="si" id="coagulationSi"
+                                   @(Model?.CoagulationDisorders == true ? "checked" : "") />
+                            <label class="form-check-label" for="coagulationSi">si</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* Neurológico *@
+            <div class="mt-2">
+                <span class="font-weight-bold small">Neurológico</span>
+                <div class="ml-2">
+                    @* Coma *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 120px;">Coma</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Coma" value="no" id="comaNo"
+                                   @(Model?.Coma == false ? "checked" : "") />
+                            <label class="form-check-label" for="comaNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Coma" value="si" id="comaSi"
+                                   @(Model?.Coma == true ? "checked" : "") />
+                            <label class="form-check-label" for="comaSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Inconsciencia prolongada >12 hs. *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 120px;">Inconsciencia prolongada >12 hs.</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="ProlongedUnconsciousness" value="no" id="unconsciousnessNo"
+                                   @(Model?.ProlongedUnconsciousness == false ? "checked" : "") />
+                            <label class="form-check-label" for="unconsciousnessNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="ProlongedUnconsciousness" value="si" id="unconsciousnessSi"
+                                   @(Model?.ProlongedUnconsciousness == true ? "checked" : "") />
+                            <label class="form-check-label" for="unconsciousnessSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Accidente cerebro vascular *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 120px;">Accidente cerebro vascular</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="StrokeOrCVA" value="no" id="strokeNo"
+                                   @(Model?.StrokeOrCVA == false ? "checked" : "") />
+                            <label class="form-check-label" for="strokeNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="StrokeOrCVA" value="si" id="strokeSi"
+                                   @(Model?.StrokeOrCVA == true ? "checked" : "") />
+                            <label class="form-check-label" for="strokeSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Convulsiones incontrolables/estado de mal epiléptico *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 120px;">Convulsiones incontrolables/estado de mal epiléptico</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="UncontrollableSeizuresOrStatusEpilepticus" value="no" id="seizuresNo"
+                                   @(Model?.UncontrollableSeizuresOrStatusEpilepticus == false ? "checked" : "") />
+                            <label class="form-check-label" for="seizuresNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="UncontrollableSeizuresOrStatusEpilepticus" value="si" id="seizuresSi"
+                                   @(Model?.UncontrollableSeizuresOrStatusEpilepticus == true ? "checked" : "") />
+                            <label class="form-check-label" for="seizuresSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Parálisis generalizada *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 120px;">Parálisis generalizada</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="GeneralizedParalysis" value="no" id="paralysisNo"
+                                   @(Model?.GeneralizedParalysis == false ? "checked" : "") />
+                            <label class="form-check-label" for="paralysisNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="GeneralizedParalysis" value="si" id="paralysisSi"
+                                   @(Model?.GeneralizedParalysis == true ? "checked" : "") />
+                            <label class="form-check-label" for="paralysisSi">si</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* LABORATORIO *@
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="font-weight-bold mb-2">LABORATORIO</label>
+
+            <div class="ml-2">
+                @* Plaquetas < 50.000 por ml *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 200px;">Plaquetas < 50.000 por ml</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="PlateletsLessThan50000" value="no" id="plateletsNo"
+                               @(Model?.PlateletsLessThan50000 == false ? "checked" : "") />
+                        <label class="form-check-label" for="plateletsNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="PlateletsLessThan50000" value="si" id="plateletsSi"
+                               @(Model?.PlateletsLessThan50000 == true ? "checked" : "") />
+                        <label class="form-check-label" for="plateletsSi">si</label>
+                    </div>
+                </div>
+
+                @* Creatinina ≥ 300 micromoles/l ó ≥ 3,5 mg/dl *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 200px;">Creatinina ≥ 300 micromoles/l ó ≥ 3,5 mg/dl</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="CreatinineGreaterOrEqual300" value="no" id="creatinineNo"
+                               @(Model?.CreatinineGreaterOrEqual300 == false ? "checked" : "") />
+                        <label class="form-check-label" for="creatinineNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="CreatinineGreaterOrEqual300" value="si" id="creatinineSi"
+                               @(Model?.CreatinineGreaterOrEqual300 == true ? "checked" : "") />
+                        <label class="form-check-label" for="creatinineSi">si</label>
+                    </div>
+                </div>
+
+                @* Bilirrubina > 100 micromoles/l o > 6,0 mg/dl *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 200px;">Bilirrubina > 100 micromoles/l o > 6,0 mg/dl</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="BilirubinGreaterThan100" value="no" id="bilirubinNo"
+                               @(Model?.BilirubinGreaterThan100 == false ? "checked" : "") />
+                        <label class="form-check-label" for="bilirubinNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="BilirubinGreaterThan100" value="si" id="bilirubinSi"
+                               @(Model?.BilirubinGreaterThan100 == true ? "checked" : "") />
+                        <label class="form-check-label" for="bilirubinSi">si</label>
+                    </div>
+                </div>
+
+                @* pH < 7,1 *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 200px;">pH < 7,1</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="PHLessThan7_1" value="no" id="phNo"
+                               @(Model?.PHLessThan7_1 == false ? "checked" : "") />
+                        <label class="form-check-label" for="phNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="PHLessThan7_1" value="si" id="phSi"
+                               @(Model?.PHLessThan7_1 == true ? "checked" : "") />
+                        <label class="form-check-label" for="phSi">si</label>
+                    </div>
+                </div>
+
+                @* Sat Hb < 90% ≥ 1 hora *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 200px;">Sat Hb < 90% ≥ 1 hora</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="HemoglobinSaturationLessThan90PercentForOverOneHour" value="no" id="satHbNo"
+                               @(Model?.HemoglobinSaturationLessThan90PercentForOverOneHour == false ? "checked" : "") />
+                        <label class="form-check-label" for="satHbNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="HemoglobinSaturationLessThan90PercentForOverOneHour" value="si" id="satHbSi"
+                               @(Model?.HemoglobinSaturationLessThan90PercentForOverOneHour == true ? "checked" : "") />
+                        <label class="form-check-label" for="satHbSi">si</label>
+                    </div>
+                </div>
+
+                @* PaO2/FiO2 < 200 mmHg *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 200px;">PaO2/FiO2 < 200 mmHg</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="PaO2FiO2LessThan200" value="no" id="pao2No"
+                               @(Model?.PaO2FiO2LessThan200 == false ? "checked" : "") />
+                        <label class="form-check-label" for="pao2No">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="PaO2FiO2LessThan200" value="si" id="pao2Si"
+                               @(Model?.PaO2FiO2LessThan200 == true ? "checked" : "") />
+                        <label class="form-check-label" for="pao2Si">si</label>
+                    </div>
+                </div>
+
+                @* Lactato > 5 μmol/L o 45 mg/dl *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 200px;">Lactato > 5 μmol/L o 45 mg/dl</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="LactateGreaterThan5" value="no" id="lactateNo"
+                               @(Model?.LactateGreaterThan5 == false ? "checked" : "") />
+                        <label class="form-check-label" for="lactateNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="LactateGreaterThan5" value="si" id="lactateSi"
+                               @(Model?.LactateGreaterThan5 == true ? "checked" : "") />
+                        <label class="form-check-label" for="lactateSi">si</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* INTERVENCIONES *@
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="font-weight-bold mb-2">INTERVENCIONES</label>
+
+            <div class="ml-2">
+                @* Administración continua de agentes vasoactivos *@
+                <div class="mb-2">
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 180px;">Administración continua de agentes vasoactivos</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="ContinuousVasoactiveAgentsAdministration" value="no" id="vasoactiveNo"
+                                   @(Model?.ContinuousVasoactiveAgentsAdministration == false ? "checked" : "") />
+                            <label class="form-check-label" for="vasoactiveNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="ContinuousVasoactiveAgentsAdministration" value="si" id="vasoactiveSi"
+                                   @(Model?.ContinuousVasoactiveAgentsAdministration == true ? "checked" : "") />
+                            <label class="form-check-label" for="vasoactiveSi">si</label>
+                        </div>
+                    </div>
+                    <div class="ml-3">
+                        <div class="d-flex align-items-center">
+                            <span class="small mr-2">Cuál/es</span>
+                            <input type="text" class="form-control form-control-sm" name="VasoactiveAgentsDetail" id="vasoactiveAgentsDetail"
+                                   value="@Model?.VasoactiveAgentsDetail" style="width: 150px;" />
+                        </div>
+                    </div>
+                </div>
+
+                @* Intubación y ventilación no relacionada con la anestesia *@
+                <div class="mb-2">
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 180px;">Intubación y ventilación no relacionada con la anestesia</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="IntubationAndVentilationNotRelatedToAnesthesia" value="no" id="intubationNo"
+                                   @(Model?.IntubationAndVentilationNotRelatedToAnesthesia == false ? "checked" : "") />
+                            <label class="form-check-label" for="intubationNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="IntubationAndVentilationNotRelatedToAnesthesia" value="si" id="intubationSi"
+                                   @(Model?.IntubationAndVentilationNotRelatedToAnesthesia == true ? "checked" : "") />
+                            <label class="form-check-label" for="intubationSi">si</label>
+                        </div>
+                    </div>
+                    <div class="ml-3">
+                        <div class="input-group input-group-sm" style="width: 100px;">
+                            <input type="number" min="0" class="form-control" name="IntubationDays" id="intubationDays"
+                                   value="@(Model?.IntubationDays > 0 ? Model.IntubationDays : "")" />
+                            <div class="input-group-append">
+                                <span class="input-group-text">días</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @* Administración ≥ 3 vol de hemoderivados *@
+                <div class="mb-2">
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 180px;">Administración ≥ 3 vol de hemoderivados</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="BloodProductsAdministrationGreaterOrEqualThreeUnits" value="no" id="bloodProductsNo"
+                                   @(Model?.BloodProductsAdministrationGreaterOrEqualThreeUnits == false ? "checked" : "") />
+                            <label class="form-check-label" for="bloodProductsNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="BloodProductsAdministrationGreaterOrEqualThreeUnits" value="si" id="bloodProductsSi"
+                                   @(Model?.BloodProductsAdministrationGreaterOrEqualThreeUnits == true ? "checked" : "") />
+                            <label class="form-check-label" for="bloodProductsSi">si</label>
+                        </div>
+                    </div>
+                    <div class="ml-3 d-flex align-items-center">
+                        <div class="input-group input-group-sm" style="width: 100px;">
+                            <input type="number" min="3" class="form-control" name="BloodUnits" id="bloodUnits"
+                                   value="@(Model?.BloodUnits > 0 ? Model.BloodUnits : "")" />
+                            <div class="input-group-append">
+                                <span class="input-group-text">vol</span>
+                            </div>
+                        </div>
+                        <small class="ml-2 text-muted">
+                            Criterios Near Miss:<br />
+                            FLASOG ≥ 3 vol.<br />
+                            OMS ≥ 5 vol.
+                        </small>
+                    </div>
+                </div>
+
+                @* Ingreso a UCI ≥ 7 días *@
+                <div class="mb-2">
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 180px;">Ingreso a UCI ≥ 7 días</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="ICUAdmissionLessThanSevenDays" value="no" id="icuAdmissionNo"
+                                   @(Model?.ICUAdmissionLessThanSevenDays == false ? "checked" : "") />
+                            <label class="form-check-label" for="icuAdmissionNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="ICUAdmissionLessThanSevenDays" value="si" id="icuAdmissionSi"
+                                   @(Model?.ICUAdmissionLessThanSevenDays == true ? "checked" : "") />
+                            <label class="form-check-label" for="icuAdmissionSi">si</label>
+                        </div>
+                    </div>
+                    <div class="ml-3">
+                        <div class="input-group input-group-sm" style="width: 100px;">
+                            <input type="number" min="7" class="form-control" name="ICUDaysLessThanSeven" id="icuDays"
+                                   value="@(Model?.ICUDaysLessThanSeven > 0 ? Model.ICUDaysLessThanSeven : "")" />
+                            <div class="input-group-append">
+                                <span class="input-group-text">días</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @* Histerectomía *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Histerectomía</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Hysterectomy" value="no" id="hysterectomyNo"
+                               @(Model?.Hysterectomy == false ? "checked" : "") />
+                        <label class="form-check-label" for="hysterectomyNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Hysterectomy" value="si" id="hysterectomySi"
+                               @(Model?.Hysterectomy == true ? "checked" : "") />
+                        <label class="form-check-label" for="hysterectomySi">si</label>
+                    </div>
+                </div>
+
+                @* Diálisis en caso de IRA *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Diálisis en caso de insuficiencia renal aguda</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="DialysisForAcuteRenalFailure" value="no" id="dialysisNo"
+                               @(Model?.DialysisForAcuteRenalFailure == false ? "checked" : "") />
+                        <label class="form-check-label" for="dialysisNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="DialysisForAcuteRenalFailure" value="si" id="dialysisSi"
+                               @(Model?.DialysisForAcuteRenalFailure == true ? "checked" : "") />
+                        <label class="form-check-label" for="dialysisSi">si</label>
+                    </div>
+                </div>
+
+                @* Reanimación cardio-pulmonar *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Reanimación cardio-pulmonar</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="CardiopulmonaryResuscitation" value="no" id="cprNo"
+                               @(Model?.CardiopulmonaryResuscitation == false ? "checked" : "") />
+                        <label class="form-check-label" for="cprNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="CardiopulmonaryResuscitation" value="si" id="cprSi"
+                               @(Model?.CardiopulmonaryResuscitation == true ? "checked" : "") />
+                        <label class="form-check-label" for="cprSi">si</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

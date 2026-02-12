@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <!--<ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Photos\**" />
+    <Compile Remove="Places\**" />
+    <Compile Remove="Profiles\**" />
+    <Compile Remove="Visits\**" />
+    <EmbeddedResource Remove="Photos\**" />
+    <EmbeddedResource Remove="Places\**" />
+    <EmbeddedResource Remove="Profiles\**" />
+    <EmbeddedResource Remove="Visits\**" />
+    <None Remove="Photos\**" />
+    <None Remove="Places\**" />
+    <None Remove="Profiles\**" />
+    <None Remove="Visits\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Core\_CopyPasteThings.cs" />
+    <Compile Remove="Models\AddUserViewModel.cs" />
+    <Compile Remove="Models\EditUserViewModel.cs" />
+    <Compile Remove="Models\PersonView.cs" />
+    <Compile Remove="Models\TenantViewModel.cs" />
+    <Compile Remove="Models\UsersViewModel.cs" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Common\Common.csproj" />
+		<ProjectReference Include="..\Domain\Domain.csproj" />
+		<ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ClosedXML" Version="0.105.0" />
+		<PackageReference Include="AutoMapper" Version="14.0.0" />
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.25.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3">
+		  <TreatAsUsed>true</TreatAsUsed>
+		</PackageReference>
+		<PackageReference Include="Twilio" Version="7.11.5" />
+	</ItemGroup>
+
+
+</Project>

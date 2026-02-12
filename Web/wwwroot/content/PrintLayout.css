@@ -1,0 +1,66 @@
+﻿#element-to-print {
+    height: 100%;
+    width: 100%;
+}
+
+.header-content {
+    height: 12%;
+    max-height: 12%;
+    width: 100%;
+    overflow: hidden;
+}
+    .header-content span {
+        font-size: 0.833em;
+    }
+  
+.header-content table {
+   width: 80%;
+   
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 0px;
+}
+
+.header-content td {
+    border-width: 0px;
+    text-align: center;
+}
+
+.header-content img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 140px;
+  max-height: 100px; 
+}
+
+.header-title {
+    height: 13%;
+    max-height: 13%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.header-table {
+    height: 13%;
+    max-height: 13%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.header-image {
+    width: 15%;
+}
+
+.header-text {
+    width: 75%;
+    text-align: center;
+}
+
+    .header-text div {
+        font-size: 12pt;
+        font-family: Times New Roman;
+        font-weight: bold;
+        text-transform: uppercase;
+    }

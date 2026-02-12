@@ -1,0 +1,101 @@
+﻿@* C:\dev\SolMedProd\SolMed\Web\Views\PerinatalHistory\_PrenatalConsultations.cshtml *@
+@model List<Domain.PrenatalConsultation>
+
+<div class="table-responsive">
+    <table class="table table-sm table-bordered prenatal-consultations-table">
+        <thead class="thead-light">
+            <tr>
+                <th>Fecha</th>
+                <th>Edad gest.</th>
+                <th>Peso</th>
+                <th>P.A.</th>
+                <th>Altura uterina</th>
+                <th>Presentación</th>
+                <th>FCF (lpm)</th>
+                <th>Movim. fetales</th>
+                <th>Lugar de control</th>
+                <th>Proteinuria</th>
+                <th>Signos de alarma, exámenes, tratamientos</th>
+                <th>Iniciales Técnico</th>
+                <th>Próxima cita</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var consultation in Model)
+                {
+                    <tr class="consultation-row" data-consultation-id="@consultation.Id">
+                        <td>@(consultation.ConsultationDate?.ToShortDateString())</td>
+                        <td>@consultation.GestationalAgeWeeks</td>
+                        <td>@consultation.Weight</td>
+                        <td>@consultation.BloodPressure</td>
+                        <td>@consultation.UterineHeight</td>
+                        <td>@consultation.Presentation</td>
+                        <td>@consultation.FetalHeartRate</td>
+                        <td>
+                            @if (consultation.FetalMovements == true)
+                            {
+                                <span class="text-success">Si</span>
+                            }
+                            else if (consultation.FetalMovements == false)
+                            {
+                                <span class="text-danger">No</span>
+                            }
+                        </td>
+                        <td>@consultation.ControlLocation</td>
+                        <td>
+                            @if (consultation.Proteinuria == true)
+                            {
+                                <span class="text-danger">+</span>
+                            }
+                            else if (consultation.Proteinuria == false)
+                            {
+                                <span>-</span>
+                            }
+                            else
+                            {
+                                <span>--</span>
+                            }
+                        </td>
+                        <td>@consultation.WarningSignsExamsAndTreatments</td>
+                        <td>@consultation.TechnicianInitials</td>
+                        <td>@(consultation.NextAppointment?.ToShortDateString())</td>
+                    </tr>
+                }
+            }
+            @for (int i = 0; i < 10 - (Model?.Count ?? 0); i++)
+            {
+                <tr>
+                    <td><input type="date" class="form-control form-control-sm consultation-date" /></td>
+                    <td><input type="number" class="form-control form-control-sm no-spinners" min="1" max="42" /></td>
+                    <td><input type="number" step="0.1" class="form-control form-control-sm no-spinners" /></td>
+                    <td><input type="text" class="form-control form-control-sm" placeholder="###/##" /></td>
+                    <td><input type="number" step="0.1" class="form-control form-control-sm no-spinners" /></td>
+                    <td><input type="text" class="form-control form-control-sm" /></td>
+                    <td><input type="number" class="form-control form-control-sm no-spinners" min="100" max="200" /></td>
+                    <td>
+                        <select class="form-control form-control-sm">
+                            <option value="">-</option>
+                            <option value="true">Si</option>
+                            <option value="false">No</option>
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm" /></td>
+                    <td>
+                        <select class="form-control form-control-sm">
+                            <option value="">-</option>
+                            <option value="true">+</option>
+                            <option value="false">-</option>
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control form-control-sm" /></td>
+                    <td><input type="text" class="form-control form-control-sm" maxlength="3" /></td>
+                    <td><input type="date" class="form-control form-control-sm next-date" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+ 

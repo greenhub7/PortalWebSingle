@@ -1,0 +1,554 @@
+﻿@model PatientListViewModel
+
+@{
+    ViewBag.Title = "Pacientes";
+}
+@if (!Model.IsTenantRoot)
+{ 
+<div class="card mb-4">
+    <div class="card-header">
+        <h3 class="card-title">Pacientes</h3>
+        <div class="card-toolbar d-none d-md-block">
+            <a class="btn btn-primary" href="@Url.Action("AddOrUpdate", "Patients")">
+                <i class="fa fa-user-plus"></i> Nuevo Paciente
+            </a>
+            <a class="btn btn-secondary ms-2" id="rptGeneral">
+                <i class="fa fa-file-medical-alt"></i> Informe General
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <!-- Botones de acción móvil -->
+        <div class="d-flex justify-content-between mb-4 d-md-none">
+            <a class="btn btn-sm btn-primary w-49" href="@Url.Action("AddOrUpdate", "Patients")">
+                <i class="fa fa-user-plus"></i> Agregar Paciente
+            </a>
+            <a class="btn btn-sm btn-secondary w-49" id="rptGeneralMobile">
+                <i class="fa fa-file-medical-alt"></i> Informe
+            </a>
+        </div>
+
+        <!-- Búsqueda -->
+        <div id="searchPanel" class="mb-5">
+            <div class="row g-3">
+                <div class="@(Model.IsTenantRoot || Model.IsUserType7 ? "col-md-7" : "col-md-12")">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light">
+                            <i class="fa fa-search "></i>
+                        </span>
+                        <input type="text" id="SearchTearm" name="SearchTearm" class="form-control"
+                               placeholder="Buscar por record, cédula, nombre o apellido" value="@Model.SearchTearm">
+                        <button class="btn btn-primary" id="BtnSearchx" type="button">Buscar</button>
+                    </div>
+                </div>
+                @if (Model.IsTenantRoot || Model.IsUserType7)
+                {
+                    <div class="col-md-4">
+                        <select id="OwnerFilter" class="form-control">
+                            <option value="">-- Todos los Clientes --</option>
+                            @foreach (var owner in ViewBag.Owners)
+                            {
+                                <option value="@owner.Value" selected="@owner.Selected">@owner.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-secondary w-100" id="BtnClear" type="button">
+                            <i class="fa fa-eraser"></i>
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Tabla de pacientes para escritorio -->
+        <div id="tableHolder" class="d-none d-lg-block">
+            <div class="table-responsive">
+                <table id="MyTable" class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th class="min-w-100px">Acciones</th>
+                            @if (Model.IsTenantRoot || Model.IsUserType7)
+                            {
+                                <th>Cliente</th>
+                            }
+                            <th>Expediente</th>
+                            <th>Cédula</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Patients)
+                        {
+                            <tr>
+                                <td>
+                                    @if (Model.IsUserType7)
+                                    {
+                                        @* UserType7 ve botón Editar, NO ve Expediente Médico *@
+                                        <a class="btn btn-light-primary btn-sm" href="@Url.Action("AddOrUpdate", "Patients", new { id=@item.PatientId })">
+                                            <i class="fa fa-edit"></i> Editar
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        @* Owner normal ve Expediente Médico *@
+                                        <a class="btn btn-light-info btn-sm" href="@Url.Action("Details", "Patients", new { id=@item.PatientId })">
+                                            <i class="fa fa-file-medical"></i> Expediente Médico
+                                        </a>
+                                    }
+                                </td>
+                                @if (Model.IsTenantRoot || Model.IsUserType7)
+                                {
+                                    @* ✅ CORREGIDO: Mostrar el Author del Person directamente *@
+                                    <td>@Html.DisplayFor(modelItem => item.Person.Author.Name)</td>
+                                }
+                                <td>
+                                    @if (string.IsNullOrEmpty(item.Person.Record2))
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Person.Record)
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Person.Record2)
+                                    }
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.Person.Rnc)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Person.FullName)</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.Person.Email))
+                                    {
+                                        <a href="mailto:@item.Person.Email">@item.Person.Email</a>
+                                    }
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.Person.Tel)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Vista de tarjetas para móvil -->
+        <div id="cardsHolder" class="d-block d-lg-none">
+            @foreach (var item in Model.Patients)
+            {
+                <div class="card mb-3 patient-card">
+                    <div class="card-body p-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <h5 class="mb-0 fw-bold text-truncate">@item.Person.FullName</h5>
+                            <span class="badge badge-light-primary">
+                                @(string.IsNullOrEmpty(item.Person.Record2) ? item.Person.Record : item.Person.Record2)
+                            </span>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(item.Person.Rnc))
+                        {
+                            <div class=" mb-1 small">
+                                <i class="fa fa-id-card me-1"></i> @item.Person.Rnc
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(item.Person.Tel))
+                        {
+                            <div class=" mb-1 small">
+                                <i class="fa fa-phone me-1"></i> @item.Person.Tel
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(item.Person.Email))
+                        {
+                            <div class=" mb-1 small text-truncate">
+                                <i class="fa fa-envelope me-1"></i>
+                                <a href="mailto:@item.Person.Email">@item.Person.Email</a>
+                            </div>
+                        }
+
+                        <div class="d-flex justify-content-end mt-2">
+                            @if (Model.IsUserType7)
+                            {
+                                @* UserType7 ve botón Editar, NO ve Expediente Médico *@
+                                <a class="btn btn-sm btn-light-primary" href="@Url.Action("AddOrUpdate", "Patients", new { id=@item.PatientId })">
+                                    <i class="fa fa-edit"></i> Editar
+                                </a>
+                            }
+                            else
+                            {
+                                @* Owner normal ve Expediente Médico *@
+                                <a class="btn btn-sm btn-light-info" href="@Url.Action("Details", "Patients", new { id=@item.PatientId })">
+                                    <i class="fa fa-file-medical"></i> Expediente Médico
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- Paginación móvil simplificada -->
+            @if (Model.Patients.Count > 0)
+            {
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <div>
+                        <span class="">Mostrando @Model.Patients.Count pacientes</span>
+                    </div>
+                    <div>
+                        <!-- Agregar controles de paginación si es necesario -->
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info text-center">
+                    No se encontraron pacientes con el criterio de búsqueda especificado.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Reporte General -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="reportModalLabel">
+                    <i class="fas fa-file-excel me-2"></i>Generar Reporte de Pacientes
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-4">
+                    <i class="fas fa-chart-line text-primary" style="font-size: 3rem;"></i>
+                    <p class="mt-3 text-muted">Seleccione el rango de fechas para generar el reporte en Excel</p>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Fecha Desde</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">
+                                <i class="fas fa-calendar-alt text-primary"></i>
+                            </span>
+                            <input type="text" id="FromDate" class="form-control PsDates" placeholder="dd/mm/aaaa" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Fecha Hasta</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">
+                                <i class="fas fa-calendar-alt text-primary"></i>
+                            </span>
+                            <input type="text" id="ToDate" class="form-control PsDates" placeholder="dd/mm/aaaa" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-info mt-3 mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <small>El reporte incluirá todos los pacientes registrados en el período seleccionado.</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Cancelar
+                </button>
+                <button type="button" id="BtnExcel" class="btn btn-success" disabled>
+                    <i class="fas fa-file-excel me-2"></i>
+                    <span class="btn-text">Generar Reporte</span>
+                    <span class="spinner-border spinner-border-sm ms-2 d-none" role="status"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+<!-- Estilos adicionales -->
+<style>
+    @@media (max-width: 767.98px) {
+        .w-49
+
+    {
+        width: 49%;
+    }
+
+    .patient-card {
+        border-left: 4px solid #009ef7;
+        transition: all 0.2s ease;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+        .patient-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 158, 247, 0.15);
+        }
+
+        .patient-card:active {
+            transform: scale(0.98);
+        }
+
+    }
+
+    
+    @@media (min-width: 768px) and (max-width: 991.98px) {
+        .card-toolbar .btn {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+        }
+    }
+    
+    
+    #MyTable {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        border: 1px solid #e3f2fd;
+    }
+    
+    
+    
+    
+    #MyTable tbody tr {
+        transition: background-color 0.2s ease;
+        border-bottom: 1px solid #f1f1f2;
+        background-color: white;
+    }
+    
+    #MyTable tbody tr:hover {
+        background-color: rgba(0, 158, 247, 0.05) !important;
+    }
+    
+    #MyTable tbody tr:last-child {
+        border-bottom: none;
+    }
+    
+    #MyTable tbody td {
+        padding: 0.875rem 0.75rem;
+        vertical-align: middle;
+        border: none;
+        font-size: 0.875rem;
+    }
+    
+    
+    .btn-light-info {
+        background-color: rgba(0, 158, 247, 0.1);
+        border-color: rgba(0, 158, 247, 0.2);
+        color: #009ef7;
+        transition: all 0.2s ease;
+    }
+
+    .btn-light-info:hover {
+        background-color: #009ef7;
+        border-color: #009ef7;
+        color: white;
+        transform: translateY(-1px);
+    }
+
+    .btn-light-primary {
+        background-color: rgba(59, 130, 246, 0.1);
+        border-color: rgba(59, 130, 246, 0.2);
+        color: #3b82f6;
+        transition: all 0.2s ease;
+    }
+
+    .btn-light-primary:hover {
+        background-color: #3b82f6;
+        border-color: #3b82f6;
+        color: white;
+        transform: translateY(-1px);
+    }
+    
+    
+    .modal-content {
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .modal-header {
+        border-radius: 12px 12px 0 0;
+        border-bottom: none;
+        background-color: #3b82f6;
+    }
+    
+    .modal-footer {
+        border-top: 1px solid #f1f1f2;
+        border-radius: 0 0 12px 12px;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            
+            $(document).on('keypress', function (e) {
+                if (e.which == 13) {
+                    searchPatients();
+                }
+            });
+
+            
+            $('#BtnSearchx').click(function (e) {
+                e.preventDefault();
+                searchPatients();
+            });
+
+            
+            function searchPatients() {
+                var url = '@Url.Action("Index", "Patients")';
+                var filter = $('#SearchTearm').val();
+                var ownerId = $('#OwnerFilter').val();
+
+                url = url + "?filter=" + encodeURIComponent(filter);
+                if (ownerId && ownerId !== '') {
+                    url = url + "&ownerId=" + ownerId;
+                }
+                window.location.replace(url);
+            }
+
+            
+            $('#BtnClear').click(function (e) {
+                e.preventDefault();
+                $('#SearchTearm').val('');
+                $('#OwnerFilter').val('');
+                window.location.replace('@Url.Action("Index", "Patients")');
+            });
+
+            
+            $('#OwnerFilter').change(function () {
+                searchPatients();
+            });
+
+            
+            $('#rptGeneral, #rptGeneralMobile').click(function (e) {
+                e.preventDefault();
+                $('#reportModal').modal('show');
+            });
+            
+            
+            $('#FromDate, #ToDate').on('change', function() {
+                var fromDate = $('#FromDate').val();
+                var toDate = $('#ToDate').val();
+                
+                if (fromDate && toDate) {
+                    $('#BtnExcel').prop('disabled', false);
+                } else {
+                    $('#BtnExcel').prop('disabled', true);
+                }
+            });
+
+            
+            if (window.innerWidth >= 992) { 
+                $('#MyTable').DataTable({
+                    "searching": false,
+                    "pageLength": 10, 
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+                    "bFilter": false,
+                    "bLengthChange": true, 
+                    "bInfo": true, 
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
+                        "lengthMenu": "Mostrar _MENU_ registros por página",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ pacientes",
+                        "infoEmpty": "No hay pacientes para mostrar",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    },
+                    "dom": "<'row'<'col-sm-6'><'col-sm-6 text-end'l>><'row'<'col-sm-12'tr>><'row'<'col-sm-5'i><'col-sm-7'p>>"
+                });
+            }
+
+            
+            $('#BtnExcel').click(function (e) {
+                e.preventDefault();
+                
+                
+                var fromDate = $('#FromDate').val();
+                var toDate = $('#ToDate').val();
+                
+                if (!fromDate || !toDate) {
+                    Swal.fire({
+                        title: "Fechas requeridas",
+                        text: "Por favor seleccione ambas fechas para generar el reporte",
+                        icon: "warning",
+                        confirmButtonText: "Entendido"
+                    });
+                    return;
+                }
+                
+                
+                var $btn = $(this);
+                var $btnText = $btn.find('.btn-text');
+                var $spinner = $btn.find('.spinner-border');
+                
+                $btn.prop('disabled', true);
+                $btnText.text('Generando...');
+                $spinner.removeClass('d-none');
+                
+                var url = '@Url.Action("GenerateSpreadsheet", "Patients")';
+                var url2 = '@Url.Action("DownloadSpreadsheet", "Patients")';
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        fromDate: fromDate,
+                        toDate: toDate
+                    },
+                    success: function (data) {
+                        if (data != null && (data.errorMessage == null || data.errorMessage === "")) {
+                            if (data.fileName != "") {
+                                
+                                Swal.fire({
+                                    title: "¡Reporte generado!",
+                                    text: "Su reporte se está descargando automáticamente",
+                                    icon: "success",
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                });
+                                
+                                window.location.href = url2 + "?file=" + data.fileName;
+                                
+                                
+                                setTimeout(function() {
+                                    $('#reportModal').modal('hide');
+                                }, 1500);
+                            }
+                        } else {
+                            Swal.fire({
+                                title: "Error",
+                                text: data.errorMessage || "Ha ocurrido un error al generar el reporte",
+                                icon: "error",
+                                confirmButtonText: "Aceptar"
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            title: "Error de conexión",
+                            text: "No se pudo conectar con el servidor. Verifique su conexión e intente nuevamente.",
+                            icon: "error",
+                            confirmButtonText: "Aceptar"
+                        });
+                    },
+                    complete: function() {
+                        
+                        $btn.prop('disabled', false);
+                        $btnText.text('Generar Reporte');
+                        $spinner.addClass('d-none');
+                    }
+                });
+            });
+            
+            
+            $('#reportModal').on('hidden.bs.modal', function () {
+                $('#FromDate, #ToDate').val('');
+                $('#BtnExcel').prop('disabled', true);
+            });
+        });
+    </script>
+}

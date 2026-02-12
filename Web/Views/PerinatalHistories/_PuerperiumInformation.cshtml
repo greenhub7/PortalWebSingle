@@ -1,0 +1,107 @@
+@* SolMed 2026 - PUERPERIO - CLAP/SMR *@
+@model Domain.PuerperiumInformation
+
+@{
+    
+    var dayLabels = new[] { "1er", "2º", "3er", "5º a 10º" };
+
+    
+    var existingDays = Model?.Days?.OrderBy(d => d.DayNumber).ToList() ?? new List<Domain.PuerperiumDay>();
+}
+
+<input type="hidden" id="PuerperiumInformation_Id" name="PuerperiumInformation.Id" value="@(Model?.Id ?? 0)" />
+
+<div class="table-responsive">
+    <table class="table table-sm table-bordered puerperium-table">
+        <thead class="thead-light">
+            <tr>
+                <th style="width: 70px;">día</th>
+                <th style="width: 70px;">Temp °C</th>
+                <th style="width: 80px;">P.A.</th>
+                <th style="width: 70px;">pulso</th>
+                <th style="width: 100px;">invol. uter.</th>
+                <th style="width: 100px;">loquios</th>
+                <th style="width: 100px;">periné</th>
+                <th style="width: 100px;">lactancia</th>
+                <th>observaciones</th>
+                <th style="width: 120px;">Responsable</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < dayLabels.Length; i++)
+            {
+                var dayNumber = i + 1;
+                var existingDay = existingDays.FirstOrDefault(d => d.DayNumber == dayNumber);
+                var dayId = existingDay?.Id ?? 0;
+
+                <tr class="puerperium-day-row" data-day-number="@dayNumber">
+                    <input type="hidden" name="PuerperiumDays[@i].Id" value="@dayId" />
+                    <input type="hidden" name="PuerperiumDays[@i].DayNumber" value="@dayNumber" />
+                    <input type="hidden" name="PuerperiumDays[@i].DayLabel" value="@dayLabels[i]" />
+
+                    <td class="align-middle text-center font-weight-bold">@dayLabels[i]</td>
+                    <td>
+                        <input type="number" step="0.1" min="35" max="42"
+                               class="form-control form-control-sm no-spinners"
+                               name="PuerperiumDays[@i].Temperature"
+                               id="puerperiumTemp_@dayNumber"
+                               value="@(existingDay?.Temperature > 0 ? existingDay.Temperature.ToString() : "")"
+                               placeholder="°C" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control form-control-sm"
+                               name="PuerperiumDays[@i].BloodPressure"
+                               id="puerperiumBP_@dayNumber"
+                               value="@existingDay?.BloodPressure"
+                               placeholder="###/##"
+                               maxlength="10" />
+                    </td>
+                    <td>
+                        <input type="number" min="40" max="200"
+                               class="form-control form-control-sm no-spinners"
+                               name="PuerperiumDays[@i].Pulse"
+                               id="puerperiumPulse_@dayNumber"
+                               value="@(existingDay?.Pulse > 0 ? existingDay.Pulse.ToString() : "")"
+                               placeholder="lpm" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control form-control-sm"
+                               name="PuerperiumDays[@i].UterineInvolution"
+                               id="puerperiumInvol_@dayNumber"
+                               value="@existingDay?.UterineInvolution" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control form-control-sm"
+                               name="PuerperiumDays[@i].Lochia"
+                               id="puerperiumLochia_@dayNumber"
+                               value="@existingDay?.Lochia" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control form-control-sm"
+                               name="PuerperiumDays[@i].Perineum"
+                               id="puerperiumPerineum_@dayNumber"
+                               value="@existingDay?.Perineum" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control form-control-sm"
+                               name="PuerperiumDays[@i].Breastfeeding"
+                               id="puerperiumBreastfeeding_@dayNumber"
+                               value="@existingDay?.Breastfeeding" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control form-control-sm"
+                               name="PuerperiumDays[@i].Observations"
+                               id="puerperiumObs_@dayNumber"
+                               value="@existingDay?.Observations" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control form-control-sm"
+                               name="PuerperiumDays[@i].Responsible"
+                               id="puerperiumResp_@dayNumber"
+                               value="@existingDay?.Responsible" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

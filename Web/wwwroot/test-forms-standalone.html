@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perinatal Forms - Standalone Test</title>
+    
+    <!-- Include all form CSS -->
+    <link rel="stylesheet" href="/css/perinatal-form1.css" />
+    <link rel="stylesheet" href="/css/perinatal-form2.css" />
+    <link rel="stylesheet" href="/css/perinatal-form1-fixes.css" />
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-header {
+            background: #2196F3;
+            color: white;
+            padding: 15px;
+            margin: -20px -20px 20px -20px;
+            text-align: center;
+        }
+        .test-controls {
+            background: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-controls button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background: #4CAF50;
+            color: white;
+        }
+        .test-controls button:hover {
+            background: #45a049;
+        }
+        .test-controls button.secondary {
+            background: #2196F3;
+        }
+        .test-controls button.secondary:hover {
+            background: #0b7dda;
+        }
+        .forms-container {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .page-break {
+            page-break-after: always;
+            margin: 40px 0;
+            border-top: 2px dashed #ccc;
+            padding-top: 40px;
+        }
+        @media print {
+            .test-header,
+            .test-controls {
+                display: none;
+            }
+            body {
+                background: white;
+                padding: 0;
+            }
+            .forms-container {
+                box-shadow: none;
+                padding: 0;
+            }
+            .page-break {
+                border: none;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1>🧪 Perinatal Forms - Standalone Test (No Login Required)</h1>
+        <p>Testing all functionality with sample data</p>
+    </div>
+
+    <div class="test-controls">
+        <button onclick="loadForms()">📝 Load Forms & Populate Data</button>
+        <button onclick="window.print()" class="secondary">🖨️ Print Preview</button>
+    </div>
+
+    <div class="forms-container" id="forms-container">
+        <p style="text-align: center; padding: 40px; color: #666;">
+            Click "Load Forms & Populate Data" button above to start testing
+        </p>
+    </div>
+
+    <script>
+        // Load forms dynamically
+        async function loadForms() {
+            const container = document.getElementById('forms-container');
+            container.innerHTML = '<p style="text-align: center;">Loading forms...</p>';
+            
+            try {
+                // Load Form 1
+                const form1Response = await fetch('/Views/PerinatalHistories/_Form1.cshtml');
+                const form1Html = await form1Response.text();
+                
+                // Load Form 2
+                const form2Response = await fetch('/Views/PerinatalHistories/_Form2.cshtml');
+                const form2Html = await form2Response.text();
+                
+                // Insert forms
+                container.innerHTML = `
+                    <div id="form1-container">
+                        ${form1Html}
+                    </div>
+                    <div class="page-break"></div>
+                    <div id="form2-container">
+                        ${form2Html}
+                    </div>
+                `;
+                
+                // Load and execute JavaScript files
+                await loadScript('/js/perinatal/print/print-form-controls.js');
+                await loadScript('/js/perinatal/print/print-form1.js');
+                await loadScript('/js/perinatal/print/print-form2.js');
+                
+                // Populate with mock data
+                setTimeout(() => {
+                    populateMockData();
+                }, 500);
+                
+            } catch (error) {
+                container.innerHTML = `<p style="color: red;">Error loading forms: ${error.message}</p>`;
+                console.error('Error:', error);
+            }
+        }
+        
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.body.appendChild(script);
+            });
+        }
+        
+        function populateMockData() {
+            const mockData = {
+                success: true,
+                id: 1,
+                createdDate: "2024-01-15T10:30:00",
+                
+                patient: {
+                    patientId: 12345,
+                    age: "28",
+                    person: {
+                        firstName: "María",
+                        lastName: "González Pérez",
+                        bornDate: "1995-06-15T00:00:00",
+                        address: "Calle Principal #123, Santo Domingo",
+                        cel: "809-555-1234",
+                        tel: "809-555-5678",
+                        identityNumber: "001-1234567-8",
+                        maritalSituation: { name: "Casada" },
+                        schoolLevel: { name: "Universitaria" },
+                        country: { name: "República Dominicana" }
+                    }
+                },
+                
+                prenatalControlLocation: "Hospital Materno Infantil San Lorenzo",
+                birthLocation: "Hospital Regional Dr. Antonio Musa",
+                
+                medicalBackground: {
+                    familyDiabetes: 1,
+                    familyHypertension: 1,
+                    familyTuberculosis: 2,
+                    familyPreeclampsia: 2,
+                    familyEclampsia: 2,
+                    familyOther: 2,
+                    personalTuberculosis: 2,
+                    personalDiabetes: 2,
+                    personalHypertension: 2,
+                    personalPreeclampsia: 2,
+                    personalEclampsia: 2,
+                    personalGenitourinarySurgery: 2,
+                    personalInfertility: 2,
+                    personalHeartDisease: 2,
+                    personalKidneyDisease: 2,
+                    personalViolence: 2,
+                    personalHIV: 2
+                },
+                
+                obstetricBackground: {
+                    previousPregnancies: 2,
+                    totalDeliveries: 1,
+                    vaginalDeliveries: 1,
+                    cesareanDeliveries: 0,
+                    abortions: 0,
+                    living: 1,
+                    deadFirstWeek: 0,
+                    deadAfterFirstWeek: 0,
+                    lastPregnancyEndDate: "2022-03-20T00:00:00",
+                    twins: 2,
+                    threeOrMoreAbortions: 2
+                },
+                
+                currentPregnancy: {
+                    prePregnancyWeight: 65,
+                    height: 162,
+                    lastMenstrualPeriod: "2023-10-01T00:00:00",
+                    estimatedDueDate: "2024-07-08T00:00:00",
+                    reliableGestationalAge: 1,
+                    smoker: 2,
+                    drugs: 2,
+                    alcohol: 2,
+                    tetanusVaccine: "2 dosis",
+                    dentalExam: 1,
+                    breastExam: 1,
+                    bloodGroup: "O",
+                    rhFactor: "Positivo",
+                    rhSensitized: 2,
+                    toxoplasmosis: "Negativo",
+                    hiv: "Negativo",
+                    hemoglobin1: "12.5",
+                    hemoglobin2: "11.8",
+                    vdrl1: "No reactivo",
+                    vdrl2: "No reactivo",
+                    chagas: "Negativo",
+                    malaria: "Negativo",
+                    bacteriuria: "Negativo",
+                    glycemia: "85",
+                    streptococcusB: "Negativo",
+                    papSmear: "Normal",
+                    colposcopy: "Normal",
+                    ironFolicAcid: 1
+                },
+                
+                prenatalConsultations: [
+                    {
+                        id: 1,
+                        date: "2023-11-15T00:00:00",
+                        gestationalAge: 6,
+                        weight: 66,
+                        bloodPressure: "110/70",
+                        uterineHeight: 0,
+                        presentation: "",
+                        fetalHeartRate: 0,
+                        fetalMovements: 2,
+                        proteinuria: 0,
+                        warningSign: false,
+                        initials: "DRA"
+                    },
+                    {
+                        id: 2,
+                        date: "2023-12-20T00:00:00",
+                        gestationalAge: 11,
+                        weight: 67,
+                        bloodPressure: "115/72",
+                        uterineHeight: 11,
+                        presentation: "",
+                        fetalHeartRate: 145,
+                        fetalMovements: 1,
+                        proteinuria: 0,
+                        warningSign: false,
+                        initials: "DRA"
+                    }
+                ],
+                
+                birthInformation: {
+                    admissionDate: "2024-07-05T00:00:00",
+                    birthDate: "2024-07-06T00:00:00",
+                    birthTime: "14:30",
+                    gestationalAgeAtBirthWeeks: 39,
+                    gestationalAgeAtBirthDays: 2,
+                    spontaneousOnset: 1,
+                    inducedOnset: 2,
+                    membraneRupture: "Espontánea",
+                    cephalicPresentation: 1,
+                    pelvicPresentation: 2,
+                    transverseSituation: 2,
+                    positionVariety: "OIA",
+                    spontaneousBirth: 1,
+                    forcepsBirth: 2,
+                    vacuumBirth: 2,
+                    cesareanBirth: 2,
+                    indication: "",
+                    companion: 1,
+                    episiotomy: 2,
+                    tear: 2,
+                    tearGrade: "",
+                    manualRemovalOfPlacenta: 2,
+                    cordClampingTime: "2 minutos",
+                    oxytocicsInLabor: 2
+                },
+                
+                newbornInformation: {
+                    sex: "Femenino",
+                    birthWeight: 3250,
+                    length: 49,
+                    headCircumference: 34,
+                    gestationalAgeWeeks: 39,
+                    gestationalAgeDays: 2,
+                    gestationalAgeMethod: "FUM",
+                    weightForGestationalAge: "Adecuado",
+                    apgarFirstMinute: 9,
+                    apgarFifthMinute: 10,
+                    resuscitationStimulation: 1,
+                    resuscitationAspiration: 2,
+                    resuscitationMask: 2,
+                    resuscitationOxygen: 2,
+                    resuscitationIntubation: 2,
+                    resuscitationMassage: 2,
+                    resuscitationMedication: 2,
+                    birthDefectsType: "",
+                    birthDefectsCode: "",
+                    earlyBreastfeedingInitiation: 1
+                },
+                
+                postpartumInformation: {
+                    antiDGlobulin: "No aplica"
+                },
+                
+                morbidityInformation: {
+                    chronicHypertension: 2,
+                    gestationalHypertension: 2,
+                    mildPreeclampsia: 2,
+                    severePreeclampsia: 2,
+                    eclampsia: 2,
+                    hellp: 2,
+                    sepsis: 2,
+                    pyelonephritis: 2,
+                    gestationalDiabetes: 2,
+                    anemia: 2,
+                    polyhydramnios: 2,
+                    oligohydramnios: 2,
+                    intrauterineGrowthRestriction: 2,
+                    prolongedRuptureOfMembranes: 2,
+                    postpartumHemorrhage: 2
+                },
+                
+                nearMissVariables: {
+                    shock: 2,
+                    cardiacArrest: 2,
+                    jaundiceInPreeclampsia: 2,
+                    acuteCyanosis: 2,
+                    gasping: 2,
+                    severeTachypnea: 2,
+                    severeBradypnea: 2,
+                    oliguriaUnresponsiveToFluidsOrDiuretics: 2,
+                    coagulationDisorders: 2,
+                    coma: 2,
+                    prolongedUnconsciousness: 2,
+                    strokeOrCVA: 2,
+                    uncontrollableSeizuresOrStatusEpilepticus: 2,
+                    generalizedParalysis: 2,
+                    plateletsLessThan50000: 2,
+                    creatinineGreaterOrEqual300: 2,
+                    bilirubinGreaterThan100: 2,
+                    pHLessThan7_1: 2,
+                    hemoglobinSaturationLessThan90PercentForOverOneHour: 2,
+                    lactateGreaterThan5: 2,
+                    continuousVasoactiveAgentsAdministration: 2,
+                    intubationAndVentilationNotRelatedToAnesthesia: 2,
+                    bloodProductsAdministrationGreaterOrEqualThreeUnits: 2,
+                    iCUAdmissionLessThanSevenDays: 2,
+                    hysterectomy: 2,
+                    dialysisForAcuteRenalFailure: 2,
+                    cardiopulmonaryResuscitation: 2
+                },
+                
+                puerperiumInformation: {
+                    days: [
+                        { dayNumber: 1, dayLabel: "1", temperature: 36.8, bloodPressure: "120/75", pulse: 78, uterineInvolution: "Normal", lochia: "Rubra", breastfeeding: "Sí", responsible: "ENF" },
+                        { dayNumber: 2, dayLabel: "2", temperature: 36.7, bloodPressure: "118/72", pulse: 76, uterineInvolution: "Normal", lochia: "Rubra", breastfeeding: "Sí", responsible: "ENF" },
+                        { dayNumber: 3, dayLabel: "3", temperature: 36.9, bloodPressure: "115/70", pulse: 74, uterineInvolution: "Normal", lochia: "Serosa", breastfeeding: "Sí", responsible: "ENF" }
+                    ]
+                },
+                
+                maternalDischargeInformation: {
+                    dischargeDate: "2024-07-08T00:00:00",
+                    dischargeTime: "10:00",
+                    dischargeCondition: "Viva",
+                    dischargeType: "Alta",
+                    transferred: 2,
+                    dischargeLocation: "",
+                    diedDuringOrInTransferLocation: "",
+                    autopsy: 2,
+                    responsiblePerson: "Dr. Ramírez"
+                },
+                
+                contraceptionInformation: {
+                    oralCounseling: 1,
+                    writtenCounseling: 1,
+                    noCounseling: 2,
+                    contraceptionMethodInitiated: 1,
+                    oralContraceptivesPreferred: 2,
+                    otherHormonalMethodsPreferred: 2,
+                    iUDPreferred: 1,
+                    injectablePreferred: 2,
+                    implantPreferred: 2,
+                    barrierPreferred: 2,
+                    condomPreferred: 2,
+                    femaleSterilizationPreferred: 2,
+                    maleSterilizationPreferred: 2,
+                    naturalMethodPreferred: 2,
+                    oralContraceptivesAccepted: 2,
+                    otherHormonalMethodsAccepted: 2,
+                    iUDAccepted: 1,
+                    injectableAccepted: 2,
+                    implantAccepted: 2,
+                    barrierAccepted: 2,
+                    condomAccepted: 2,
+                    femaleSterilizationAccepted: 2,
+                    maleSterilizationAccepted: 2,
+                    naturalMethodAccepted: 2,
+                    responsiblePerson: "Dra. Martínez"
+                }
+            };
+            
+            // Initialize radio groups
+            if (typeof initializeRadioGroups === 'function') {
+                initializeRadioGroups();
+            }
+            
+            // Populate forms
+            if (typeof PerinatalPrintForm1 !== 'undefined') {
+                PerinatalPrintForm1.populate(mockData);
+                console.log('[TEST] Form 1 populated');
+            }
+            
+            if (typeof PerinatalPrintForm2 !== 'undefined') {
+                PerinatalPrintForm2.populate(mockData);
+                console.log('[TEST] Form 2 populated');
+            }
+            
+            alert('✅ Forms loaded and populated with mock data!\n\nCheck the forms below and test print preview.');
+        }
+    </script>
+</body>
+</html>

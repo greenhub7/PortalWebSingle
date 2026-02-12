@@ -1,0 +1,56 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia Perinatal - Impresión</title>
+    
+    <!-- Form CSS - Load only Form 1 CSS -->
+    <link rel="stylesheet" href="~/css/perinatal-form1.css?v=7">
+    
+    <style>
+        /* Print-specific styles */
+        @@media print {
+            .page-break {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body translate="no">
+    <!-- Hidden field for record ID -->
+    <input type="hidden" id="recordId" value="@ViewBag.RecordId" />
+    
+    <!-- Form 1 (Front Side - Anverso) -->
+    <div class="page-break">
+        <partial name="_Form1" />
+    </div>
+    
+    <!-- Form 2 (Back Side - Reverso) - Load CSS dynamically -->
+    <link rel="stylesheet" href="~/css/perinatal-form2.css?v=7">
+    <div>
+        <partial name="_Form2" />
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/perinatal/print/print-core.js"></script>
+    <script src="~/js/perinatal/print/print-form1.js"></script>
+    <script src="~/js/perinatal/print/print-form2.js"></script>
+    <script src="~/js/perinatal/print/print-form-controls.js"></script>
+    
+    <script>
+        // Initialize print with record ID
+        document.addEventListener('DOMContentLoaded', function() {
+            const recordId = document.getElementById('recordId').value;
+            if (recordId && PerinatalPrint && typeof PerinatalPrint.init === 'function') {
+                PerinatalPrint.init(recordId);
+            }
+        });
+    </script>
+</body>
+</html>

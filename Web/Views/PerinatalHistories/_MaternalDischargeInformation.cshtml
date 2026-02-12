@@ -1,0 +1,135 @@
+@* C:\dev\SolMedProd\SolMed\Web\Views\PerinatalHistory\_MaternalDischargeInformation.cshtml *@
+@model Domain.MaternalDischargeInformation
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>EGRESO MATERNO</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>FECHA</label>
+                    <input asp-for="DischargeDate" type="date" class="form-control form-control-sm" />
+                </div>
+                <div class="col-md-6">
+                    <label>Hora</label>
+                    <input asp-for="DischargeTime" type="time" class="form-control form-control-sm" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>CONDICIÓN AL EGRESO</label>
+            <div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="DischargeCondition" value="Healthy" id="dischargeConditionHealthy" />
+                    <label class="form-check-label" for="dischargeConditionHealthy">Sana</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="DischargeCondition" value="Not Applicable" id="dischargeConditionNA" />
+                    <label class="form-check-label" for="dischargeConditionNA">N/A</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="DischargeCondition" value="With Pathology" id="dischargeConditionWithPathology" />
+                    <label class="form-check-label" for="dischargeConditionWithPathology">C/patología</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="DischargeCondition" value="Death" id="dischargeConditionDeath" />
+                    <label class="form-check-label" for="dischargeConditionDeath">Muerte</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Lugar</label>
+            <input asp-for="DischargeLocation" type="text" class="form-control form-control-sm" />
+        </div>
+
+        @* Traslado - radio no/si *@
+        <div class="d-flex align-items-center mb-2">
+            <span class="mr-3" style="min-width: 200px;">Traslado</span>
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input nullable-radio" type="radio" name="Transferred" value="no" id="transferredNo"
+                       @(Model?.Transferred == false ? "checked" : "") />
+                <label class="form-check-label" for="transferredNo">no</label>
+            </div>
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input nullable-radio" type="radio" name="Transferred" value="si" id="transferredSi"
+                       @(Model?.Transferred == true ? "checked" : "") />
+                <label class="form-check-label" for="transferredSi">si</label>
+            </div>
+        </div>
+
+        @* Fallece durante o en lugar de traslado - radio no/si *@
+        <div class="d-flex align-items-center mb-2">
+            <span class="mr-3" style="min-width: 200px;">Fallece durante o en lugar de traslado</span>
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input nullable-radio" type="radio" name="DiedDuringOrInTransferLocation" value="no" id="diedDuringTransferNo"
+                       @(Model?.DiedDuringOrInTransferLocation == false ? "checked" : "") />
+                <label class="form-check-label" for="diedDuringTransferNo">no</label>
+            </div>
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input nullable-radio" type="radio" name="DiedDuringOrInTransferLocation" value="si" id="diedDuringTransferSi"
+                       @(Model?.DiedDuringOrInTransferLocation == true ? "checked" : "") />
+                <label class="form-check-label" for="diedDuringTransferSi">si</label>
+            </div>
+        </div>
+
+        @* Autopsia - radio no/si *@
+        <div class="d-flex align-items-center mb-2">
+            <span class="mr-3" style="min-width: 200px;">Autopsia</span>
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input nullable-radio" type="radio" name="Autopsy" value="no" id="autopsyNo"
+                       @(Model?.Autopsy == false ? "checked" : "") />
+                <label class="form-check-label" for="autopsyNo">no</label>
+            </div>
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input nullable-radio" type="radio" name="Autopsy" value="si" id="autopsySi"
+                       @(Model?.Autopsy == true ? "checked" : "") />
+                <label class="form-check-label" for="autopsySi">si</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>TIPO DE EGRESO</label>
+            <div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="DischargeType" value="Egreso medico" id="dischargeTypeMedical" />
+                    <label class="form-check-label" for="dischargeTypeMedical">Egreso médico</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="DischargeType" value="Contra consejo medico" id="dischargeTypeAgainstMedicalAdvice" />
+                    <label class="form-check-label" for="dischargeTypeAgainstMedicalAdvice">Contra consejo médico</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="DischargeType" value="Fallece" id="dischargeTypeDeath" />
+                    <label class="form-check-label" for="dischargeTypeDeath">Fallece</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Responsable</label>
+            <input asp-for="ResponsiblePerson" type="text" class="form-control form-control-sm" />
+        </div>
+
+        <div class="form-group" hidden>
+            <label>Anti-D Inmunoglobulina</label>
+            <div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input bool-radio" type="radio" asp-for="AntiDImmunoglobulin" value="true" id="antiDImmunoglobulinYes" />
+                    <label class="form-check-label" for="antiDImmunoglobulinYes">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input bool-radio" type="radio" asp-for="AntiDImmunoglobulin" value="false" id="antiDImmunoglobulinNo" />
+                    <label class="form-check-label" for="antiDImmunoglobulinNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="AntiDImmunoglobulin" value="n/c" id="antiDImmunoglobulinNC" />
+                    <label class="form-check-label" for="antiDImmunoglobulinNC">n/c</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

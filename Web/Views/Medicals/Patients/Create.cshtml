@@ -1,0 +1,270 @@
+﻿@model Web.Models.PatientView
+
+@{ 
+
+    ViewBag.Title = "Registrar Nuevo Paciente";
+
+
+}
+
+
+@using (Html.BeginForm("Create", "Patients", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @if (!Html.ViewData.ModelState.IsValid)
+        {
+            <a>CONFIRMO que deseo Guardar con ESTAS ADVERTENCIAS!!!</a>
+            @Html.CheckBoxFor(model => model.ConfirmationSave, new { @class = "" })
+
+        }
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.AuthorId)
+        @Html.HiddenFor(model => model.StatusId)
+        @Html.HiddenFor(model => model.PersonId) 
+         
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Record2, new { @class = "control-label col-md-2", @readonly = "readonly" })
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.Record2, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Record2, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="control-label col-md-2">
+                <label> Antiguo Record  </label>
+            </div>
+            <div class="col-md-2">
+
+                @Html.TextBoxFor(model => model.Record3, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Record3, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+
+            <div class="control-label col-md-2">
+                <label> Cedula PACIENTE <span style="color:green">(*)</span></label>
+            </div>
+
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Rnc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Rnc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="control-label col-md-2">
+                <label> Nombre <span style="color:red">(*)</span></label>
+            </div>
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="control-label col-md-2">
+                <label> Apellido <span style="color:red">(*)</span></label>
+            </div>    <div class="col-md-3">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="control-label col-md-2">
+                <label> Cedula Acompañante <span style="color:green">(*)</span></label>
+            </div>
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.CompanionRnc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CompanionRnc, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-1">
+            </div>
+
+            @Html.LabelFor(model => model.Companion, new { @class = "control-label col-md-2" })
+
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.Companion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Companion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group row">
+            <div class="control-label col-md-2">
+                <label> Fec. de Nacimiento <span style="color:green">(*)</span></label>
+            </div>  <div class="col-md-2">
+                <input asp-for="BornDateStr" class="form-control PsDates" type="text" />
+              
+            </div>
+            <div class="col-md-1">
+            </div>
+
+            @Html.LabelFor(model => model.Age, new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-2">
+                <input class="" type="checkbox" id="manualAge" value="true"> Edad Manual?<br>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+            <div class="control-label col-md-2">
+                <label> Genero  </label>
+            </div>
+            <div class="col-md-2">
+                @Html.DropDownList("GenderId", null, new { @class = "form-control" })
+            </div>
+            <div class="col-md-1">
+            </div>
+            @Html.LabelFor(model => model.CountryId, new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownList("CountryId", null, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.MaritalSituationId, new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.DropDownList("MaritalSituationId", null, new { @class = "form-control" })
+            </div>
+            <div class="col-md-1">
+            </div>
+            @Html.LabelFor(model => model.OcupationId, new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownList("OcupationId", null, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.ReligionId, new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.DropDownList("ReligionId", null, new { @class = "form-control" })
+            </div>
+            <div class="col-md-1">
+            </div>
+            @Html.LabelFor(model => model.SchoolLevelId, new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.DropDownList("SchoolLevelId", null, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.BloodTypeId, new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.DropDownList("BloodTypeId", null, new { @class = "form-control" })
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="control-label col-md-2">
+                <label> Seguro ARS <span style="color:green">(*)</span></label>
+            </div>     <div class="col-md-3">
+                @Html.DropDownList("InsuranceId", null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="control-label col-md-2">
+                <label> NSS  </label>
+            </div>
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Nss, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="control-label col-md-2">
+                <label> No. Seguro(Afiliado) <span style="color:green">(*)</span></label>
+            </div>
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.InsuranceNumber, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="control-label col-md-2">
+                <label> Telefono <span style="color:green">(*)</span></label>
+            </div>    <div class="col-md-2">
+                @Html.EditorFor(model => model.Tel, new { htmlAttributes = new { @class = "form-control Tel" } })
+            </div>
+            <div class="col-md-1">
+            </div>
+            @Html.LabelFor(model => model.Cel, new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Cel, new { htmlAttributes = new { @class = "form-control Tel" } })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+         
+        </div>
+
+        <div class="form-group row">
+            <div class="control-label col-md-2">
+                <label> Direccion <span style="color:green">(*)</span></label>
+            </div>    <div class="col-md-3">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+ 
+
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Doctor, new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Doctor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Doctor, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-1">
+            </div>
+            @Html.LabelFor(model => model.Clinical, new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Clinical, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Clinical, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <partial name="_btnSubmitAndCancel" />
+    </div>
+    @section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#Rnc").mask("999-9999999-9");
+            $('#Age,#Record2').attr('readonly', true);
+            $('#manualAge').change(function () {
+                if ($(this).is(":checked")) {
+                    var returnVal = confirm("Seguro que desea insertar una edad manual?");
+                    $(this).attr("checked", returnVal);
+                    if (returnVal == true) {
+                        $('#Age').attr('readonly', false);
+                        $('.PsDates').attr('readonly', true);
+                        $('.PsDates').val('');
+                    } else {
+                        $('#Age').attr('readonly', true);
+                        $('.PsDates').attr('readonly', false);
+                    }
+                }
+                $('#textbox1').val($(this).is(':checked'));
+            });
+
+            $(".PsDates").focusout(function (e) {
+                if ($(".PsDates").val() != '') {
+                    return $('#Age').val(getAge($('.PsDates').val()));
+                }
+            });
+
+        });
+
+    </script>
+    }
+}
+

@@ -1,0 +1,1201 @@
+﻿@* Views/Shared/_LandingLayout.cshtml *@
+@using Web.Extensions
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@(ViewBag.Title ?? Context.Request.GetDomainTitle())</title>
+    <meta name="description" content="@(Context.Request.IsFacturexDomain() ? "Facturex ofrece soluciones financieras y administrativas para el sector salud, proporcionando liquidez y gestión eficiente." : "SolMed es el software médico líder para la gestión de consultorios, clínicas y hospitales. Optimice su práctica médica con nuestra solución integral.")">
+    <meta name="keywords" content="@(Context.Request.IsFacturexDomain() ? "facturex, liquidez médica, gestión médica, facturación médica, adelanto ARS, financiamiento médico" : "software médico, expediente clínico electrónico, sistema para consultorios, gestión hospitalaria, software para clínicas, citas médicas online")">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@Html.Raw(Context.Request.IsFacturexDomain() ? "Facturex - Soluciones Financieras para el Sector Salud" : "SolMed - Software Médico Líder | Gestión Integral de Clínicas y Hospitales")" />
+    <meta property="og:description" content="@Html.Raw(Context.Request.IsFacturexDomain() ? "Facturex ofrece soluciones financieras y administrativas para el sector salud, proporcionando liquidez y gestión eficiente." : "Transforme su práctica médica con SolMed. Expediente clínico electrónico, agenda de citas, facturación y más. Acceso completo a todas las funcionalidades con implementación en 24 horas.")" />
+    <meta property="og:url" content="@(Context.Request.IsFacturexDomain() ? "https://facturexrd.com/" : "https://solmed.app/")" />
+    <meta property="og:site_name" content="@(Context.Request.IsFacturexDomain() ? "Facturex" : "SolMed")" />
+    <meta property="og:image" content="@(Context.Request.IsFacturexDomain() ? "https://facturexrd.com/assets/media/og-image.jpg" : "https://solmed.app/assets/media/og-image.jpg")" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="@Html.Raw(Context.Request.IsFacturexDomain() ? "Facturex - Soluciones Financieras" : "SolMed - Software Médico")" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="@Html.Raw(Context.Request.IsFacturexDomain() ? "Facturex - Soluciones Financieras para el Sector Salud" : "SolMed - Software Médico Líder")" />
+    <meta name="twitter:description" content="@Html.Raw(Context.Request.IsFacturexDomain() ? "Soluciones financieras y administrativas para el sector salud" : "Transforme su práctica médica con SolMed. Expediente clínico electrónico, agenda de citas, facturación y más.")" />
+    <meta name="twitter:image" content="@(Context.Request.IsFacturexDomain() ? "https://facturexrd.com/assets/media/og-image.jpg" : "https://solmed.app/assets/media/og-image.jpg")" />
+
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content="#0072CE" />
+    <meta name="author" content="@(Context.Request.IsFacturexDomain() ? "Facturex" : "PraySoft | SolMed")" />
+    <link rel="canonical" href="@(Context.Request.IsFacturexDomain() ? "https://facturexrd.com/" : "https://solmed.app/")" />
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <style>
+        /* Base styles from the original layout - these will apply to both themes */
+        :root {
+            --primary: #0072CE;
+            --secondary: #00AEEF;
+            --accent: #FFB81C;
+            --success: #2ecc71;
+            --warning: #F39C12;
+            --danger: #E74C3C;
+            --dark: #1E293B;
+            --light: #F8FAFC;
+            --gray: #64748B;
+            --light-gray: #E2E8F0;
+            --gradient-primary: linear-gradient(to right, #0072CE, #00AEEF);
+            --bs-body-font-family: 'Poppins', sans-serif;
+            --bs-heading-font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Override for Facturex theme if needed */
+        @if (Context.Request.IsFacturexDomain())
+        {
+            <text>
+            :root {
+                --primary: #0056b3;
+                --secondary: #003366;
+                --accent: #4dabf7;
+                --gradient-primary: linear-gradient(to right, #0056b3, #4dabf7);
+            }
+            </text>
+        }
+ 
+        body {
+            font-family: var(--bs-body-font-family);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+ 
+
+ h1, h2, h3, h4, h5, h6 {
+     font-family: var(--bs-heading-font-family);
+     font-weight: 600;
+ }
+
+ /* Navbar */
+ .navbar {
+     transition: all 0.3s ease;
+     padding-top: 1rem;
+     padding-bottom: 1rem;
+ }
+
+ .navbar-brand img {
+     height: 40px;
+     transition: all 0.3s ease;
+     max-width: 150px;
+     width: auto;
+ }
+
+ .navbar-scrolled {
+     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+     background-color: white !important;
+     padding-top: 0.5rem;
+     padding-bottom: 0.5rem;
+ }
+
+ /* Fix hamburger menu visibility and mobile issues */
+ .navbar-toggler {
+     border: 2px solid var(--primary);
+     background-color: white;
+     padding: 0.5rem;
+     border-radius: 5px;
+ }
+
+ .navbar-toggler:focus {
+     box-shadow: 0 0 0 0.2rem rgba(0, 114, 206, 0.25);
+ }
+
+ .navbar-toggler-icon {
+     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 114, 206, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+ }
+
+ /* Mobile menu dropdown background */
+ @@media (max-width: 991.98px) {
+     .navbar-collapse {
+         background-color: white;
+         margin-top: 1rem;
+         padding: 1rem;
+         border-radius: 10px;
+         box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+     }
+
+     .navbar-brand img {
+         max-width: 120px;
+         height: auto;
+     }
+
+     /* Prevent horizontal scroll */
+     body {
+         overflow-x: hidden;
+     }
+
+     .container {
+         max-width: 100%;
+         overflow-x: hidden;
+     }
+ }
+
+ .navbar-nav .nav-link {
+     font-weight: 500;
+     color: var(--dark);
+     position: relative;
+     padding: 0.5rem 1rem;
+     transition: all 0.3s ease;
+ }
+
+     .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+         color: var(--primary);
+     }
+
+         .navbar-nav .nav-link:hover::after, .navbar-nav .nav-link.active::after {
+             width: 50%;
+         }
+
+     .navbar-nav .nav-link::after {
+         content: '';
+         position: absolute;
+         bottom: 0;
+         left: 1rem;
+         width: 0;
+         height: 2px;
+         background-color: var(--primary);
+         transition: width 0.3s ease;
+     }
+
+ /* Buttons */
+ .btn {
+     padding: 0.5rem 1.5rem;
+     border-radius: 50px;
+     transition: all 0.3s ease;
+     font-weight: 500;
+     position: relative;
+     overflow: hidden;
+     z-index: 1;
+ }
+
+ .btn-lg {
+     padding: 0.75rem 2rem;
+     font-size: 1.1rem;
+ }
+
+ .btn-primary {
+     background: var(--gradient-primary);
+     border: none;
+     color: white;
+ }
+
+     .btn-primary:hover {
+         background: linear-gradient(to right, #0063B0, #009ED9);
+         box-shadow: 0 5px 15px rgba(0, 114, 206, 0.3);
+         transform: translateY(-3px);
+     }
+
+ .btn-outline-primary {
+     background: transparent;
+     border: 2px solid var(--primary);
+     color: var(--primary);
+ }
+
+     .btn-outline-primary:hover {
+         background: var(--primary);
+         color: white;
+         box-shadow: 0 5px 15px rgba(0, 114, 206, 0.3);
+         transform: translateY(-3px);
+     }
+
+ .btn-accent {
+     background: var(--accent);
+     border: none;
+     color: white;
+ }
+
+     .btn-accent:hover {
+         background: #E6A619;
+         box-shadow: 0 5px 15px rgba(255, 184, 28, 0.3);
+         transform: translateY(-3px);
+     }
+
+ /* Hero */
+ .hero {
+     padding-top: 7rem;
+     padding-bottom: 5rem;
+     position: relative;
+     background: linear-gradient(135deg, #f5f7fa 0%, #e4eff9 100%);
+     overflow: hidden;
+ }
+
+     .hero::before {
+         content: '';
+         position: absolute;
+         top: -10%;
+         right: -5%;
+         width: 500px;
+         height: 500px;
+         border-radius: 50%;
+         background-color: rgba(0, 114, 206, 0.05);
+         z-index: 0;
+     }
+
+     .hero::after {
+         content: '';
+         position: absolute;
+         bottom: -10%;
+         left: -5%;
+         width: 500px;
+         height: 500px;
+         border-radius: 50%;
+         background-color: rgba(0, 174, 239, 0.05);
+         z-index: 0;
+     }
+
+ .hero-title {
+     font-size: 3.5rem;
+     font-weight: 700;
+     line-height: 1.2;
+     margin-bottom: 1.5rem;
+     color: var(--dark);
+ }
+
+ .hero-subtitle {
+     font-size: 1.25rem;
+     margin-bottom: 2rem;
+     color: var(--gray);
+ }
+
+ .hero-image {
+     position: relative;
+     z-index: 1;
+ }
+
+ /* Features */
+ .features {
+     padding: 5rem 0;
+ }
+
+ .section-title {
+     margin-bottom: 3rem;
+     text-align: center;
+ }
+
+     .section-title h2 {
+         font-size: 2.5rem;
+         margin-bottom: 1rem;
+         position: relative;
+         display: inline-block;
+     }
+
+         .section-title h2::after {
+             content: '';
+             position: absolute;
+             bottom: -10px;
+             left: 50%;
+             transform: translateX(-50%);
+             width: 80px;
+             height: 3px;
+             background: var(--gradient-primary);
+             border-radius: 3px;
+         }
+
+     .section-title p {
+         font-size: 1.1rem;
+         color: var(--gray);
+         max-width: 700px;
+         margin: 0 auto;
+     }
+
+ /* Client Profile Styles - Circular Images */
+ .client-profile {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 0.75rem;
+ }
+
+ .client-profile-img {
+     width: 120px;
+     height: 120px;
+     border-radius: 50%;
+     object-fit: cover;
+     border: 4px solid #f0f0f0;
+     transition: all 0.3s ease;
+     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+ }
+
+ .client-profile-img:hover {
+     transform: scale(1.05);
+     border-color: var(--primary);
+     box-shadow: 0 6px 15px rgba(0, 114, 206, 0.2);
+ }
+
+ .client-name {
+     font-size: 0.95rem;
+     font-weight: 600;
+     color: #2c3e50;
+     margin: 0;
+     line-height: 1.3;
+ }
+
+ .client-specialty {
+     font-size: 0.85rem;
+     color: #6c757d;
+     margin: 0;
+     line-height: 1.2;
+ }
+
+ .feature-card {
+     padding: 2rem;
+     border-radius: 10px;
+     box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+     background-color: white;
+     height: 100%;
+     transition: all 0.3s ease;
+     position: relative;
+     z-index: 1;
+     overflow: hidden;
+ }
+
+     .feature-card:hover {
+         transform: translateY(-10px);
+         box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+     }
+
+     .feature-card::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 5px;
+         background: var(--gradient-primary);
+         z-index: -1;
+     }
+
+ .feature-icon {
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     width: 70px;
+     height: 70px;
+     background: linear-gradient(135deg, rgba(0, 114, 206, 0.1) 0%, rgba(0, 174, 239, 0.1) 100%);
+     color: var(--primary);
+     border-radius: 50%;
+     margin-bottom: 1.5rem;
+     font-size: 1.5rem;
+     transition: all 0.3s ease;
+ }
+
+ .feature-card:hover .feature-icon {
+     background: var(--gradient-primary);
+     color: white;
+     transform: rotateY(180deg);
+ }
+
+ .feature-title {
+     font-size: 1.25rem;
+     margin-bottom: 1rem;
+ }
+
+ .feature-text {
+     color: var(--gray);
+     margin-bottom: 0;
+ }
+
+ /* Testimonials */
+ .testimonials {
+     padding: 5rem 0;
+     background-color: #f8f9fa;
+     position: relative;
+     overflow: hidden;
+ }
+
+ .testimonial-card {
+     padding: 2rem;
+     border-radius: 10px;
+     box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+     background-color: white;
+     margin: 1rem 0.5rem;
+     position: relative;
+ }
+
+ .testimonial-content {
+     position: relative;
+     padding-left: 2rem;
+     margin-bottom: 1.5rem;
+ }
+
+     .testimonial-content::before {
+         content: '\201C';
+         font-family: Georgia, serif;
+         position: absolute;
+         top: -1.5rem;
+         left: -0.5rem;
+         font-size: 5rem;
+         color: var(--primary);
+         opacity: 0.3;
+     }
+
+ .testimonial-text {
+     color: var(--gray);
+     font-size: 1rem;
+     font-style: italic;
+ }
+
+ .testimonial-rating {
+     margin-bottom: 1.5rem;
+     color: var(--accent);
+ }
+
+ .testimonial-author {
+     display: flex;
+     align-items: center;
+ }
+
+ .testimonial-avatar {
+     width: 50px;
+     height: 50px;
+     border-radius: 50%;
+     margin-right: 1rem;
+     object-fit: cover;
+ }
+
+ .testimonial-info h5 {
+     margin-bottom: 0.25rem;
+     font-size: 1rem;
+ }
+
+ .testimonial-info p {
+     margin-bottom: 0;
+     font-size: 0.875rem;
+     color: var(--gray);
+ }
+
+ /* Pricing */
+ .pricing {
+     padding: 5rem 0;
+ }
+
+ .price-card {
+     padding: 3rem 2rem;
+     border-radius: 10px;
+     box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+     background-color: white;
+     height: 100%;
+     transition: all 0.3s ease;
+     position: relative;
+     overflow: hidden;
+     text-align: center;
+ }
+
+ /* Estilos específicos para cards de altura fija en /Plans */
+ .price-card-fixed {
+     height: 580px;
+     display: flex;
+     flex-direction: column;
+ }
+
+ .price-card-fixed .price-card-header {
+     height: 70px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-shrink: 0;
+ }
+
+ .price-card-fixed .price-card-pricing {
+     height: 120px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     flex-shrink: 0;
+ }
+
+ .price-card-fixed .price-card-features {
+     height: 320px;
+     overflow-y: auto;
+     flex-shrink: 0;
+     padding: 0 10px;
+ }
+
+ .price-card-fixed .price-card-footer {
+     height: 70px;
+     display: flex;
+     align-items: center;
+     margin-top: auto;
+     flex-shrink: 0;
+ }
+
+     .price-card.popular {
+         transform: scale(1.05);
+         box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+         z-index: 2;
+         border: 2px solid var(--primary);
+     }
+
+ .popular-badge {
+     position: absolute;
+     top: 1.5rem;
+     right: -3rem;
+     background-color: var(--accent);
+     color: white;
+     padding: 0.5rem 3rem;
+     transform: rotate(45deg);
+     font-size: 0.875rem;
+     font-weight: 500;
+     z-index: 3;
+ }
+
+ .price-title {
+     font-size: 1.5rem;
+     margin-bottom: 1rem;
+ }
+
+ .price-amount {
+     font-size: 3rem;
+     font-weight: 700;
+     margin-bottom: 0.5rem;
+     color: var(--primary);
+ }
+
+ .price-period {
+     display: block;
+     font-size: 0.875rem;
+     color: var(--gray);
+     margin-bottom: 2rem;
+ }
+
+ .price-features {
+     list-style: none;
+     padding: 0;
+     margin-bottom: 2rem;
+ }
+
+     .price-features li {
+         padding: 0.5rem 0;
+         border-bottom: 1px solid var(--light-gray);
+     }
+
+         .price-features li:last-child {
+             border-bottom: none;
+         }
+
+     .price-features i {
+         color: var(--success);
+         margin-right: 0.5rem;
+     }
+
+     .price-features .disabled {
+         color: var(--gray);
+         text-decoration: line-through;
+     }
+
+         .price-features .disabled i {
+             color: var(--gray);
+         }
+
+ /* CTA */
+ .cta {
+     padding: 5rem 0;
+     background: var(--gradient-primary);
+     color: white;
+     text-align: center;
+     position: relative;
+     overflow: hidden;
+ }
+
+     .cta::before {
+         content: '';
+         position: absolute;
+         top: -50%;
+         right: -10%;
+         width: 500px;
+         height: 500px;
+         border-radius: 50%;
+         background-color: rgba(255, 255, 255, 0.05);
+         z-index: 0;
+     }
+
+     .cta::after {
+         content: '';
+         position: absolute;
+         bottom: -50%;
+         left: -10%;
+         width: 500px;
+         height: 500px;
+         border-radius: 50%;
+         background-color: rgba(255, 255, 255, 0.05);
+         z-index: 0;
+     }
+
+ .cta-content {
+     position: relative;
+     z-index: 1;
+ }
+
+ .cta-title {
+     font-size: 2.5rem;
+     margin-bottom: 1rem;
+ }
+
+ .cta-text {
+     font-size: 1.1rem;
+     margin-bottom: 2rem;
+     opacity: 0.9;
+ }
+
+ .btn-cta {
+     background-color: white;
+     color: var(--primary);
+     border: none;
+     font-weight: 500;
+ }
+
+     .btn-cta:hover {
+         background-color: var(--accent);
+         color: white;
+     }
+
+ /* Contact */
+ .contact {
+     padding: 5rem 0;
+ }
+
+ .contact-info {
+     margin-bottom: 3rem;
+ }
+
+ .contact-item {
+     display: flex;
+     margin-bottom: 1.5rem;
+ }
+
+ .contact-icon {
+     min-width: 40px;
+     height: 40px;
+     background-color: rgba(0, 114, 206, 0.1);
+     color: var(--primary);
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin-right: 1rem;
+ }
+
+ .contact-text h5 {
+     font-size: 1rem;
+     margin-bottom: 0.25rem;
+ }
+
+ .contact-text p {
+     margin-bottom: 0;
+     color: var(--gray);
+ }
+
+ .contact-form {
+     padding: 2rem;
+     border-radius: 10px;
+     box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+     background-color: white;
+ }
+
+ .form-control {
+     border-radius: 5px;
+     padding: 0.75rem 1rem;
+     border: 1px solid var(--light-gray);
+     margin-bottom: 1rem;
+ }
+
+     .form-control:focus {
+         border-color: var(--primary);
+         box-shadow: 0 0 0 0.25rem rgba(0, 114, 206, 0.25);
+     }
+
+ /* Footer */
+ .footer {
+     background-color: var(--dark);
+     color: white;
+     padding: 5rem 0 0;
+ }
+
+ .footer-brand img {
+     height: 50px;
+     margin-bottom: 1.5rem;
+ }
+
+ .footer-text {
+     color: rgba(255, 255, 255, 0.7);
+     margin-bottom: 1.5rem;
+ }
+
+ .footer-social {
+     display: flex;
+     gap: 1rem;
+     margin-bottom: 2rem;
+ }
+
+     .footer-social a {
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         width: 40px;
+         height: 40px;
+         border-radius: 50%;
+         background-color: rgba(255, 255, 255, 0.1);
+         color: white;
+         transition: all 0.3s ease;
+     }
+
+         .footer-social a:hover {
+             background-color: var(--primary);
+             transform: translateY(-3px);
+         }
+
+ .footer-title {
+     font-size: 1.25rem;
+     margin-bottom: 1.5rem;
+     position: relative;
+     padding-bottom: 0.75rem;
+ }
+
+     .footer-title::after {
+         content: '';
+         position: absolute;
+         bottom: 0;
+         left: 0;
+         width: 50px;
+         height: 2px;
+         background-color: var(--primary);
+     }
+
+ .footer-links {
+     list-style: none;
+     padding: 0;
+     margin: 0;
+ }
+
+     .footer-links li {
+         margin-bottom: 0.75rem;
+     }
+
+     .footer-links a {
+         color: rgba(255, 255, 255, 0.7);
+         text-decoration: none;
+         transition: all 0.3s ease;
+     }
+
+         .footer-links a:hover {
+             color: white;
+             padding-left: 5px;
+         }
+
+ .footer-newsletter {
+     margin-bottom: 2rem;
+ }
+
+     .footer-newsletter p {
+         color: rgba(255, 255, 255, 0.7);
+         margin-bottom: 1rem;
+     }
+
+ .newsletter-form {
+     display: flex;
+ }
+
+     .newsletter-form .form-control {
+         border-top-right-radius: 0;
+         border-bottom-right-radius: 0;
+         margin-bottom: 0;
+     }
+
+     .newsletter-form .btn {
+         border-top-left-radius: 0;
+         border-bottom-left-radius: 0;
+     }
+
+ .footer-bottom {
+     padding: 1.5rem 0;
+     margin-top: 3rem;
+     border-top: 1px solid rgba(255, 255, 255, 0.1);
+     text-align: center;
+ }
+
+     .footer-bottom p {
+         margin-bottom: 0;
+         color: rgba(255, 255, 255, 0.7);
+     }
+
+ /* Responsive */
+ @@media (max-width: 1199.98px) {
+     .hero-title
+
+ {
+     font-size: 3rem;
+ }
+
+ }
+
+ @@media (max-width: 991.98px) {
+     .hero-title
+
+ {
+     font-size: 2.5rem;
+ }
+
+ .hero-image {
+     margin-top: 3rem;
+ }
+
+ .price-card.popular {
+     transform: scale(1);
+ }
+
+ }
+
+ @@media (max-width: 767.98px) {
+     .hero
+
+ {
+     padding-top: 5rem;
+     text-align: center;
+ }
+
+ .hero-title {
+     font-size: 2rem;
+ }
+
+ .section-title h2 {
+     font-size: 2rem;
+ }
+
+ .cta-title {
+     font-size: 2rem;
+ }
+
+ .footer {
+     padding-top: 3rem;
+ }
+
+ .footer-column {
+     margin-bottom: 2rem;
+ }
+
+ }
+
+ /* Animation */
+ @@keyframes float {
+     0%
+
+ {
+     transform: translateY(0px);
+ }
+
+ 50% {
+     transform: translateY(-20px);
+ }
+
+ 100% {
+     transform: translateY(0px);
+ }
+
+ }
+
+ .float-animation {
+     animation: float 6s ease-in-out infinite;
+ }
+
+ /* Preloader */
+ .preloader {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: white;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     z-index: 9999;
+     transition: all 0.5s ease;
+ }
+
+     .preloader.fade-out {
+         opacity: 0;
+         visibility: hidden;
+     }
+
+ .spinner {
+     width: 40px;
+     height: 40px;
+     border: 4px solid var(--light-gray);
+     border-top: 4px solid var(--primary);
+     border-radius: 50%;
+     animation: spin 1s linear infinite;
+ }
+
+ @@keyframes spin {
+     0%
+
+ {
+     transform: rotate(0deg);
+ }
+
+ 100% {
+     transform: rotate(360deg);
+ }
+
+ }
+    </style>
+
+    <!-- Domain-specific CSS -->
+    @if (!string.IsNullOrEmpty(Context.Request.GetDomainStylesheet()))
+    {
+        <link href="@Context.Request.GetDomainStylesheet()" rel="stylesheet" type="text/css">
+    }
+</head>
+
+<body class="@Context.Request.GetDomainBodyClass()">
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="@Context.Request.GetDomainLogo()" alt="@Context.Request.GetDomainName() Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#features">@(Context.Request.IsFacturexDomain() ? "Servicios" : "Características")</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#testimonials">Testimonios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#pricing">@(Context.Request.IsFacturexDomain() ? "Servicios" : "Planes")</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#contact">Contacto</a>
+                        </li>
+                        @if (!Context.Request.IsFacturexDomain())
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/d">
+                                    <i class="fas fa-calendar-check me-1"></i>Agenda con un médico
+                                </a>
+                            </li>
+                        }
+                        <li class="nav-item ms-lg-3">
+                            <a class="btn btn-outline-primary" href="/Account/Login">Iniciar Sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 footer-column">
+                    <div class="footer-brand">
+                        <img src="@Context.Request.GetDomainLogo()" alt="@Context.Request.GetDomainName() Logo">
+                    </div>
+                    <p class="footer-text">
+                        @if (Context.Request.IsFacturexDomain())
+                        {
+                            <span>Facturex se especializa en soluciones financieras y administrativas para el sector salud, ofreciendo liquidez y gestión eficiente para profesionales médicos.</span>
+                        }
+                        else
+                        {
+                            <span>SolMed es el software médico líder para la gestión de consultorios, clínicas y hospitales. Optimice su práctica médica con nuestra solución integral.</span>
+                        }
+                    </p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 footer-column">
+                    <h5 class="footer-title">Enlaces</h5>
+                    <ul class="footer-links">
+                        <li><a href="/">Inicio</a></li>
+                        <li><a href="/#features">@(Context.Request.IsFacturexDomain() ? "Servicios" : "Características")</a></li>
+                        @if (!Context.Request.IsFacturexDomain())
+                        {
+                            <li><a href="/Plans">Planes</a></li>
+                            <li><a href="/d">Directorio Médico</a></li>
+                        }
+                        <li><a href="/Contact">Contacto</a></li>
+                        <li><a href="/Portal/Privacy">Política de Privacidad</a></li>
+                        <li><a href="/Portal/Terms">Términos y Condiciones</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 footer-column">
+                    <h5 class="footer-title">Contacto</h5>
+                    <ul class="footer-links">
+                        <li><a href="tel:@Context.Request.GetDomainPhone().Replace(" ", "")"><i class="fas fa-phone-alt me-2"></i> @Context.Request.GetDomainPhone()</a></li>
+                        <li><a href="mailto:@Context.Request.GetDomainEmail()"><i class="fas fa-envelope me-2"></i> @Context.Request.GetDomainEmail()</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt me-2"></i> @Context.Request.GetDomainAddress()</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 footer-column">
+                    <h5 class="footer-title">Newsletter</h5>
+                    <div class="footer-newsletter">
+                        <p>Suscríbete para recibir noticias y actualizaciones de @Context.Request.GetDomainName().</p>
+                        <form class="newsletter-form" id="newsletterForm">
+                            <input type="email" class="form-control" placeholder="Tu email" required>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; @DateTime.Now.Year @Context.Request.GetDomainName(). Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // Base JS functionality for both domains
+        // Preloader
+        window.addEventListener('load', function() {
+            document.querySelector('.preloader').classList.add('fade-out');
+        });
+
+        // Navbar scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Initialize testimonial slider
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.querySelector('.testimonial-slider')) {
+                new Swiper('.testimonial-slider', {
+                    slidesPerView: 1,
+                    spaceBetween: 30,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    breakpoints: {
+                        768: {
+                            slidesPerView: 2,
+                        },
+                        992: {
+                            slidesPerView: 3,
+                        }
+                    }
+                });
+            }
+        });
+
+        // Newsletter form
+        $('#newsletterForm').on('submit', function(e) {
+            e.preventDefault();
+            const email = $(this).find('input[type="email"]').val();
+
+            $.ajax({
+                url: '/Portal/SubscribeNewsletter',
+                type: 'POST',
+                data: { email: email },
+                success: function(response) {
+                    if (response.success) {
+                        alert(response.message);
+                        $('#newsletterForm')[0].reset();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function() {
+                    alert('Ocurrió un error. Por favor, intente nuevamente.');
+                }
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#') {
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+
+                // Close navbar on mobile
+                if (window.innerWidth < 992) {
+                    document.querySelector('.navbar-toggler').click();
+                }
+            });
+        });
+    </script>
+
+    <!-- Domain-specific JS -->
+    <script src="@Context.Request.GetDomainScript()"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

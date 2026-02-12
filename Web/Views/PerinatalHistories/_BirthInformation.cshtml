@@ -1,0 +1,862 @@
+@* C:\dev\SolMedProd\SolMed\Web\Views\PerinatalHistory\_BirthInformation.cshtml *@
+@model Domain.BirthInformation
+
+<!-- FILA 1: PARTO/ABORTO | FECHA INGRESO | CONSULTAS PRENAT. | CARNE -->
+<div class="row">
+    <div class="col-md-2">
+        <div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="BirthType" value="1" id="birthTypeParto" @(((int?)Model?.BirthType) == 1 ? "checked" : "") />
+                <label class="form-check-label" for="birthTypeParto">Parto</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="BirthType" value="2" id="birthTypeAborto" @(((int?)Model?.BirthType) == 2 ? "checked" : "") />
+                <label class="form-check-label" for="birthTypeAborto">Aborto</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label>FECHA DE INGRESO</label>
+        <input asp-for="AdmissionDate" type="date" class="form-control form-control-sm" />
+    </div>
+    <div class="col-md-2">
+        <label>CONSULTAS PRENAT. total</label>
+        <input asp-for="PrenatalConsultationsTotal" type="number" class="form-control form-control-sm" min="0" style="width: 70px;" />
+    </div>
+    <div class="col-md-2">
+        <label>CARNE</label>
+        <div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input bool-radio" type="radio" asp-for="HasPrenatalCard" value="false" id="prenatalCardNo" />
+                <label class="form-check-label" for="prenatalCardNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input bool-radio" type="radio" asp-for="HasPrenatalCard" value="true" id="prenatalCardYes" />
+                <label class="form-check-label" for="prenatalCardYes">Si</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label>EDAD GEST. 1ra CONSULTA</label>
+        <div class="input-group input-group-sm">
+            <input asp-for="FirstConsultationGestationalAgeWeeks" type="number" class="form-control" min="0" max="42" style="width: 60px;" />
+            <div class="input-group-append">
+                <span class="input-group-text">semanas</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FILA 2: HOSPITALIZ. EMBARAZO | CORTICOIDES | INICIO -->
+<div class="row mt-2">
+    <div class="col-md-3">
+        <label>HOSPITALIZ. en EMBARAZO</label>
+        <div class="d-flex align-items-center">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input bool-radio" type="radio" asp-for="HospitalizedDuringPregnancy" value="false" id="hospitalizedNo" />
+                <label class="form-check-label" for="hospitalizedNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input bool-radio" type="radio" asp-for="HospitalizedDuringPregnancy" value="true" id="hospitalizedYes" />
+                <label class="form-check-label" for="hospitalizedYes">Si</label>
+            </div>
+            <div class="input-group input-group-sm ml-2">
+                <input asp-for="HospitalizationDays" type="number" class="form-control" min="0" max="280" style="width: 60px;" />
+                <div class="input-group-append">
+                    <span class="input-group-text">dias</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <label>CORTICOIDES ANTENATALES</label>
+        <div class="d-flex align-items-center flex-wrap">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="CorticosteroidsStatus" value="complete" id="corticosteroidsComplete" @(Model?.CorticosteroidsComplete == true ? "checked" : "") />
+                <label class="form-check-label" for="corticosteroidsComplete">completo</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="CorticosteroidsStatus" value="incomplete" id="corticosteroidsIncomplete" @(Model?.CorticosteroidsIncomplete == true ? "checked" : "") />
+                <label class="form-check-label" for="corticosteroidsIncomplete">incompl.</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="CorticosteroidsStatus" value="none" id="corticosteroidsNone" @(Model?.CorticosteroidsNone == true ? "checked" : "") />
+                <label class="form-check-label" for="corticosteroidsNone">ninguna</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="CorticosteroidsStatus" value="na" id="corticosteroidsNA" @(Model?.CorticosteroidsNA == true ? "checked" : "") />
+                <label class="form-check-label" for="corticosteroidsNA">n/c</label>
+            </div>
+            <div class="input-group input-group-sm ml-2" style="width: auto;">
+                <input asp-for="CorticosteroidsStartWeek" type="number" class="form-control" min="20" max="42" style="width: 50px;" placeholder="" />
+                <div class="input-group-append">
+                    <span class="input-group-text">sem. inicio</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <label>INICIO</label>
+        <div class="d-flex">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="LaborOnset" value="spontaneous" id="spontaneousOnset" @(Model?.SpontaneousOnset == true ? "checked" : "") />
+                <label class="form-check-label" for="spontaneousOnset">espontaneo</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="LaborOnset" value="induced" id="inducedOnset" @(Model?.InducedOnset == true ? "checked" : "") />
+                <label class="form-check-label" for="inducedOnset">inducido</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="LaborOnset" value="elective_cesarean" id="electiveCesareanOnset" @(Model?.ElectiveCesareanOnset == true ? "checked" : "") />
+                <label class="form-check-label" for="electiveCesareanOnset">cesar. elect.</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FILA 3: ROTURA DE MEMBRANAS ANTEPARTO -->
+<div class="row mt-2">
+    <div class="col-md-12">
+        <div class="form-group" style="background-color: #fff3cd; padding: 10px; border-radius: 4px; border-left: 4px solid #ffc107; margin-bottom: 0;">
+            <label class="font-weight-bold">ROTURA DE MEMBRANAS ANTEPARTO</label>
+            <div class="row align-items-end">
+                <div class="col-md-1">
+                    <div class="d-flex">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="MembraneRupture" value="false" id="membraneRuptureNo" @(Model?.MembraneRupture == false ? "checked" : "") />
+                            <label class="form-check-label" for="membraneRuptureNo">no</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="MembraneRupture" value="true" id="membraneRuptureYes" @(Model?.MembraneRupture == true ? "checked" : "") />
+                        <label class="form-check-label" for="membraneRuptureYes">si</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label class="small">Fecha</label>
+                    <input asp-for="MembraneRuptureDate" type="date" class="form-control form-control-sm" />
+                </div>
+              
+                <div class="col-md-2">
+                    <label class="small">Hora</label>
+                    <input asp-for="MembraneRuptureTime" type="time" class="form-control form-control-sm" />
+                </div>
+                <div class="col-md-1">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="MembraneRuptureBefore37Weeks" id="membraneRuptureBefore37Weeks"
+                               @(Model?.MembraneRuptureBefore37Weeks == true ? "checked" : "") />
+                        <label class="form-check-label" for="membraneRuptureBefore37Weeks">&lt;37 sem</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="MembraneRuptureMoreThan18Hours" id="membraneRuptureMoreThan18Hours"
+                               @(Model?.MembraneRuptureMoreThan18Hours == true ? "checked" : "") />
+                        <label class="form-check-label" for="membraneRuptureMoreThan18Hours">&ge;18 hs.</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label class="small">temp. &ge; 38C</label>
+                    <div class="d-flex align-items-center">
+                        <div class="form-check mr-2">
+                            <input class="form-check-input" type="checkbox" name="FeverDuringLabor" id="feverDuringLabor"
+                                   @(Model?.FeverDuringLabor == true ? "checked" : "") />
+                        </div>
+                        <input type="number" step="0.1" class="form-control form-control-sm" id="FeverTemperature" name="FeverTemperature" min="38" max="42" style="width: 70px;" placeholder="C" />
+                    </div>
+                </div>
+      
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FILA 4: EDAD GEST. al parto | PRESENTACION/SITUACION | TAMANO FETAL | ACOMPANANTE TDP -->
+<div class="row mt-2">
+    <div class="col-md-3">
+        <label>EDAD GEST. al parto</label>
+        <div class="d-flex align-items-center">
+            <div class="input-group input-group-sm mr-2">
+                <input asp-for="GestationalAgeAtBirthWeeks" type="number" class="form-control" min="20" max="44" style="width: 50px;" />
+                <div class="input-group-append">
+                    <span class="input-group-text">sem</span>
+                </div>
+            </div>
+            <div class="input-group input-group-sm">
+                <input asp-for="GestationalAgeAtBirthDays" type="number" class="form-control" min="0" max="6" style="width: 50px;" />
+                <div class="input-group-append">
+                    <span class="input-group-text">dias</span>
+                </div>
+            </div>
+        </div>
+        <div class="mt-1">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="GestationalAgeByLMP" id="gestationalAgeByLMP"
+                           @(Model?.GestationalAgeByLMP == true ? "checked" : "") />
+                <label class="form-check-label" for="gestationalAgeByLMP">por FUM</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="GestationalAgeByUltrasound" id="gestationalAgeByUltrasound"
+                           @(Model?.GestationalAgeByUltrasound == true ? "checked" : "") />
+                <label class="form-check-label" for="gestationalAgeByUltrasound">por Eco.</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label>PRESENTACION / SITUACION</label>
+        <div class="d-flex">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="Presentation" value="cephalic" id="cephalicPresentation" @(Model?.CephalicPresentation == true ? "checked" : "") />
+                <label class="form-check-label" for="cephalicPresentation">cefalica</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="Presentation" value="pelvic" id="pelvicPresentation" @(Model?.PelvicPresentation == true ? "checked" : "") />
+                <label class="form-check-label" for="pelvicPresentation">pelviana</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="Presentation" value="transverse" id="transverseSituation" @(Model?.TransverseSituation == true ? "checked" : "") />
+                <label class="form-check-label" for="transverseSituation">transversa</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <label>TAMANO FETAL ACORDE</label>
+        <div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input bool-radio" type="radio" asp-for="FetalSizeAppropriate" value="false" id="fetalSizeAppropriateNo" />
+                <label class="form-check-label" for="fetalSizeAppropriateNo">no</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input bool-radio" type="radio" asp-for="FetalSizeAppropriate" value="true" id="fetalSizeAppropriateYes" />
+                <label class="form-check-label" for="fetalSizeAppropriateYes">si</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <label>ACOMPANANTE TDP</label>
+        <div class="d-flex flex-wrap">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" asp-for="Companion" value="pareja" id="companionPartner" />
+                <label class="form-check-label" for="companionPartner">pareja</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" asp-for="Companion" value="familiar" id="companionFamily" />
+                <label class="form-check-label" for="companionFamily">familiar</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" asp-for="Companion" value="otro" id="companionOther" />
+                <label class="form-check-label" for="companionOther">otro</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" asp-for="Companion" value="ninguno" id="companionNone" />
+                <label class="form-check-label" for="companionNone">ninguno</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <label>ACOMPANANTE P</label>
+        <div class="d-flex flex-wrap">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" asp-for="CompanionP" value="pareja" id="companionPPartner" />
+                <label class="form-check-label" for="companionPPartner">pareja</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" asp-for="CompanionP" value="familiar" id="companionPFamily" />
+                <label class="form-check-label" for="companionPFamily">familiar</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" asp-for="CompanionP" value="otro" id="companionPOther" />
+                <label class="form-check-label" for="companionPOther">otro</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" asp-for="CompanionP" value="ninguno" id="companionPNone" />
+                <label class="form-check-label" for="companionPNone">ninguno</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FILA 5: Liquido meconial (separado segun formulario) -->
+<div class="row mt-2">
+    <div class="col-md-4">
+        <label class="font-weight-bold">DETALLES EN PARTOGRAMA</label>
+        <div class="d-flex">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="PartogramDetails" value="false" id="partogramDetailsNo" @(Model?.PartogramDetails == false ? "checked" : "") />
+                <label class="form-check-label" for="partogramDetailsNo">no</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="PartogramDetails" value="true" id="partogramDetailsYes" @(Model?.PartogramDetails == true ? "checked" : "") />
+                <label class="form-check-label" for="partogramDetailsYes">si</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label>LIQUIDO MECONIAL</label>
+        <div class="d-flex">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="MeconiumStainedLiquor" value="1" id="meconiumStainedLiquorYes" @(((int?)Model?.MeconiumStainedLiquor) == 1 ? "checked" : "") />
+                <label class="form-check-label" for="meconiumStainedLiquorYes">si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="MeconiumStainedLiquor" value="2" id="meconiumStainedLiquorNo" @(((int?)Model?.MeconiumStainedLiquor) == 2 ? "checked" : "") />
+                <label class="form-check-label" for="meconiumStainedLiquorNo">no</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="MeconiumStainedLiquor" value="3" id="meconiumStainedLiquorNc" @(((int?)Model?.MeconiumStainedLiquor) == 3 ? "checked" : "") />
+                <label class="form-check-label" for="meconiumStainedLiquorNc">nc</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <label class="small">Corioamnionitis</label>
+        <div class="d-flex">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="Chorioamnionitis" value="1" id="chorioamnionitisYes" @(((int?)Model?.Chorioamnionitis) == 1 ? "checked" : "") />
+                <label class="form-check-label" for="chorioamnionitisYes">si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="Chorioamnionitis" value="2" id="chorioamnionitisNo" @(((int?)Model?.Chorioamnionitis) == 2 ? "checked" : "") />
+                <label class="form-check-label" for="chorioamnionitisNo">no</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="Chorioamnionitis" value="3" id="chorioamnionitisNc" @(((int?)Model?.Chorioamnionitis) == 3 ? "checked" : "") />
+                <label class="form-check-label" for="chorioamnionitisNc">nc</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="my-3" />
+ 
+
+<!-- TRABAJO DE PARTO (5 filas como CONSULTAS ANTENATALES) -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="font-weight-bold">TRABAJO DE PARTO</label>
+            <div class="table-responsive">
+                <table class="table table-sm table-bordered labor-entries-table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Hora</th>
+                            <th>Min</th>
+                            <th>Posicion madre</th>
+                            <th>P.A.</th>
+                            <th>Pulso</th>
+                            <th>Contr./10'</th>
+                            <th>Dilatacion</th>
+                            <th>Altura Present.</th>
+                            <th>Variedad posic.</th>
+                            <th>Meconio</th>
+                            <th>FCF/dips</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            <tr class="labor-entry-row">
+                                <td><input type="number" class="form-control form-control-sm labor-hour" min="0" max="23" placeholder="Hora" /></td>
+                                <td><input type="number" class="form-control form-control-sm labor-minute" min="0" max="59" placeholder="Min" /></td>
+                                <td>
+                                    <select class="form-control form-control-sm labor-position">
+                                        <option value="">Seleccione</option>
+                                        <option value="sentada">Sentada</option>
+                                        <option value="acostada">Acostada</option>
+                                        <option value="cuclillas">Cuclillas</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control form-control-sm labor-bp" placeholder="###/##" /></td>
+                                <td><input type="number" class="form-control form-control-sm labor-pulse" min="40" max="200" /></td>
+                                <td><input type="number" class="form-control form-control-sm labor-contractions" min="0" max="10" /></td>
+                                <td><input type="number" step="0.1" class="form-control form-control-sm labor-dilation" min="0" max="10" /></td>
+                                <td><input type="text" class="form-control form-control-sm labor-height" /></td>
+                                <td><input type="text" class="form-control form-control-sm labor-variety" /></td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input labor-meconium" type="checkbox" />
+                                        <label class="form-check-label">+</label>
+                                    </div>
+                                </td>
+                                <td><input type="text" class="form-control form-control-sm labor-fcf" /></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ENFERMEDADES - TDP PRUEBA -->
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="form-group" style="background-color: #f8f9fa; padding: 10px; border-radius: 4px; border-left: 4px solid #6c757d;">
+            <label class="font-weight-bold">ENFERMEDADES</label>
+            <div class="ml-3">
+                <label class="small font-weight-bold">TDP Prueba</label>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="small">Sifilis</label>
+                        <div class="d-flex flex-wrap">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="BirthSyphilisTest" value="1" id="birthSyphilisNeg" @(((int?)Model?.BirthSyphilisTest) == 1 ? "checked" : "") />
+                                <label class="form-check-label" for="birthSyphilisNeg">-</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="BirthSyphilisTest" value="2" id="birthSyphilisPos" @(((int?)Model?.BirthSyphilisTest) == 2 ? "checked" : "") />
+                                <label class="form-check-label" for="birthSyphilisPos">+</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="BirthSyphilisTest" value="3" id="birthSyphilisNr" @(((int?)Model?.BirthSyphilisTest) == 3 ? "checked" : "") />
+                                <label class="form-check-label" for="birthSyphilisNr">n/r</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="BirthSyphilisTest" value="4" id="birthSyphilisNc" @(((int?)Model?.BirthSyphilisTest) == 4 ? "checked" : "") />
+                                <label class="form-check-label" for="birthSyphilisNc">n/c</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="small">VIH</label>
+                        <div class="d-flex flex-wrap">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="BirthHIVTest" value="1" id="birthHIVNeg" @(((int?)Model?.BirthHIVTest) == 1 ? "checked" : "") />
+                                <label class="form-check-label" for="birthHIVNeg">-</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="BirthHIVTest" value="2" id="birthHIVPos" @(((int?)Model?.BirthHIVTest) == 2 ? "checked" : "") />
+                                <label class="form-check-label" for="birthHIVPos">+</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="BirthHIVTest" value="3" id="birthHIVNr" @(((int?)Model?.BirthHIVTest) == 3 ? "checked" : "") />
+                                <label class="form-check-label" for="birthHIVNr">n/r</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="BirthHIVTest" value="4" id="birthHIVNc" @(((int?)Model?.BirthHIVTest) == 4 ? "checked" : "") />
+                                <label class="form-check-label" for="birthHIVNc">n/c</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="small">TARV</label>
+                        <div class="d-flex flex-wrap">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="BirthTARV" value="1" id="birthTARVYes" @(((int?)Model?.BirthTARV) == 1 ? "checked" : "") />
+                                <label class="form-check-label" for="birthTARVYes">si</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="BirthTARV" value="2" id="birthTARVNo" @(((int?)Model?.BirthTARV) == 2 ? "checked" : "") />
+                                <label class="form-check-label" for="birthTARVNo">no</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="BirthTARV" value="3" id="birthTARVNc" @(((int?)Model?.BirthTARV) == 3 ? "checked" : "") />
+                                <label class="form-check-label" for="birthTARVNc">n/c</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============ SECCION NACIMIENTO ============ -->
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="form-group" style="background-color: #e8f4fd; padding: 10px; border-radius: 4px; border-left: 4px solid #0d6efd;">
+            <label class="font-weight-bold" style="font-size: 12px;">NACIMIENTO</label>
+            <div class="row">
+                <!-- VIVO/MUERTO -->
+                <div class="col-md-2">
+                    <div class="d-flex flex-column">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="BirthStatus" value="live" id="birthStatusLive" @(Model?.IsLiveBirth == true ? "checked" : "") />
+                            <label class="form-check-label" for="birthStatusLive">VIVO</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input conditional-trigger" data-target="deadBirthOptions" data-show-on-value="dead" type="radio" name="BirthStatus" value="dead" id="birthStatusDead" @(Model?.IsLiveBirth == false ? "checked" : "") />
+                            <label class="form-check-label" for="birthStatusDead">MUERTO</label>
+                        </div>
+                        <div id="deadBirthOptions" class="ml-3" style="display: @(Model?.IsLiveBirth == false ? "block" : "none");">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="DeadBirthTiming" value="anteparto" id="deadAnteparto" @(Model?.DeadBirthBeforeLabor == true ? "checked" : "") />
+                                <label class="form-check-label small" for="deadAnteparto">anteparto</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="DeadBirthTiming" value="parto" id="deadParto" @(Model?.DeadBirthDuringLabor == true ? "checked" : "") />
+                                <label class="form-check-label small" for="deadParto">parto</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="DeadBirthTiming" value="ignora" id="deadIgnora" @(Model?.DeadBirthDuringLaborUnknown == true ? "checked" : "") />
+                                <label class="form-check-label small" for="deadIgnora">ignora momento</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- HORA y FECHA -->
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="small">hora</label>
+                            <input type="time" class="form-control form-control-sm" id="BirthTime" name="BirthTime" value="@(Model?.BirthTime)" />
+                        </div>
+                        <div class="col-6">
+                            <label class="small">fecha</label>
+                            <input type="date" class="form-control form-control-sm" id="BirthDate" name="BirthDate" value="@(Model?.BirthDate?.ToString("yyyy-MM-dd"))" />
+                        </div>
+                    </div>
+                </div>
+                <!-- MULTIPLE orden -->
+                <div class="col-md-2">
+                    <label class="small">MULTIPLE órden</label>
+                    <div class="d-flex align-items-center">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="MultipleBirthStatus" value="false" id="multipleNo" @(Model?.MultipleBirth == false ? "checked" : "") />
+                            <label class="form-check-label" for="multipleNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="MultipleBirthStatus" value="true" id="multipleYes" @(Model?.MultipleBirth == true ? "checked" : "") />
+                            <label class="form-check-label" for="multipleYes">si</label>
+                        </div>
+                        <input asp-for="BirthOrder" type="text" class="form-control form-control-sm ml-1" style="width: 50px;" placeholder="" />
+                    </div>
+                </div>
+                <!-- TERMINACION -->
+                <div class="col-md-2">
+                    <label class="small">TERMINACION</label>
+                    <div class="d-flex flex-wrap">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="TerminationType" value="spontaneous" id="termSpontaneous" @(Model?.SpontaneousBirth == true ? "checked" : "") />
+                            <label class="form-check-label" for="termSpontaneous">Espont</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="TerminationType" value="cesarean" id="termCesarean" @(Model?.CesareanBirth == true ? "checked" : "") />
+                            <label class="form-check-label" for="termCesarean">Cesárea</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="TerminationType" value="forceps" id="termForceps" @(Model?.ForcepsBirth == true ? "checked" : "") />
+                            <label class="form-check-label" for="termForceps">Forceps</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="TerminationType" value="vacuum" id="termVacuum" @(Model?.VacuumBirth == true ? "checked" : "") />
+                            <label class="form-check-label" for="termVacuum">Vacuum</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="TerminationType" value="other" id="termOther" @(Model?.OtherTermination == true ? "checked" : "") />
+                            <label class="form-check-label" for="termOther">Otra</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- INDICACION PRINCIPAL -->
+                <div class="col-md-2">
+                    <label class="small">INDICACION PRINCIPAL DE INDUCCION O PARTO OPERATORIO</label>
+                    <textarea asp-for="MainIndicationForInductionOrOperativeDelivery" class="form-control form-control-sm" rows="2" style="font-size: 10px;"></textarea>
+                </div>
+                <!-- CODIGOS -->
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="small">INDUC.</label>
+                            <input asp-for="InductionCode" type="text" class="form-control form-control-sm" placeholder="código" />
+                        </div>
+                        <div class="col-6">
+                            <label class="small">OPER.</label>
+                            <input asp-for="OperativeCode" type="text" class="form-control form-control-sm" placeholder="código" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FILA 2 NACIMIENTO: POSICION, EPISIOTOMIA, DESGARROS, OCITOCICOS, PLACENTA, LIGADURA, MEDICACION -->
+<div class="row mt-2">
+    <div class="col-md-12">
+        <div class="form-group" style="background-color: #e8f4fd; padding: 10px; border-radius: 4px;">
+            <div class="row">
+                <!-- POSICION PARTO -->
+                <div class="col-md-1">
+                    <label class="small">POSICION PARTO</label>
+                    <div class="d-flex flex-column">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="BirthPosition" value="sentada" id="posSentada" @(Model?.BirthPosition == "sentada" ? "checked" : "") />
+                            <label class="form-check-label" for="posSentada">Sentada</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="BirthPosition" value="acostada" id="posAcostada" @(Model?.BirthPosition == "acostada" ? "checked" : "") />
+                            <label class="form-check-label" for="posAcostada">Acostada</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="BirthPosition" value="cuclillas" id="posCuclillas" @(Model?.BirthPosition == "cuclillas" ? "checked" : "") />
+                            <label class="form-check-label" for="posCuclillas">Cuclillas</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- EPISIOTOMIA -->
+                <div class="col-md-1">
+                    <label class="small">EPISIOTOMIA</label>
+                    <div class="d-flex flex-column">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="EpisiotomyStatus" value="false" id="episiotomyNo" @(Model?.Episiotomy == false ? "checked" : "") />
+                            <label class="form-check-label" for="episiotomyNo">no</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="EpisiotomyStatus" value="true" id="episiotomyYes" @(Model?.Episiotomy == true ? "checked" : "") />
+                            <label class="form-check-label" for="episiotomyYes">si</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- DESGARROS -->
+                <div class="col-md-1">
+                    <label class="small">DESGARROS Grado (1 a 4)</label>
+                    <div class="d-flex align-items-center">
+                        <div class="form-check mr-2">
+                            <input class="form-check-input" type="checkbox" id="tearNo" @(Model?.Tear == false ? "checked" : "") />
+                            <label class="form-check-label" for="tearNo">No</label>
+                        </div>
+                        <input type="text" class="form-control form-control-sm" id="TearGrade" name="TearGrade" style="width: 40px;" value="@(Model?.TearGrade?.ToString())" />
+                    </div>
+                </div>
+                <!-- OCITOCICOS -->
+                <div class="col-md-1">
+                    <label class="small">OCITOCICOS</label>
+                    <div class="d-flex flex-column">
+                        <div>
+                            <span class="small">prelumbr.</span>
+                            <div class="d-inline-flex">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="OxytocicsPreDelivery" value="false" id="oxytPreNo" @(Model?.OxytocicsPreDelivery == false ? "checked" : "") />
+                                    <label class="form-check-label" for="oxytPreNo">no</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="OxytocicsPreDelivery" value="true" id="oxytPreYes" @(Model?.OxytocicsPreDelivery == true ? "checked" : "") />
+                                    <label class="form-check-label" for="oxytPreYes">si</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="small">postalumbr.</span>
+                            <div class="d-inline-flex">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="OxytocicsPostDelivery" value="false" id="oxytPostNo" @(Model?.OxytocicsPostDelivery == false ? "checked" : "") />
+                                    <label class="form-check-label" for="oxytPostNo">no</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="OxytocicsPostDelivery" value="true" id="oxytPostYes" @(Model?.OxytocicsPostDelivery == true ? "checked" : "") />
+                                    <label class="form-check-label" for="oxytPostYes">si</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- PLACENTA -->
+                <div class="col-md-1">
+                    <label class="small">PLACENTA</label>
+                    <div class="d-flex flex-column">
+                        <div>
+                            <span class="small">completa</span>
+                            <div class="d-inline-flex">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="CompletePlacentaStatus" value="false" id="placentaCompleteNo" @(Model?.CompletePlacenta == false ? "checked" : "") />
+                                    <label class="form-check-label" for="placentaCompleteNo">no</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="CompletePlacentaStatus" value="true" id="placentaCompleteYes" @(Model?.CompletePlacenta == true ? "checked" : "") />
+                                    <label class="form-check-label" for="placentaCompleteYes">si</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="small">retenida</span>
+                            <div class="d-inline-flex">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="RetainedPlacentaStatus" value="false" id="placentaRetainedNo" @(Model?.RetainedPlacenta == false ? "checked" : "") />
+                                    <label class="form-check-label" for="placentaRetainedNo">no</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="RetainedPlacentaStatus" value="true" id="placentaRetainedYes" @(Model?.RetainedPlacenta == true ? "checked" : "") />
+                                    <label class="form-check-label" for="placentaRetainedYes">si</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- LIGADURA CORDON -->
+                <div class="col-md-1">
+                    <label class="small">LIGADURA CORDON</label>
+                    <div class="d-flex flex-column">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="CordClampingTime" value="1" id="cordLess1" @(((int?)Model?.CordClampingTime) == 1 ? "checked" : "") />
+                            <label class="form-check-label" for="cordLess1">&lt; 1 min</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="CordClampingTime" value="2" id="cord1to3" @(((int?)Model?.CordClampingTime) == 2 ? "checked" : "") />
+                            <label class="form-check-label" for="cord1to3">1 a 3 min</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- MEDICACION RECIBIDA -->
+                <div class="col-md-6">
+                    <label class="small">MEDICACION RECIBIDA</label>
+                    <div class="d-flex flex-wrap" style="font-size: 10px;">
+                        <!-- Fila 1 -->
+                        <div class="col-md-2">
+                            <span>Ocitócicos en TDP</span>
+                            <div class="d-inline-flex ml-1">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="OxytocicsInLaborStatus" value="false" id="oxytTDPNo" @(Model?.OxytocicsInLabor == false ? "checked" : "") />
+                                    <label class="form-check-label" for="oxytTDPNo">no</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="OxytocicsInLaborStatus" value="true" id="oxytTDPYes" @(Model?.OxytocicsInLabor == true ? "checked" : "") />
+                                    <label class="form-check-label" for="oxytTDPYes">si</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span>Antibiot.</span>
+                            <div class="d-inline-flex ml-1">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="AntibioticsTreatmentStatus" value="false" id="antibiotNo" @(Model?.AntibioticsTreatment == false ? "checked" : "") />
+                                    <label class="form-check-label" for="antibiotNo">no</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="AntibioticsTreatmentStatus" value="true" id="antibiotYes" @(Model?.AntibioticsTreatment == true ? "checked" : "") />
+                                    <label class="form-check-label" for="antibiotYes">si</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span>Analgesia</span>
+                            <div class="d-inline-flex ml-1">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="AnalgesiaTreatmentStatus" value="false" id="analgesiaNo" @(Model?.AnalgesiaTreatment == false ? "checked" : "") />
+                                    <label class="form-check-label" for="analgesiaNo">no</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="AnalgesiaTreatmentStatus" value="true" id="analgesiaYes" @(Model?.AnalgesiaTreatment == true ? "checked" : "") />
+                                    <label class="form-check-label" for="analgesiaYes">si</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span>Anest. local</span>
+                            <div class="d-inline-flex ml-1">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="LocalAnesthesiaStatus" value="false" id="anestLocalNo" @(Model?.LocalAnesthesia == false ? "checked" : "") />
+                                    <label class="form-check-label" for="anestLocalNo">no</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="LocalAnesthesiaStatus" value="true" id="anestLocalYes" @(Model?.LocalAnesthesia == true ? "checked" : "") />
+                                    <label class="form-check-label" for="anestLocalYes">si</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span>Anest. region.</span>
+                            <div class="d-inline-flex ml-1">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="RegionalAnesthesiaStatus" value="false" id="anestRegionNo" @(Model?.RegionalAnesthesia == false ? "checked" : "") />
+                                    <label class="form-check-label" for="anestRegionNo">no</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="RegionalAnesthesiaStatus" value="true" id="anestRegionYes" @(Model?.RegionalAnesthesia == true ? "checked" : "") />
+                                    <label class="form-check-label" for="anestRegionYes">si</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fila 2 -->
+                        <div class="col-md-2">
+                            <span>Anest. gral</span>
+                            <div class="d-inline-flex ml-1">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="GeneralAnesthesiaStatus" value="false" id="anestGralNo" @(Model?.GeneralAnesthesia == false ? "checked" : "") />
+                                    <label class="form-check-label" for="anestGralNo">no</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="GeneralAnesthesiaStatus" value="true" id="anestGralYes" @(Model?.GeneralAnesthesia == true ? "checked" : "") />
+                                    <label class="form-check-label" for="anestGralYes">si</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span>Transfución</span>
+                            <div class="d-inline-flex ml-1">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="TransfusionStatus" value="false" id="transfusionNo" @(Model?.Transfusion == false ? "checked" : "") />
+                                    <label class="form-check-label" for="transfusionNo">no</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="TransfusionStatus" value="true" id="transfusionYes" @(Model?.Transfusion == true ? "checked" : "") />
+                                    <label class="form-check-label" for="transfusionYes">si</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span>Sulfato de Mg preeclam</span>
+                            <div class="d-inline-flex ml-1">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="MagnesiumSulfatePreeclampsiaStatus" value="false" id="mgPreeclamNo" @(Model?.MagnesiumSulfatePreeclampsia == false ? "checked" : "") />
+                                    <label class="form-check-label" for="mgPreeclamNo">no</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="MagnesiumSulfatePreeclampsiaStatus" value="true" id="mgPreeclamYes" @(Model?.MagnesiumSulfatePreeclampsia == true ? "checked" : "") />
+                                    <label class="form-check-label" for="mgPreeclamYes">si</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span>Sulfato de Mg eclam</span>
+                            <div class="d-inline-flex ml-1">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="MagnesiumSulfateEclampsiaStatus" value="false" id="mgEclamNo" @(Model?.MagnesiumSulfateEclampsia == false ? "checked" : "") />
+                                    <label class="form-check-label" for="mgEclamNo">no</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="MagnesiumSulfateEclampsiaStatus" value="true" id="mgEclamYes" @(Model?.MagnesiumSulfateEclampsia == true ? "checked" : "") />
+                                    <label class="form-check-label" for="mgEclamYes">si</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Otros medicamentos -->
+                        <div class="col-md-2">
+                            <span>Otros (Cod) Médic 1</span>
+                            <input type="text" class="form-control form-control-sm d-inline-block ml-1" id="OtherMedicationOneDetail" name="OtherMedicationOneDetail" style="width: 70px;" value="@Model?.OtherMedicationOneDetail" />
+                        </div>
+                        <div class="col-md-2">
+                            <span> Otros (Cod) Médic 2</span>
+                            <input type="text" class="form-control form-control-sm d-inline-block ml-1" id="OtherMedicationTwoDetail" name="OtherMedicationTwoDetail" style="width: 70px;" value="@Model?.OtherMedicationTwoDetail" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+.form-group label {
+    font-weight: bold;
+    font-size: 11px;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+}
+.form-control-sm {
+    height: calc(1.5em + .5rem + 2px);
+    font-size: .875rem;
+}
+.form-check-inline {
+    margin-right: 8px;
+}
+.form-check-input {
+    margin-right: 4px;
+}
+.form-check-label {
+    font-size: 11px;
+}
+</style>

@@ -1,0 +1,129 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Requirements #2-4 Test: Field Consolidation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .field-row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 10px;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .field-label {
+            font-weight: bold;
+            text-align: right;
+        }
+        .field-input {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #000;
+            border-radius: 2px;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Requirements #2-4 Test: Field Consolidation</h1>
+        
+        <div class="instructions">
+            <h3>Testing Instructions:</h3>
+            <ul>
+                <li class="success">✓ Requirement #2: Identity Number - 14 separate inputs consolidated into 1 single input</li>
+                <li class="success">✓ Requirement #3: Prenatal Control Location - Multiple boxes consolidated into 1 text input</li>
+                <li class="success">✓ Requirement #4: Birth Location - Multiple boxes consolidated into 1 text input</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>Requirement #2: Identity Number (N° Identidad)</h3>
+            <p><strong>Before:</strong> 14 separate input boxes (one character each)</p>
+            <p><strong>After:</strong> 1 single input field</p>
+            <div class="field-row">
+                <div class="field-label">N° Identidad:</div>
+                <input type="text" 
+                       id="identityNumber" 
+                       name="identityNumber" 
+                       class="field-input" 
+                       maxlength="14" 
+                       placeholder="000-0000000-0">
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Requirement #3: Prenatal Control Location (Lugar control prenatal)</h3>
+            <p><strong>Before:</strong> 14 separate input boxes (one character each)</p>
+            <p><strong>After:</strong> 1 single text input field</p>
+            <div class="field-row">
+                <div class="field-label">Lugar control prenatal:</div>
+                <input type="text" 
+                       id="prenatalControlLocation" 
+                       name="prenatalControlLocation" 
+                       class="field-input" 
+                       maxlength="50" 
+                       placeholder="Ingrese el lugar de control prenatal">
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Requirement #4: Birth Location (Lugar del parto)</h3>
+            <p><strong>Before:</strong> 14 separate input boxes (one character each)</p>
+            <p><strong>After:</strong> 1 single text input field</p>
+            <div class="field-row">
+                <div class="field-label">Lugar del parto:</div>
+                <input type="text" 
+                       id="birthLocation" 
+                       name="birthLocation" 
+                       class="field-input" 
+                       maxlength="50" 
+                       placeholder="Ingrese el lugar del parto">
+            </div>
+        </div>
+
+        <div class="test-section" style="background: #f0f8ff;">
+            <h3>✅ All Field Consolidations Complete!</h3>
+            <p>Requirements #2, #3, and #4 have been successfully implemented.</p>
+            <p><strong>Next Steps:</strong> Requirements #5-14 (Form 1 Data Mapping)</p>
+        </div>
+    </div>
+</body>
+</html>

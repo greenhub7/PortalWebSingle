@@ -1,0 +1,101 @@
+﻿ 
+
+@{
+    ViewBag.Title = "Inicio";
+}
+ 
+<div class="row">
+    <div style="text-align: center;">
+
+
+        <table id="TableHeader" style="        font-size: 58pt;
+        font-family: Cooper;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #03b1fc;
+        width: 100%">
+            <tr>
+                <td rowspan="4"></td>
+                <td rowspan="4" style="text-align: center">
+                    @if (Model !=null && !string.IsNullOrEmpty(@Model.Imagen4))
+                    {
+                        <img src="@Url.Content(Model.Imagen4)" alt="My Logo" style="width: 175px; height: 175px;" dir="rtl" />
+                    }
+
+                </td>
+                <td rowspan="4">
+                    <img src="~/content/Icons/_SolMed.png" alt="SolMed" style="width: 300px; height: 280px;" dir="rtl" />
+
+                </td>
+                <td rowspan="4" style="text-align: center">
+                    @if (Model != null && !string.IsNullOrEmpty(@Model.Imagen5))
+                    {
+                        <img src="@Url.Content(Model.Imagen5)" alt="My Logo" style="width: 175px; height: 175px;" dir="rtl" />
+                    }
+
+                </td>
+
+            </tr>
+
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="4" style="text-align: center">
+                    @if (Model != null && !string.IsNullOrEmpty(@Model.Imagen3))
+                    {
+                        <img src="@Url.Content(Model.Imagen3)" alt="Image" style="width: auto; height: 300px;" dir="rtl" />
+                    }
+                    else
+                    {
+                        if (Model !=null && !string.IsNullOrEmpty(@Model.Header1))
+                        {
+                            @Model.Header1
+                        }
+                    }
+                </td>
+            </tr>
+        </table>
+        <div class="row">
+           <h2>
+                @ViewBag.Message
+           </h2>
+        </div>
+     
+    </div>
+    <div style="text-align: center; width: 100px;height:100px">
+    </div>
+
+</div>
+
+@section Scripts{
+    
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+           
+
+           
+
+        });
+    </script>
+    }
+
+
+
+
+
+
+
+
+
+
+

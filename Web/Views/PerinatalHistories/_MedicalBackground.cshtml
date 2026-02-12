@@ -1,0 +1,430 @@
+@* Vista actualizada _MedicalBackground.cshtml *@
+@model Domain.MedicalBackground
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="font-weight-bold mb-2 text-center" style="background: #d3d3d3; padding: 5px; border: 1px solid #000;">FAMILIARES</div>
+            
+            <!-- TBC -->
+            <div class="form-group">
+                <label>TBC</label>
+                <div class="d-flex gap-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyTuberculosis" value="1" id="famTbcSi" @(((int?)Model?.FamilyTuberculosis) == 1 ? "checked" : "") />
+                        <label class="form-check-label" for="famTbcSi">Si</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyTuberculosis" value="2" id="famTbcNo" @(((int?)Model?.FamilyTuberculosis) == 2 ? "checked" : "") />
+                        <label class="form-check-label" for="famTbcNo">No</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyTuberculosis" value="3" id="famTbcNc" @(((int?)Model?.FamilyTuberculosis) == 3 ? "checked" : "") />
+                        <label class="form-check-label" for="famTbcNc">NC</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DIABETES con tipos inline -->
+            <div class="form-group">
+                <label>DIABETES</label>
+                <div class="d-flex gap-3 align-items-center">
+                    <div class="d-flex gap-2">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="FamilyDiabetes" value="1" id="famDiabSi" @(((int?)Model?.FamilyDiabetes) == 1 ? "checked" : "") />
+                            <label class="form-check-label" for="famDiabSi">Si</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="FamilyDiabetes" value="2" id="famDiabNo" @(((int?)Model?.FamilyDiabetes) == 2 ? "checked" : "") />
+                            <label class="form-check-label" for="famDiabNo">No</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="FamilyDiabetes" value="3" id="famDiabNc" @(((int?)Model?.FamilyDiabetes) == 3 ? "checked" : "") />
+                            <label class="form-check-label" for="famDiabNc">NC</label>
+                        </div>
+                    </div>
+                    <!-- Tipo de diabetes inline al lado -->
+                    <div class="d-flex gap-2 align-items-center" style="border-left: 1px solid #ccc; padding-left: 10px;">
+                        <label class="small mb-0">Tipo:</label>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="FamilyDiabetesType" value="1" id="famDiabType1" @(((int?)Model?.FamilyDiabetesType) == 1 ? "checked" : "") />
+                            <label class="form-check-label" for="famDiabType1">I</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="FamilyDiabetesType" value="2" id="famDiabType2" @(((int?)Model?.FamilyDiabetesType) == 2 ? "checked" : "") />
+                            <label class="form-check-label" for="famDiabType2">II</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="FamilyDiabetesType" value="3" id="famDiabTypeGest" @(((int?)Model?.FamilyDiabetesType) == 3 ? "checked" : "") />
+                            <label class="form-check-label" for="famDiabTypeGest">Gest.</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HIPERTENSIÓN -->
+            <div class="form-group">
+                <label>HIPERTENSIÓN</label>
+                <div class="d-flex gap-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyHypertension" value="1" id="famHipSi" @(((int?)Model?.FamilyHypertension) == 1 ? "checked" : "") />
+                        <label class="form-check-label" for="famHipSi">Si</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyHypertension" value="2" id="famHipNo" @(((int?)Model?.FamilyHypertension) == 2 ? "checked" : "") />
+                        <label class="form-check-label" for="famHipNo">No</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyHypertension" value="3" id="famHipNc" @(((int?)Model?.FamilyHypertension) == 3 ? "checked" : "") />
+                        <label class="form-check-label" for="famHipNc">NC</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PREECLAMPSIA -->
+            <div class="form-group">
+                <label>PREECLAMPSIA</label>
+                <div class="d-flex gap-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyPreeclampsia" value="1" id="famPreSi" @(((int?)Model?.FamilyPreeclampsia) == 1 ? "checked" : "") />
+                        <label class="form-check-label" for="famPreSi">Si</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyPreeclampsia" value="2" id="famPreNo" @(((int?)Model?.FamilyPreeclampsia) == 2 ? "checked" : "") />
+                        <label class="form-check-label" for="famPreNo">No</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyPreeclampsia" value="3" id="famPreNc" @(((int?)Model?.FamilyPreeclampsia) == 3 ? "checked" : "") />
+                        <label class="form-check-label" for="famPreNc">NC</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ECLAMPSIA -->
+            <div class="form-group">
+                <label>ECLAMPSIA</label>
+                <div class="d-flex gap-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyEclampsia" value="1" id="famEclSi" @(((int?)Model?.FamilyEclampsia) == 1 ? "checked" : "") />
+                        <label class="form-check-label" for="famEclSi">Si</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyEclampsia" value="2" id="famEclNo" @(((int?)Model?.FamilyEclampsia) == 2 ? "checked" : "") />
+                        <label class="form-check-label" for="famEclNo">No</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyEclampsia" value="3" id="famEclNc" @(((int?)Model?.FamilyEclampsia) == 3 ? "checked" : "") />
+                        <label class="form-check-label" for="famEclNc">NC</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OTRA CONDICIÓN MÉDICA GRAVE -->
+            <div class="form-group">
+                <label>OTRA COND. MÉD. GRAVE</label>
+                <div class="d-flex gap-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyOtherSeriousMedicalCondition" value="1" id="famOtraSi" @(((int?)Model?.FamilyOtherSeriousMedicalCondition) == 1 ? "checked" : "") />
+                        <label class="form-check-label" for="famOtraSi">Si</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyOtherSeriousMedicalCondition" value="2" id="famOtraNo" @(((int?)Model?.FamilyOtherSeriousMedicalCondition) == 2 ? "checked" : "") />
+                        <label class="form-check-label" for="famOtraNo">No</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="FamilyOtherSeriousMedicalCondition" value="3" id="famOtraNc" @(((int?)Model?.FamilyOtherSeriousMedicalCondition) == 3 ? "checked" : "") />
+                        <label class="form-check-label" for="famOtraNc">NC</label>
+                    </div>
+                </div>
+                <!-- Campo de detalles (siempre visible) -->
+                <div class="mt-2" id="famOtherDetailsContainer">
+                    <input type="text" class="form-control form-control-sm" asp-for="FamilyOtherConditionDetails" placeholder="Especificar..." />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="font-weight-bold mb-2 text-center" style="background: #d3d3d3; padding: 5px; border: 1px solid #000;">PERSONALES</div>
+        
+        <!-- TBC -->
+        <div class="form-group">
+            <label>TBC</label>
+            <div class="d-flex gap-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalTuberculosis" value="1" id="perTbcSi" @(((int?)Model?.PersonalTuberculosis) == 1 ? "checked" : "") />
+                    <label class="form-check-label" for="perTbcSi">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalTuberculosis" value="2" id="perTbcNo" @(((int?)Model?.PersonalTuberculosis) == 2 ? "checked" : "") />
+                    <label class="form-check-label" for="perTbcNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalTuberculosis" value="3" id="perTbcNc" @(((int?)Model?.PersonalTuberculosis) == 3 ? "checked" : "") />
+                    <label class="form-check-label" for="perTbcNc">NC</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIABETES con tipos inline -->
+        <div class="form-group">
+            <label>DIABETES</label>
+            <div class="d-flex gap-3 align-items-center">
+                <div class="d-flex gap-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="PersonalDiabetes" value="1" id="perDiabSi" @(((int?)Model?.PersonalDiabetes) == 1 ? "checked" : "") />
+                        <label class="form-check-label" for="perDiabSi">Si</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="PersonalDiabetes" value="2" id="perDiabNo" @(((int?)Model?.PersonalDiabetes) == 2 ? "checked" : "") />
+                        <label class="form-check-label" for="perDiabNo">No</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="PersonalDiabetes" value="3" id="perDiabNc" @(((int?)Model?.PersonalDiabetes) == 3 ? "checked" : "") />
+                        <label class="form-check-label" for="perDiabNc">NC</label>
+                    </div>
+                </div>
+                <!-- Tipo de diabetes inline al lado -->
+                <div class="d-flex gap-2 align-items-center" style="border-left: 1px solid #ccc; padding-left: 10px;">
+                    <label class="small mb-0">Tipo:</label>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input" type="radio" name="PersonalDiabetesType" value="1" id="perDiabType1" @(((int?)Model?.PersonalDiabetesType) == 1 ? "checked" : "") />
+                        <label class="form-check-label" for="perDiabType1">I</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input" type="radio" name="PersonalDiabetesType" value="2" id="perDiabType2" @(((int?)Model?.PersonalDiabetesType) == 2 ? "checked" : "") />
+                        <label class="form-check-label" for="perDiabType2">II</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input" type="radio" name="PersonalDiabetesType" value="3" id="perDiabTypeGest" @(((int?)Model?.PersonalDiabetesType) == 3 ? "checked" : "") />
+                        <label class="form-check-label" for="perDiabTypeGest">Gest.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HIPERTENSIÓN -->
+        <div class="form-group">
+            <label>HIPERTENSIÓN</label>
+            <div class="d-flex gap-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalHypertension" value="1" id="perHipSi" @(((int?)Model?.PersonalHypertension) == 1 ? "checked" : "") />
+                    <label class="form-check-label" for="perHipSi">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalHypertension" value="2" id="perHipNo" @(((int?)Model?.PersonalHypertension) == 2 ? "checked" : "") />
+                    <label class="form-check-label" for="perHipNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalHypertension" value="3" id="perHipNc" @(((int?)Model?.PersonalHypertension) == 3 ? "checked" : "") />
+                    <label class="form-check-label" for="perHipNc">NC</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- PREECLAMPSIA -->
+        <div class="form-group">
+            <label>PREECLAMPSIA</label>
+            <div class="d-flex gap-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalPreeclampsia" value="1" id="perPreSi" @(((int?)Model?.PersonalPreeclampsia) == 1 ? "checked" : "") />
+                    <label class="form-check-label" for="perPreSi">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalPreeclampsia" value="2" id="perPreNo" @(((int?)Model?.PersonalPreeclampsia) == 2 ? "checked" : "") />
+                    <label class="form-check-label" for="perPreNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalPreeclampsia" value="3" id="perPreNc" @(((int?)Model?.PersonalPreeclampsia) == 3 ? "checked" : "") />
+                    <label class="form-check-label" for="perPreNc">NC</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- ECLAMPSIA -->
+        <div class="form-group">
+            <label>ECLAMPSIA</label>
+            <div class="d-flex gap-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalEclampsia" value="1" id="perEclSi" @(((int?)Model?.PersonalEclampsia) == 1 ? "checked" : "") />
+                    <label class="form-check-label" for="perEclSi">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalEclampsia" value="2" id="perEclNo" @(((int?)Model?.PersonalEclampsia) == 2 ? "checked" : "") />
+                    <label class="form-check-label" for="perEclNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalEclampsia" value="3" id="perEclNc" @(((int?)Model?.PersonalEclampsia) == 3 ? "checked" : "") />
+                    <label class="form-check-label" for="perEclNc">NC</label>
+                </div>
+            </div>
+        </div>
+         
+        <!-- OTRA CONDICIÓN MÉDICA GRAVE -->
+        <div class="form-group">
+            <label>OTRA COND. MÉD. GRAVE</label>
+            <div class="d-flex gap-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalOtherSeriousMedicalCondition" value="1" id="perOtraSi" @(((int?)Model?.PersonalOtherSeriousMedicalCondition) == 1 ? "checked" : "") />
+                    <label class="form-check-label" for="perOtraSi">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalOtherSeriousMedicalCondition" value="2" id="perOtraNo" @(((int?)Model?.PersonalOtherSeriousMedicalCondition) == 2 ? "checked" : "") />
+                    <label class="form-check-label" for="perOtraNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalOtherSeriousMedicalCondition" value="3" id="perOtraNc" @(((int?)Model?.PersonalOtherSeriousMedicalCondition) == 3 ? "checked" : "") />
+                    <label class="form-check-label" for="perOtraNc">NC</label>
+                </div>
+            </div>
+            <!-- Campo de detalles (siempre visible) -->
+            <div class="mt-2" id="perOtherDetailsContainer">
+                <input type="text" class="form-control form-control-sm" asp-for="PersonalOtherConditionDetails" placeholder="Especificar..." />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+          <!-- CIR GÉNITO-URINARIA -->
+        <div class="form-group">
+            <label>CIR. GÉNITO-URINARIA</label>
+            <div class="d-flex gap-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalSurgery" value="1" id="perCirSi" @(((int?)Model?.PersonalSurgery) == 1 ? "checked" : "") />
+                    <label class="form-check-label" for="perCirSi">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalSurgery" value="2" id="perCirNo" @(((int?)Model?.PersonalSurgery) == 2 ? "checked" : "") />
+                    <label class="form-check-label" for="perCirNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalSurgery" value="3" id="perCirNc" @(((int?)Model?.PersonalSurgery) == 3 ? "checked" : "") />
+                    <label class="form-check-label" for="perCirNc">NC</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- INFERTILIDAD -->
+        <div class="form-group">
+            <label>INFERTILIDAD</label>
+            <div class="d-flex gap-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalInfertility" value="1" id="perInfSi" @(((int?)Model?.PersonalInfertility) == 1 ? "checked" : "") />
+                    <label class="form-check-label" for="perInfSi">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalInfertility" value="2" id="perInfNo" @(((int?)Model?.PersonalInfertility) == 2 ? "checked" : "") />
+                    <label class="form-check-label" for="perInfNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalInfertility" value="3" id="perInfNc" @(((int?)Model?.PersonalInfertility) == 3 ? "checked" : "") />
+                    <label class="form-check-label" for="perInfNc">NC</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARDIOPATÍA -->
+        <div class="form-group">
+            <label>CARDIOPATÍA</label>
+            <div class="d-flex gap-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalHeartDisease" value="1" id="perCardSi" @(((int?)Model?.PersonalHeartDisease) == 1 ? "checked" : "") />
+                    <label class="form-check-label" for="perCardSi">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalHeartDisease" value="2" id="perCardNo" @(((int?)Model?.PersonalHeartDisease) == 2 ? "checked" : "") />
+                    <label class="form-check-label" for="perCardNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalHeartDisease" value="3" id="perCardNc" @(((int?)Model?.PersonalHeartDisease) == 3 ? "checked" : "") />
+                    <label class="form-check-label" for="perCardNc">NC</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEFROPATÍA -->
+        <div class="form-group">
+            <label>NEFROPATÍA</label>
+            <div class="d-flex gap-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalNephropathy" value="1" id="perNefrSi" @(((int?)Model?.PersonalNephropathy) == 1 ? "checked" : "") />
+                    <label class="form-check-label" for="perNefrSi">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalNephropathy" value="2" id="perNefrNo" @(((int?)Model?.PersonalNephropathy) == 2 ? "checked" : "") />
+                    <label class="form-check-label" for="perNefrNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalNephropathy" value="3" id="perNefrNc" @(((int?)Model?.PersonalNephropathy) == 3 ? "checked" : "") />
+                    <label class="form-check-label" for="perNefrNc">NC</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIOLENCIA -->
+        <div class="form-group">
+            <label>VIOLENCIA</label>
+            <div class="d-flex gap-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalViolence" value="1" id="perViolSi" @(((int?)Model?.PersonalViolence) == 1 ? "checked" : "") />
+                    <label class="form-check-label" for="perViolSi">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalViolence" value="2" id="perViolNo" @(((int?)Model?.PersonalViolence) == 2 ? "checked" : "") />
+                    <label class="form-check-label" for="perViolNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalViolence" value="3" id="perViolNc" @(((int?)Model?.PersonalViolence) == 3 ? "checked" : "") />
+                    <label class="form-check-label" for="perViolNc">NC</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIH+ -->
+        <div class="form-group">
+            <label>VIH+</label>
+            <div class="d-flex gap-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalHIVPositive" value="1" id="perVihSi" @(((int?)Model?.PersonalHIVPositive) == 1 ? "checked" : "") />
+                    <label class="form-check-label" for="perVihSi">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalHIVPositive" value="2" id="perVihNo" @(((int?)Model?.PersonalHIVPositive) == 2 ? "checked" : "") />
+                    <label class="form-check-label" for="perVihNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="PersonalHIVPositive" value="3" id="perVihNc" @(((int?)Model?.PersonalHIVPositive) == 3 ? "checked" : "") />
+                    <label class="form-check-label" for="perVihNc">NC</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+.form-group label {
+    font-weight: bold;
+    font-size: 11px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.form-check-inline {
+    margin-right: 10px;
+}
+
+.form-check-input {
+    margin-right: 5px;
+}
+
+
+.form-group:has(input[name*="Diabetes"]),
+.form-group:has(input[name*="Hypertension"]),
+.form-group:has(input[name*="HIVPositive"]) {
+    background-color: #fff3cd;
+    padding: 8px;
+    border-radius: 4px;
+    border-left: 4px solid #ffc107;
+}
+</style>

@@ -1,0 +1,184 @@
+@* C:\dev\SolMedProd\SolMed\Web\Views\PerinatalHistory\_ContraceptionInformation.cshtml *@
+@model Domain.ContraceptionInformation
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="font-weight-bold">CONSEJERIA</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="OralCounseling" id="oralCounseling"
+                               @(Model?.OralCounseling == true ? "checked" : "") />
+                        <label class="form-check-label" for="oralCounseling">Oral</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="WrittenCounseling" id="writtenCounseling"
+                               @(Model?.WrittenCounseling == true ? "checked" : "") />
+                        <label class="form-check-label" for="writtenCounseling">Escrita</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="NoCounseling" id="noCounseling"
+                               @(Model?.NoCounseling == true ? "checked" : "") />
+                        <label class="form-check-label" for="noCounseling">Ninguna</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="font-weight-bold">Inicio MAC</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input nullable-radio" type="radio" name="ContraceptionMethodInitiated" value="true" id="contraceptionMethodInitiatedYes"
+                               @(Model?.ContraceptionMethodInitiated == true ? "checked" : "") />
+                        <label class="form-check-label" for="contraceptionMethodInitiatedYes">Si</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input nullable-radio" type="radio" name="ContraceptionMethodInitiated" value="false" id="contraceptionMethodInitiatedNo"
+                               @(Model?.ContraceptionMethodInitiated == false ? "checked" : "") />
+                        <label class="form-check-label" for="contraceptionMethodInitiatedNo">No</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="font-weight-bold">Responsable</label>
+            <input asp-for="ResponsiblePerson" type="text" class="form-control form-control-sm" placeholder="Nombre del responsable" />
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Metodo</th>
+                        <th class="text-center" style="width: 80px;">Pref.</th>
+                        <th class="text-center" style="width: 80px;">Acced.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ACO "pildora"</td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="OralContraceptivesPreferred" id="oralContraceptivesPreferred"
+                                   @(Model?.OralContraceptivesPreferred == true ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="OralContraceptivesAccepted" id="oralContraceptivesAccepted"
+                                   @(Model?.OralContraceptivesAccepted == true ? "checked" : "") />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Otro hormonal (anillo vaginal, parche, AE)</td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="OtherHormonalMethodsPreferred" id="otherHormonalMethodsPreferred"
+                                   @(Model?.OtherHormonalMethodsPreferred == true ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="OtherHormonalMethodsAccepted" id="otherHormonalMethodsAccepted"
+                                   @(Model?.OtherHormonalMethodsAccepted == true ? "checked" : "") />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DIU</td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="IUDPreferred" id="iudPreferred"
+                                   @(Model?.IUDPreferred == true ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="IUDAccepted" id="iudAccepted"
+                                   @(Model?.IUDAccepted == true ? "checked" : "") />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Inyectable</td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="InjectablePreferred" id="injectablePreferred"
+                                   @(Model?.InjectablePreferred == true ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="InjectableAccepted" id="injectableAccepted"
+                                   @(Model?.InjectableAccepted == true ? "checked" : "") />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Implante</td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="ImplantPreferred" id="implantPreferred"
+                                   @(Model?.ImplantPreferred == true ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="ImplantAccepted" id="implantAccepted"
+                                   @(Model?.ImplantAccepted == true ? "checked" : "") />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Barrera</td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="BarrierPreferred" id="barrierPreferred"
+                                   @(Model?.BarrierPreferred == true ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="BarrierAccepted" id="barrierAccepted"
+                                   @(Model?.BarrierAccepted == true ? "checked" : "") />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Condon</td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="CondomPreferred" id="condomPreferred"
+                                   @(Model?.CondomPreferred == true ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="CondomAccepted" id="condomAccepted"
+                                   @(Model?.CondomAccepted == true ? "checked" : "") />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>EQV fem.</td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="FemaleSterilizationPreferred" id="femaleSterilizationPreferred"
+                                   @(Model?.FemaleSterilizationPreferred == true ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="FemaleSterilizationAccepted" id="femaleSterilizationAccepted"
+                                   @(Model?.FemaleSterilizationAccepted == true ? "checked" : "") />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>EQV masc.</td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="MaleSterilizationPreferred" id="maleSterilizationPreferred"
+                                   @(Model?.MaleSterilizationPreferred == true ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="MaleSterilizationAccepted" id="maleSterilizationAccepted"
+                                   @(Model?.MaleSterilizationAccepted == true ? "checked" : "") />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Natural (abstinencia)</td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="NaturalMethodPreferred" id="naturalMethodPreferred"
+                                   @(Model?.NaturalMethodPreferred == true ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input class="form-check-input" type="checkbox" name="NaturalMethodAccepted" id="naturalMethodAccepted"
+                                   @(Model?.NaturalMethodAccepted == true ? "checked" : "") />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+@{
+    var showBillingToggle = ViewBag.ShowBillingToggle ?? false;
+}
+
+@if (showBillingToggle)
+{
+    <div class="row">
+        <div class="col-12 mb-5">
+            <div class="text-center">
+                <div class="btn-group" role="group" aria-label="Periodo de facturación">
+                    <button type="button" class="btn btn-outline-primary active billing-toggle" data-billing="monthly">Facturación Mensual</button>
+                    <button type="button" class="btn btn-outline-primary billing-toggle" data-billing="yearly">Facturación Anual <span class="badge bg-success ms-2">Ahorra 20%</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row g-4">
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="price-card" data-plan="basico">
+            <h3 class="price-title">Plan Básico</h3>
+            <div class="pricing-container">
+                <div class="monthly-pricing">
+                    <div class="price-amount">$49</div>
+                    <span class="price-period">/ mes</span>
+                </div>
+                <div class="yearly-pricing" style="display: none;">
+                    <div class="price-amount">$470</div>
+                    <span class="price-period">/ año</span>
+                    <small class="d-block text-muted mt-1">$588 - 20% descuento</small>
+                </div>
+            </div>
+            <ul class="price-features">
+                <li><i class="fas fa-check"></i> Acceso a la aplicación</li>
+                <li><i class="fas fa-check"></i> Agenda y citas</li>
+                <li><i class="fas fa-check"></i> Historia clínica básica</li>
+                <li><i class="fas fa-check"></i> Soporte por email</li>
+                <li class="disabled"><i class="fas fa-times"></i> Facturación </li>
+                <li class="disabled"><i class="fas fa-times"></i> Integración con laboratorios</li>
+                <li class="disabled"><i class="fas fa-times"></i> Módulos especializados</li>
+            </ul>
+            <a href="/Contact?plan=Plan Básico - $49/mes" class="btn btn-primary w-100 plan-select-btn" data-plan-name="Plan Básico" data-monthly-price="$49/mes" data-yearly-price="$470/año">Seleccionar Plan</a>
+        </div>
+    </div>
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="price-card popular" data-plan="estandar">
+            <div class="popular-badge">Más Popular</div>
+            <h3 class="price-title">Plan Estándar</h3>
+            <div class="pricing-container">
+                <div class="monthly-pricing">
+                    <div class="price-amount">$99</div>
+                    <span class="price-period">/ mes</span>
+                </div>
+                <div class="yearly-pricing" style="display: none;">
+                    <div class="price-amount">$950</div>
+                    <span class="price-period">/ año</span>
+                    <small class="d-block text-muted mt-1">$1,188 - 20% descuento</small>
+                </div>
+            </div>
+            <ul class="price-features">
+                <li><i class="fas fa-check"></i> Acceso a la aplicación</li>
+                <li><i class="fas fa-check"></i> Agenda y citas</li>
+                <li><i class="fas fa-check"></i> Historia clínica completa</li>
+                <li><i class="fas fa-check"></i> Soporte 24/7</li>
+                <li><i class="fas fa-check"></i> Facturación </li>
+                <li><i class="fas fa-check"></i> Integración con laboratorios</li>
+                <li class="disabled"><i class="fas fa-times"></i> Módulos especializados</li>
+            </ul>
+            <a href="/Contact?plan=Plan Estándar - $99/mes" class="btn btn-primary w-100 plan-select-btn" data-plan-name="Plan Estándar" data-monthly-price="$99/mes" data-yearly-price="$950/año">Seleccionar Plan</a>
+        </div>
+    </div>
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="price-card" data-plan="premium">
+            <h3 class="price-title">Plan Premium</h3>
+            <div class="pricing-container">
+                <div class="monthly-pricing">
+                    <div class="price-amount">$149</div>
+                    <span class="price-period">/ mes</span>
+                </div>
+                <div class="yearly-pricing" style="display: none;">
+                    <div class="price-amount">$1,430</div>
+                    <span class="price-period">/ año</span>
+                    <small class="d-block text-muted mt-1">$1,788 - 20% descuento</small>
+                </div>
+            </div>
+            <ul class="price-features">
+                <li><i class="fas fa-check"></i> Acceso a la aplicación</li>
+                <li><i class="fas fa-check"></i> Agenda y citas</li>
+                <li><i class="fas fa-check"></i> Historia clínica completa</li>
+                <li><i class="fas fa-check"></i> Soporte 24/7 prioritario</li>
+                <li><i class="fas fa-check"></i> Facturación </li>
+                <li><i class="fas fa-check"></i> Integración con laboratorios</li>
+                <li><i class="fas fa-check"></i> Módulos especializados</li>
+            </ul>
+            <a href="/Contact?plan=Plan Premium - $149/mes" class="btn btn-primary w-100 plan-select-btn" data-plan-name="Plan Premium" data-monthly-price="$149/mes" data-yearly-price="$1,430/año">Seleccionar Plan</a>
+        </div>
+    </div>
+</div>

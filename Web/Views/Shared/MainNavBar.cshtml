@@ -1,0 +1,58 @@
+﻿<div class="app-header-menu app-header-mobile-drawer align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="app-header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="{default: 'append', lg: 'prepend'}" data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}">
+    <div class="menu menu-rounded menu-column menu-lg-row align-items-center my-0 my-lg-0 px-2 px-lg-0" id="kt_app_header_menu" data-kt-menu="true">
+        <div class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+            <a class="menu-link py-3" href="@Url.Action("Web", "Portal")">
+                <span class="menu-title">Inicio</span>
+            </a>
+        </div>
+        <div class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+            <a class="menu-link py-3" href="@Url.Action("Index", "Appointments")">
+                <span class="menu-title">Citas</span>
+            </a>
+        </div>
+        <div class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+            <a class="menu-link py-3" href="@Url.Action("Index", "Turns")">
+                <span class="menu-title">Turnos</span>
+            </a>
+        </div>
+        <div class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+            <a class="menu-link py-3" href="@Url.Action("Index", "Patients")">
+                <span class="menu-title">Pacientes</span>
+            </a>
+        </div>
+        <div class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+            <a class="menu-link py-3" href="@Url.Action("SalesAndInventories", "SalesAndInventories")">
+                <span class="menu-title">Facturación</span>
+            </a>
+        </div>
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+                <a class="menu-link py-3" href="@Url.Action("Index", "AuthorPlans")">
+                    <span class="menu-title">Planes</span>
+                </a>
+            </div>
+            <div class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+                <a class="menu-link py-3" href="@Url.Action("Index", "TenantProducts")">
+                    <span class="menu-title">Servicios del Tenant</span>
+                </a>
+            </div>
+            <div class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+                <a class="menu-link py-3" href="@Url.Action("Index", "LiquidationPayments")">
+                    <span class="menu-title">Pagos de Liquidaciones</span>
+                </a>
+            </div>
+            <div class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+                <a class="menu-link py-3" href="@Url.Action("UsersIndex", "Manage")">
+                    <span class="menu-title">Usuarios de Sistema</span>
+                </a>
+            </div>
+            <div class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+                <a class="menu-link py-3" href="@Url.Action("Index", "Authors")">
+                    <span class="menu-title">Clientes (Medicos y/o Centros)</span>
+                </a>
+            </div>
+
+        }
+    </div>
+</div>

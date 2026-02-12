@@ -1,0 +1,217 @@
+
+
+
+
+
+.inventory-menu-item img,
+.menu-item-card img,
+.icon-standardized {
+    
+    filter:
+        brightness(0)           
+        saturate(100%)          
+        invert(54%)             
+        sepia(98%)              
+        saturate(1000%)         
+        hue-rotate(180deg);     
+
+    
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+
+.inventory-menu-item:hover img,
+.menu-item-card:hover img {
+    filter:
+        brightness(0)
+        saturate(100%)
+        invert(44%)
+        sepia(98%)
+        saturate(1500%)
+        hue-rotate(180deg);
+    transform: scale(1.05);
+}
+
+
+
+
+.icon-primary {
+    filter:
+        brightness(0) saturate(100%)
+        invert(54%) sepia(98%) saturate(1000%) hue-rotate(180deg);
+}
+
+
+.icon-success,
+.menu-item-card[href*="Purchase"] img,
+.menu-item-card[href*="IndexPurchases"] img {
+    filter:
+        brightness(0) saturate(100%)
+        invert(56%) sepia(65%) saturate(540%) hue-rotate(93deg) !important;
+}
+
+
+.icon-danger,
+.menu-item-card[href*="Exit"] img,
+.menu-item-card[href*="IndexExitInventories"] img {
+    filter:
+        brightness(0) saturate(100%)
+        invert(36%) sepia(98%) saturate(2000%) hue-rotate(343deg) !important;
+}
+
+
+.icon-warning,
+.menu-item-card[href*="IndexOrders"] img {
+    filter:
+        brightness(0) saturate(100%)
+        invert(74%) sepia(48%) saturate(1000%) hue-rotate(359deg) !important;
+}
+
+
+.icon-purple,
+.menu-item-card[href*="Liquidation"] img {
+    filter:
+        brightness(0) saturate(100%)
+        invert(36%) sepia(72%) saturate(2000%) hue-rotate(250deg) !important;
+}
+
+
+.icon-info,
+.menu-item-card[href*="Inventories"] img {
+    filter:
+        brightness(0) saturate(100%)
+        invert(64%) sepia(56%) saturate(1200%) hue-rotate(150deg) !important;
+}
+
+
+
+
+img[src*="category"],
+img[src*="category2"] {
+    filter:
+        brightness(0) saturate(100%)
+        invert(47%) sepia(95%) saturate(1500%) hue-rotate(180deg) !important;
+}
+
+
+img[src*="unids"] {
+    filter:
+        brightness(0) saturate(100%)
+        invert(54%) sepia(72%) saturate(700%) hue-rotate(170deg) !important;
+}
+
+
+img[src*="suplier"],
+img[src*="supplier"],
+img[src*="deliver"] {
+    filter:
+        brightness(0) saturate(100%)
+        invert(62%) sepia(76%) saturate(800%) hue-rotate(348deg) !important;
+}
+
+
+img[src*="packing"],
+img[src*="catalogo"],
+img[src*="product"] {
+    filter:
+        brightness(0) saturate(100%)
+        invert(50%) sepia(90%) saturate(1200%) hue-rotate(180deg) !important;
+}
+
+
+img[src*="cashgrow"],
+img[src*="cash"],
+img[src*="money"] {
+    filter:
+        brightness(0) saturate(100%)
+        invert(58%) sepia(50%) saturate(600%) hue-rotate(90deg) !important;
+}
+
+
+img[src*="cashregister"] {
+    filter:
+        brightness(0) saturate(100%)
+        invert(35%) sepia(90%) saturate(1500%) hue-rotate(200deg) !important;
+}
+
+
+img[src*="invoice"],
+img[src*="bill"] {
+    filter:
+        brightness(0) saturate(100%)
+        invert(40%) sepia(80%) saturate(1200%) hue-rotate(260deg) !important;
+}
+
+
+img[src*="medicalorder"] {
+    filter:
+        brightness(0) saturate(100%)
+        invert(62%) sepia(44%) saturate(800%) hue-rotate(155deg) !important;
+}
+
+
+img[src*="patient"],
+img[src*="clients"],
+img[src*="people"] {
+    filter:
+        brightness(0) saturate(100%)
+        invert(52%) sepia(85%) saturate(1100%) hue-rotate(180deg) !important;
+}
+
+
+
+
+.icon-container-shadowed {
+    border-radius: 12px;
+    padding: 10px;
+    background: linear-gradient(145deg, #f0f4f8, #ffffff);
+    box-shadow:
+        5px 5px 10px rgba(0, 0, 0, 0.05),
+        -5px -5px 10px rgba(255, 255, 255, 0.8);
+}
+
+
+.icon-circle {
+    background: rgba(3, 177, 252, 0.1);
+    border-radius: 50%;
+    padding: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+@media (max-width: 768px) {
+    .inventory-menu-item img,
+    .menu-item-card img {
+        width: 48px !important;
+        height: 48px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .inventory-menu-item img,
+    .menu-item-card img {
+        width: 40px !important;
+        height: 40px !important;
+    }
+}
+
+
+
+
+.icon-no-filter {
+    filter: none !important;
+}
+
+
+.icon-grayscale {
+    filter: grayscale(100%) !important;
+}
+
+
+.icon-disabled {
+    filter: grayscale(100%) opacity(50%) !important;
+    pointer-events: none;
+}

@@ -1,0 +1,139 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perinatal Form Test - Requirement #1</title>
+    <link rel="stylesheet" href="~/css/perinatal-form1.css" />
+    <link rel="stylesheet" href="~/css/perinatal-form1-fixes.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Requirement #1 Test: YES/NO Interaction</h1>
+        
+        <div class="instructions">
+            <h3>Testing Instructions:</h3>
+            <ul>
+                <li>✓ Yellow backgrounds should be STATIC on "SI" (YES) side</li>
+                <li>✓ Checkmarks appear when you select an option</li>
+                <li>✓ Only one checkmark per field</li>
+                <li>✓ Yellow never disappears</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>Test Field 1: Tuberculosis</h3>
+            <div class="yes-no-group">
+                <label class="yes-no-label">
+                    <input type="radio" name="test1" value="yes" class="yes-no-radio">
+                    <span class="yes-no-box yes-box">SI</span>
+                </label>
+                <label class="yes-no-label">
+                    <input type="radio" name="test1" value="no" class="yes-no-radio">
+                    <span class="yes-no-box no-box">NO</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test Field 2: Diabetes</h3>
+            <div class="yes-no-group">
+                <label class="yes-no-label">
+                    <input type="radio" name="test2" value="yes" class="yes-no-radio">
+                    <span class="yes-no-box yes-box">SI</span>
+                </label>
+                <label class="yes-no-label">
+                    <input type="radio" name="test2" value="no" class="yes-no-radio">
+                    <span class="yes-no-box no-box">NO</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test Field 3: Hypertension</h3>
+            <div class="yes-no-group">
+                <label class="yes-no-label">
+                    <input type="radio" name="test3" value="yes" class="yes-no-radio">
+                    <span class="yes-no-box yes-box">SI</span>
+                </label>
+                <label class="yes-no-label">
+                    <input type="radio" name="test3" value="no" class="yes-no-radio">
+                    <span class="yes-no-box no-box">NO</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test Field 4: Preeclampsia</h3>
+            <div class="yes-no-group">
+                <label class="yes-no-label">
+                    <input type="radio" name="test4" value="yes" class="yes-no-radio">
+                    <span class="yes-no-box yes-box">SI</span>
+                </label>
+                <label class="yes-no-label">
+                    <input type="radio" name="test4" value="no" class="yes-no-radio">
+                    <span class="yes-no-box no-box">NO</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test Field 5: Eclampsia</h3>
+            <div class="yes-no-group">
+                <label class="yes-no-label">
+                    <input type="radio" name="test5" value="yes" class="yes-no-radio">
+                    <span class="yes-no-box yes-box">SI</span>
+                </label>
+                <label class="yes-no-label">
+                    <input type="radio" name="test5" value="no" class="yes-no-radio">
+                    <span class="yes-no-box no-box">NO</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/perinatal/print/print-form-controls.js"></script>
+    <script>
+        // Initialize radio groups to ensure only one selection per group
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof initializeRadioGroups === 'function') {
+                initializeRadioGroups();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+﻿@* Views/Portal/Index.cshtml *@
+@model Web.Models.LandingViewModel
+@using Web.Extensions
+@{
+    ViewBag.Title = Context.Request.GetDomainTitle();
+    Layout = "~/Views/Shared/_LandingLayout.cshtml";
+}
+
+@if (Context.Request.IsFacturexDomain())
+{
+    <partial name="_FacturexContent" model="Model" />
+}
+else
+{
+    <partial name="_SolMedContent" model="Model" />
+}
+ 
+
+@section scripts {
+        <script>
+            
+            $(document).ready(function() {
+                
+                if (window.location.pathname !== '/d') {
+                    showSpecialOfferPopup();
+                }
+            });
+
+            function showSpecialOfferPopup() {
+                
+                const popupDecision = localStorage.getItem('specialOfferDecision');
+
+                
+                if (!popupDecision) {
+                    setTimeout(function() {
+                        Swal.fire({
+                            title: '🎯 ¡Oferta Exclusiva!',
+                            html: `
+                                <div class="text-start">
+                                    <div class="bg-success text-white p-3 rounded mb-3">
+                                        <h4 class="mb-2 text-white">50% de descuento en tu primer mes de suscripción</h4>
+                                        <p class="mb-1 text-white">¡Transforma tu consulta médica hoy mismo!</p>
+                                        <div class="mt-2">
+                                            <small class="bg-warning text-dark px-2 py-1 rounded">
+                                                <i class="fas fa-clock"></i> ¡Oferta limitada!
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mb-3">
+                                        <p><strong>Código promocional:</strong></p>
+                                        <div class="bg-light p-2 rounded">
+                                            <code style="font-size: 1.2em; color: #dc3545;">SOLMED50</code>
+                                        </div>
+                                    </div>
+                                    <p class="text-center mb-2">• Acceso completo a todas las funcionalidades</p>
+                                    <p class="text-center mb-2">• Implementación gratuita en 24 horas</p>
+                                    <p class="text-center">• Soporte técnico incluido</p>
+                                </div>
+                            `,
+                            icon: 'success',
+                            showCancelButton: true,
+                            confirmButtonText: '🎯 Aprovechar Oferta',
+                            cancelButtonText: 'Tal vez más tarde',
+                            confirmButtonColor: '#28a745',
+                            cancelButtonColor: '#6c757d',
+                            width: '600px',
+                            backdrop: true,
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                
+                                localStorage.setItem('specialOfferDecision', 'accepted');
+                                window.location.href = '/Contact?plan=Plan%20Básico%20-%20$49/mes&promo=SOLMED50';
+                            } else if (result.isDismissed) {
+                                
+                                localStorage.setItem('specialOfferDecision', 'cancelled');
+                            }
+                        });
+                    }, 3000); 
+                }
+            }
+            
+            
+            $(document).ready(function() {
+                $('#contactForm').on('submit', function(e) {
+                    e.preventDefault();
+
+                    var formData = {
+                        first_name: $('#first_name').val(),
+                        last_name: $('#last_name').val(),
+                        email: $('#email').val(),
+                        phone: $('#phone').val(),
+                        aditionalInfo: $('#aditionalInfo').val()
+                    };
+
+                    $.ajax({
+                        url: '/Portal/SendContactInfo',
+                        type: 'POST',
+                        data: JSON.stringify(formData),
+                        contentType: 'application/json',
+                        success: function(response) {
+                            if (response.status) {
+                                Swal.fire({
+                                    title: '¡Gracias!',
+                                    text: 'Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo a la brevedad.',
+                                    icon: 'success',
+                                    confirmButtonText: 'Aceptar',
+                                    confirmButtonColor: '#0072CE'
+                                });
+                                $('#contactForm')[0].reset();
+                            } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: 'Ha ocurrido un error al enviar tu mensaje. Por favor, intenta nuevamente.',
+                                    icon: 'error',
+                                    confirmButtonText: 'Aceptar',
+                                    confirmButtonColor: '#0072CE'
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'Ha ocurrido un error al enviar tu mensaje. Por favor, intenta nuevamente.',
+                                icon: 'error',
+                                confirmButtonText: 'Aceptar',
+                                confirmButtonColor: '#0072CE'
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
+}

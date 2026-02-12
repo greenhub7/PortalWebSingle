@@ -1,0 +1,680 @@
+
+
+
+.medical-table-wrapper {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-medical);
+  margin-bottom: var(--space-2xl);
+  position: relative;
+}
+
+.medical-table-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--medical-primary), var(--medical-secondary), var(--medical-accent));
+}
+
+
+.medical-table-header {
+  padding: var(--space-lg) var(--space-xl);
+  background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-muted) 100%);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.medical-table-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.medical-table-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.medical-table-search {
+  position: relative;
+  min-width: 250px;
+}
+
+.medical-table-search input {
+  width: 100%;
+  padding: var(--space-md) var(--space-lg) var(--space-md) var(--space-4xl);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  transition: all var(--transition-base);
+}
+
+.medical-table-search input:focus {
+  outline: none;
+  border-color: var(--input-border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.medical-table-search-icon {
+  position: absolute;
+  left: var(--space-md);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+}
+
+
+.medical-table-filter {
+  position: relative;
+}
+
+.medical-table-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  min-width: 120px;
+}
+
+.medical-table-filter-btn:hover {
+  border-color: var(--border-emphasis);
+  background: var(--input-bg-focus);
+}
+
+.medical-table-filter-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-medical-lg);
+  z-index: 1000;
+  margin-top: var(--space-xs);
+  display: none;
+}
+
+.medical-table-filter.active .medical-table-filter-dropdown {
+  display: block;
+}
+
+.medical-table-filter-option {
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.medical-table-filter-option:hover {
+  background: var(--bg-muted);
+}
+
+.medical-table-filter-option.selected {
+  background: var(--medical-primary);
+  color: var(--text-on-primary);
+}
+
+
+.medical-table-container {
+  overflow-x: auto;
+  background: var(--bg-surface);
+}
+
+.medical-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+  background: var(--bg-surface);
+}
+
+
+.medical-table thead {
+  background: linear-gradient(135deg, var(--medical-primary), var(--medical-secondary));
+  color: var(--text-on-primary);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.medical-table th {
+  padding: var(--space-lg) var(--space-xl);
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  border-bottom: 2px solid var(--medical-accent);
+  position: relative;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+}
+
+.medical-table th:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.medical-table th.sortable::after {
+  content: '';
+  position: absolute;
+  right: var(--space-md);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid rgba(255, 255, 255, 0.5);
+}
+
+.medical-table th.sortable.asc::after {
+  border-bottom: 4px solid var(--text-on-primary);
+  border-top: none;
+}
+
+.medical-table th.sortable.desc::after {
+  border-top: 4px solid var(--text-on-primary);
+  border-bottom: none;
+}
+
+.medical-table th:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 25%;
+  bottom: 25%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+
+.medical-table tbody tr {
+  background: var(--bg-surface);
+  transition: all var(--transition-base);
+  border-bottom: 1px solid var(--border-muted);
+}
+
+.medical-table tbody tr:nth-child(even) {
+  background: var(--bg-muted);
+}
+
+.medical-table tbody tr:hover {
+  background: var(--bg-surface-hover);
+  transform: translateX(2px);
+  box-shadow: var(--shadow-medical-sm);
+}
+
+.medical-table td {
+  padding: var(--space-lg) var(--space-xl);
+  color: var(--text-primary);
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border-muted);
+  position: relative;
+}
+
+.medical-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+.medical-table .cell-numeric {
+  text-align: right;
+  font-weight: var(--font-weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.medical-table .cell-center {
+  text-align: center;
+}
+
+.medical-table .cell-date {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.medical-table .cell-status {
+  text-align: center;
+}
+
+.medical-table .cell-actions {
+  text-align: center;
+  white-space: nowrap;
+}
+
+
+.medical-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  white-space: nowrap;
+}
+
+.medical-status-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.medical-status-badge.critical {
+  background: var(--status-critical-bg);
+  color: var(--status-critical);
+  border: 1px solid var(--status-critical);
+}
+
+.medical-status-badge.critical::before {
+  background: var(--status-critical);
+}
+
+.medical-status-badge.urgent {
+  background: var(--status-urgent-bg);
+  color: var(--status-urgent);
+  border: 1px solid var(--status-urgent);
+}
+
+.medical-status-badge.urgent::before {
+  background: var(--status-urgent);
+}
+
+.medical-status-badge.stable {
+  background: var(--status-stable-bg);
+  color: var(--status-stable);
+  border: 1px solid var(--status-stable);
+}
+
+.medical-status-badge.stable::before {
+  background: var(--status-stable);
+}
+
+.medical-status-badge.pending {
+  background: var(--status-pending-bg);
+  color: var(--status-pending);
+  border: 1px solid var(--status-pending);
+}
+
+.medical-status-badge.pending::before {
+  background: var(--status-pending);
+}
+
+
+.medical-table .row-critical {
+  border-left: 4px solid var(--status-critical);
+  background: var(--status-critical-bg) !important;
+}
+
+.medical-table .row-urgent {
+  border-left: 4px solid var(--status-urgent);
+  background: var(--status-urgent-bg) !important;
+}
+
+.medical-table .row-stable {
+  border-left: 4px solid var(--status-stable);
+  background: var(--status-stable-bg) !important;
+}
+
+.medical-table .row-pending {
+  border-left: 4px solid var(--status-pending);
+  background: var(--status-pending-bg) !important;
+}
+
+
+.medical-table-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  margin: 0 var(--space-xs);
+}
+
+.medical-table-action-btn:hover {
+  background: var(--medical-primary);
+  color: var(--text-on-primary);
+  border-color: var(--medical-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medical-sm);
+}
+
+.medical-table-action-btn.edit {
+  color: var(--medical-primary);
+  border-color: var(--medical-primary);
+}
+
+.medical-table-action-btn.edit:hover {
+  background: var(--medical-primary);
+  color: var(--text-on-primary);
+}
+
+.medical-table-action-btn.delete {
+  color: var(--status-critical);
+  border-color: var(--status-critical);
+}
+
+.medical-table-action-btn.delete:hover {
+  background: var(--status-critical);
+  color: var(--text-on-primary);
+}
+
+.medical-table-action-btn.view {
+  color: var(--medical-secondary);
+  border-color: var(--medical-secondary);
+}
+
+.medical-table-action-btn.view:hover {
+  background: var(--medical-secondary);
+  color: var(--text-on-primary);
+}
+
+
+.medical-table-footer {
+  padding: var(--space-lg) var(--space-xl);
+  background: var(--bg-muted);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.medical-table-info {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.medical-table-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.medical-pagination-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-base);
+}
+
+.medical-pagination-btn:hover:not(.disabled) {
+  background: var(--medical-primary);
+  color: var(--text-on-primary);
+  border-color: var(--medical-primary);
+}
+
+.medical-pagination-btn.active {
+  background: var(--medical-primary);
+  color: var(--text-on-primary);
+  border-color: var(--medical-primary);
+}
+
+.medical-pagination-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.medical-pagination-select {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  margin: 0 var(--space-sm);
+}
+
+
+.medical-table-loading {
+  position: relative;
+}
+
+.medical-table-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+[data-theme="dark"] .medical-table-loading::after {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.medical-table-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-muted);
+  border-top: 3px solid var(--medical-primary);
+  border-radius: 50%;
+  animation: medical-table-spin 1s linear infinite;
+}
+
+@keyframes medical-table-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.medical-table-empty {
+  text-align: center;
+  padding: var(--space-6xl);
+  color: var(--text-muted);
+}
+
+.medical-table-empty-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--space-lg);
+  opacity: 0.5;
+}
+
+.medical-table-empty-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-sm);
+}
+
+.medical-table-empty-text {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+
+@media (max-width: 1024px) {
+  .medical-table-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .medical-table-actions {
+    justify-content: space-between;
+  }
+  
+  .medical-table-search {
+    min-width: auto;
+    flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .medical-table-wrapper {
+    margin: 0 calc(-1 * var(--space-md));
+    border-radius: 0;
+  }
+  
+  .medical-table-header {
+    padding: var(--space-md);
+  }
+  
+  .medical-table th,
+  .medical-table td {
+    padding: var(--space-md);
+  }
+  
+  .medical-table-container {
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .medical-table {
+    min-width: 600px;
+  }
+  
+  .medical-table-footer {
+    padding: var(--space-md);
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .medical-table-pagination {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .medical-table-actions {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  
+  .medical-table-filter,
+  .medical-table-search {
+    width: 100%;
+  }
+  
+  .medical-table-action-btn {
+    width: 28px;
+    height: 28px;
+    margin: 0 var(--space-xs/2);
+  }
+}
+
+
+@media print {
+  .medical-table-header,
+  .medical-table-footer,
+  .medical-table-action-btn {
+    display: none !important;
+  }
+  
+  .medical-table-wrapper {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+  
+  .medical-table th,
+  .medical-table td {
+    border: 1px solid #666;
+    padding: var(--space-sm);
+  }
+  
+  .medical-table thead {
+    background: #f0f0f0 !important;
+    color: #000 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+
+.medical-table th[aria-sort="ascending"]::after {
+  border-bottom-color: var(--text-on-primary);
+}
+
+.medical-table th[aria-sort="descending"]::after {
+  border-top-color: var(--text-on-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .medical-table tbody tr,
+  .medical-table-action-btn,
+  .medical-pagination-btn {
+    transition: none;
+  }
+  
+  .medical-table tbody tr:hover {
+    transform: none;
+  }
+}
+
+
+.medical-table .text-truncate {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.medical-table .text-wrap {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.medical-table .text-nowrap {
+  white-space: nowrap;
+}
+
+.medical-table .font-mono {
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-variant-numeric: tabular-nums;
+}

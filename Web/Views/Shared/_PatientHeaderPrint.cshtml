@@ -1,0 +1,99 @@
+﻿@model Domain.Patient
+
+<table class="patientHeaderReport" style="width:100%">
+    <tr class="row" style="font-size: xx-large;font-weight: bold">
+        <td> Record: </td>
+        <td>
+            <b> @Html.DisplayFor(model => model.Person.Record2)</b>
+        </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+
+</table>
+<table class="patientHeaderReport" style="width:100%">
+    <tr class="row">
+        <td class="col-md-1">
+            Paciente:
+        </td>
+        <td colspan="2" class="col-md-2">
+            <b> @Html.DisplayFor(model => model.Person.FullName)</b>
+        </td>
+
+    </tr>
+
+    <tr class="row">
+        <td class="col-md-1">
+            Sexo:
+        </td>
+        <td class="col-md-2">
+            <b> @Html.DisplayFor(model => model.Person.Gender.Name)</b>
+        </td>
+        <td class="col-md-1">
+            Fec. de Nacimiento:
+        </td>
+        <td class="col-md-2">
+            <b> @Html.DisplayFor(model => model.Person.BornDate)</b>
+        </td>
+        <td class="col-md-1">
+            Edad:
+        </td>
+        <td class="col-md-2">
+            <b> @Html.DisplayFor(model => model.Age)</b>
+        </td>
+    </tr>
+
+    <tr class="row">
+        <td class="col-md-1">
+            Cedula:
+        </td>
+        <td class="col-md-2">
+            <b> @Html.DisplayFor(model => model.Person.Rnc)</b>
+        </td>
+        <td class="col-md-1">
+            NSS:
+        </td>
+        <td class="col-md-2">
+            <b> @Html.DisplayFor(model => model.Nss)</b>
+        </td>
+    </tr>
+
+    <tr class="row">
+        <td class="col-md-1">
+            Tel/Cel:
+        </td>
+        <td class="col-md-2">
+            <b>
+                @Html.DisplayFor(model => model.Person.Tel)/ @Html.DisplayFor(model => model.Person.Cel)
+            </b>
+        </td>
+
+        <td class="col-md-1">
+            Dirección:
+        </td>
+        <td class="col-md-2">
+            <b> @Html.DisplayFor(model => model.Person.Address)</b>
+        </td>
+    </tr>
+
+    @if (Model.Person.Patients.FirstOrDefault().InsuranceId != 1)
+    {
+        <tr class="row">
+            <td class="col-md-1">
+                Seguro:
+            </td>
+            <td class="col-md-2">
+                <b>
+                    @Html.DisplayFor(model => model.Person.Patients.FirstOrDefault().Insurance.Name)
+                </b>
+            </td>
+
+            <td class="col-md-1">
+                No. Afiliado:
+            </td>
+            <td class="col-md-2">
+                <b> @Html.DisplayFor(model => model.Person.Patients.FirstOrDefault().InsuranceNumber)</b>
+            </td>
+        </tr>
+    }
+</table>

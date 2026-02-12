@@ -1,0 +1,62 @@
+﻿@model Application.Models.LoginViewModel
+@{
+    ViewBag.Title = "Sistema de Adminitracion de Informacion Digital";
+   
+}
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+
+<div class="block-center mt-4 wd-xl">
+    <div class="card card-flat"> 
+        <div class="card-header text-center bg-white">
+            <a href="#">
+
+            </a>
+        </div>
+        <div class="card-body">
+            <h3 class="text-center py-2">
+                Haz intentado acceder a una opción para la que no tienes permiso, intenta iniciar sesion con otra cuenta
+            </h3>
+            <form class="mb-3" id="loginForm" novalidate="novalidate" method="post">
+                <div asp-validation-summary="ModelOnly"></div>
+
+                <div class="form-group row">
+                    <div class="input-group with-focus"> 
+                        Email: <input id="exampleInputEmail1"
+                               class="form-control border-right-0"
+                               asp-for="Email"
+                               placeholder="Entre su Usuario"
+                               autocomplete="off"
+                               required="required" />
+                      
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="input-group with-focus">
+                        Password: <input class="form-control border-right-0"
+                               asp-for="Password"
+                               id="exampleInputPassword1"
+                               type="password"
+                               placeholder="Password" required="required" />
+                       
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="input-group with-focus">
+                        <button class="btn btn-block btn-info mt-2" type="submit">Acceder</button>
+
+
+                    </div>
+                </div>
+
+            </form> 
+        </div>
+    </div>
+ 
+</div>
+ 
+@section Scripts {
+    
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

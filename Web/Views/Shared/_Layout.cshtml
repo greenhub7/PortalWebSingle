@@ -1,0 +1,416 @@
+﻿@* Views/Shared/_Layout.cshtml *@
+@using Domain
+@using Web.Extensions
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <base href="../" />
+    <title>@ViewBag.Title - @Context.Request.GetDomainName()</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="@(Context.Request.IsFacturexDomain() ? "Facturex ofrece soluciones financieras y administrativas para el sector salud, proporcionando liquidez y gestión eficiente." : "The Most Powerfull Medical System and Hospital Managment, Clinic Managment, Doctors and Private Consultation Solition in the World")" />
+    <meta name="keywords" content="@(Context.Request.IsFacturexDomain() ? "facturex, liquidez médica, gestión médica, facturación médica, adelanto ARS, financiamiento médico" : "metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon")" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="~/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@Html.Raw(Context.Request.IsFacturexDomain() ? "Facturex - Soluciones Financieras para el Sector Salud" : "SolMed - Software Médico Líder | Gestión Integral de Clínicas y Hospitales")" />
+    <meta property="og:description" content="@Html.Raw(Context.Request.IsFacturexDomain() ? "Facturex ofrece soluciones financieras y administrativas para el sector salud, proporcionando liquidez y gestión eficiente." : "Transforme su práctica médica con SolMed. Expediente clínico electrónico, agenda de citas, facturación y más.")" />
+    <meta property="og:url" content="@(Context.Request.IsFacturexDomain() ? "https://facturexrd.com/" : "https://solmed.app/")" />
+    <meta property="og:site_name" content="@(Context.Request.IsFacturexDomain() ? "Facturex" : "SolMed")" />
+    <meta property="og:image" content="@(Context.Request.IsFacturexDomain() ? "https://facturexrd.com/assets/media/og-image.jpg" : "https://solmed.app/assets/media/og-image.jpg")" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="@Html.Raw(Context.Request.IsFacturexDomain() ? "Facturex - Soluciones Financieras" : "SolMed - Software Médico")" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="@Html.Raw(Context.Request.IsFacturexDomain() ? "Facturex - Soluciones Financieras para el Sector Salud" : "SolMed - Software Médico Líder")" />
+    <meta name="twitter:description" content="@Html.Raw(Context.Request.IsFacturexDomain() ? "Soluciones financieras y administrativas para el sector salud" : "Transforme su práctica médica con SolMed. Expediente clínico electrónico, agenda de citas, facturación y más.")" />
+    <meta name="twitter:image" content="@(Context.Request.IsFacturexDomain() ? "https://facturexrd.com/assets/media/og-image.jpg" : "https://solmed.app/assets/media/og-image.jpg")" />
+
+    <link rel="canonical" href="@(Context.Request.IsFacturexDomain() ? "https://facturexrd.com/" : "https://solmed.app/")" />
+
+    <!-- P-04: Preconnect to external CDNs for faster resource loading -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://code.jquery.com">
+    <link rel="preconnect" href="https://stackpath.bootstrapcdn.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="~/lib/googlefont.css" rel="stylesheet" />
+    <link href="~/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/plugins/custom/vis-timeline/vis-timeline.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/sweetalert/sweetalert2.min.css" rel="stylesheet" />
+    
+    <!-- SolMed Perfect System 2026 - NO WHITE ANYWHERE -->
+    <link href="~/css/solmed-perfect-system.css" rel="stylesheet" type="text/css" />
+
+    <!-- Icon Standardization - Unifica visualmente los iconos -->
+    <link href="~/css/icon-standardization.css" rel="stylesheet" type="text/css" />
+
+    @RenderSection("Styles", required: false)
+    
+    <!-- Layout Alignment System - Aligns content with header boundaries -->
+    <style>
+        /* === LAYOUT ALIGNMENT SYSTEM === */
+        /* Ensures all content aligns perfectly with header boundaries */
+        .main-content {
+            /* Match header horizontal padding exactly */
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            padding-top: 0.5rem; /* Reduced top padding */
+            padding-bottom: 1rem;
+        }
+
+        /* Override any container that breaks the alignment */
+        .main-content .container-fluid,
+        .main-content .app-container,
+        .main-content #kt_app_content_container {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            max-width: 100% !important;
+        }
+
+        /* Compact dashboard specific adjustments */
+        .main-content .compact-dashboard {
+            padding: 0 !important;
+            margin-top: -0.75rem !important; /* Further reduced top margin */
+        }
+
+        /* Responsive adjustments to maintain alignment */
+        @@media (max-width: 768px) {
+            .main-content {
+                padding-left: 1rem;
+                padding-right: 1rem;
+                padding-top: 0.25rem;
+            }
+        }
+
+        @@media (max-width: 576px) {
+            .main-content {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+                padding-top: 0.125rem;
+            }
+        }
+    </style>
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#ffffff" />
+    
+    <!-- Domain-specific CSS -->
+    @if (!string.IsNullOrEmpty(Context.Request.GetDomainStylesheet()))
+    {
+        <link href="@Context.Request.GetDomainStylesheet()" rel="stylesheet" type="text/css">
+    }
+    <link href="~/assets/css/mobile-styles.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" /> 
+</head>
+
+<body id="kt_app_body" class="@Context.Request.GetDomainBodyClass()">
+    <script>
+        var defaultThemeMode = "light";
+        var themeMode; 
+        if (document.documentElement)
+        { 
+            if (document.documentElement.hasAttribute("data-bs-theme-mode"))
+        {
+            themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
+        }
+        else { 
+            if (localStorage.getItem("data-bs-theme") !== null)
+            { 
+                themeMode = localStorage.getItem("data-bs-theme");
+            } 
+            else {
+                themeMode = defaultThemeMode; 
+            } 
+        }
+            if (themeMode === "system") 
+            {
+                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; 
+            }
+            document.documentElement.setAttribute("data-bs-theme", themeMode); 
+        }
+            </script>
+
+    <div class="app-container" id="kt_app_root">
+        <div class="app-page" id="kt_app_page">
+            <header class="medical-header">
+                <div class="medical-header-content">
+                    <a href="@Url.Action("Web", "Portal")" class="medical-logo">
+                        <img src="/content/Icons/_SolmedSmall.png" alt="SolMed" style="height: 32px;" />
+                        <span>@Context.Request.GetDomainName()</span>
+                    </a>
+                    
+                    <nav class="medical-nav">
+                        <a href="@Url.Action("Web", "Portal")" class="medical-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Portal" ? "active" : "")">
+                            <svg class="medical-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                <polyline points="9,22 9,12 15,12 15,22" />
+                            </svg>
+                            <span>Pagina de Inicio</span>
+                        </a>
+
+                        @{
+                            var currentUser = await UserManager.GetUserAsync(User);
+                            var isTenantRoot = currentUser?.IsTenantRoot ?? false;
+                            var isUserType7 = currentUser?.UserTypeId == 7;
+                        }
+
+                        @if (User.IsInRole("Root"))
+                        {
+                            <a href="@Url.Action("Index", "Authors")" class="medical-nav-item ">
+                                <svg class="medical-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                    <polyline points="9,22 9,12 15,12 15,22" />
+                                </svg>
+                                <span>Authores</span>
+                            </a>
+                            <a href="@Url.Action("Index", "AuthorPlans")" class="medical-nav-item ">
+                                <svg class="medical-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                    <polyline points="9,22 9,12 15,12 15,22" />
+                                </svg>
+                                <span>Planes</span>
+                            </a>
+                            <a href="@Url.Action("ManageOptions", "AuthorPlans")" class="medical-nav-item ">
+                                <svg class="medical-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                    <polyline points="9,22 9,12 15,12 15,22" />
+                                </svg>
+                                <span>ManageOptions</span>
+                            </a>
+                        }
+                        else if (isUserType7)
+                        {
+                            <a href="@Url.Action("Index", "Patients")" class="medical-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Patients" ? "active" : "")">
+                                <svg class="medical-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                                    <path d="M12 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/>
+                                    <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                                </svg>
+                                <span>Pacientes</span>
+                            </a>
+                            <a href="@Url.Action("Index", "Authors")" class="medical-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Authors" ? "active" : "")">
+                                <svg class="medical-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                                <span>Clientes</span>
+                            </a>
+                            <a href="@Url.Action("SalesAndInventories", "SalesAndInventories")" class="medical-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "SalesAndInventories" ? "active" : "")">
+                                <svg class="medical-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="1" y="3" width="15" height="13"/>
+                                    <path d="m16 8 2 2-2 2"/>
+                                    <path d="m21 12-2 2 2 2"/>
+                                    <path d="M5 7h5M5 10h2M5 13h3"/>
+                                </svg>
+                                <span>Facturación</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Index", "Patients")" class="medical-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Patients" ? "active" : "")">
+                                <svg class="medical-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                                    <path d="M12 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/>
+                                    <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                                </svg>
+                                <span>Pacientes</span>
+                            </a>
+                            <a href="@Url.Action("Index", "Appointments")" class="medical-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Appointments" ? "active" : "")">
+                                <svg class="medical-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                    <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/>
+                                </svg>
+                                <span>Citas</span>
+                            </a>
+                            <a href="@Url.Action("Index", "Turns")" class="medical-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Turns" ? "active" : "")">
+                                <svg class="medical-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                    <line x1="8" y1="21" x2="16" y2="21"/>
+                                    <line x1="12" y1="17" x2="12" y2="21"/>
+                                    <path d="M12 7v4M9 9l3-3 3 3"/>
+                                </svg>
+                                <span>Turnos</span>
+                            </a>
+                            <a href="@Url.Action("SalesAndInventories", "SalesAndInventories")" class="medical-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "SalesAndInventories" ? "active" : "")">
+                                <svg class="medical-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="1" y="3" width="15" height="13"/>
+                                    <path d="m16 8 2 2-2 2"/>
+                                    <path d="m21 12-2 2 2 2"/>
+                                    <path d="M5 7h5M5 10h2M5 13h3"/>
+                                </svg>
+                                <span>Facturación</span>
+                            </a>
+                        }
+                        @*  <a href="@Url.Action("Index", "Reports")" class="medical-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Reports" ? "active" : "")">
+                            <svg class="medical-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14,2 14,8 20,8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10,9 9,9 8,9"/>
+                            </svg>
+                            <span>Mi Centro/Reportes</span>
+                        </a> *@
+                    </nav>
+                    
+                    <div class="medical-header-actions">
+                        <button type="button" id="theme-toggle">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="5"/>
+                                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                            </svg>
+                        </button>
+                        <partial name="Navbar" />
+                    </div>
+                </div>
+            </header>
+
+            <div class="app-wrapper" id="kt_app_wrapper">
+                <div class="app-main" id="kt_app_main">
+                    <main id="main-content" class="main-content">
+                        @RenderBody()
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+    <partial name="Drawers" />
+
+    <!-- Mobile Bottom Navigation - Only visible on small screens -->
+    <div class="bottom-nav d-lg-none">
+        @{
+            var currentUserMobile = await UserManager.GetUserAsync(User);
+            var isUserType7Mobile = currentUserMobile?.UserTypeId == 7;
+        }
+        <a href="@Url.Action("Web", "Portal")" class="bottom-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Portal" && ViewContext.RouteData.Values["Action"].ToString() == "Web" ? "active" : "")">
+            <span class="bottom-nav-icon">
+                <i class="bi bi-house"></i>
+            </span>
+            <span class="bottom-nav-text">Inicio</span>
+        </a>
+        @if (isUserType7Mobile)
+        {
+            <a href="@Url.Action("Index", "Patients")" class="bottom-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Patients" ? "active" : "")">
+                <span class="bottom-nav-icon">
+                    <i class="bi bi-person"></i>
+                </span>
+                <span class="bottom-nav-text">Pacientes</span>
+            </a>
+            <a href="@Url.Action("Index", "Authors")" class="bottom-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Authors" ? "active" : "")">
+                <span class="bottom-nav-icon">
+                    <i class="bi bi-people"></i>
+                </span>
+                <span class="bottom-nav-text">Clientes</span>
+            </a>
+        }
+        else if (!User.IsInRole("Root"))
+        {
+            <a href="@Url.Action("Index", "Patients")" class="bottom-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Patients" ? "active" : "")">
+                <span class="bottom-nav-icon">
+                    <i class="bi bi-person"></i>
+                </span>
+                <span class="bottom-nav-text">Pacientes</span>
+            </a>
+            <a href="@Url.Action("Index", "Appointments")" class="bottom-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Appointments" ? "active" : "")">
+                <span class="bottom-nav-icon">
+                    <i class="bi bi-calendar-check"></i>
+                </span>
+                <span class="bottom-nav-text">Citas</span>
+            </a>
+            <a href="@Url.Action("Index", "Turns")" class="bottom-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Turns" ? "active" : "")">
+                <span class="bottom-nav-icon">
+                    <i class="bi bi-ticket-perforated"></i>
+                </span>
+                <span class="bottom-nav-text">Turnos</span>
+            </a>
+        }
+        <a href="@Url.Action("SalesAndInventories", "SalesAndInventories")" class="bottom-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "SalesAndInventories" ? "active" : "")">
+            <span class="bottom-nav-icon">
+                <i class="bi bi-cash-coin"></i>
+            </span>
+            <span class="bottom-nav-text">Facturación</span>
+        </a>
+@*         <a href="@Url.Action("Index", "Reports")" class="bottom-nav-item @(ViewContext.RouteData.Values["Controller"].ToString() == "Reports" ? "active" : "")">
+            <span class="bottom-nav-icon">
+                <i class="bi bi-newspaper"></i>
+            </span>
+            <span class="bottom-nav-text">Reportes</span>
+        </a> *@
+    </div>
+
+    <script>var hostUrl = "~/assets/"</script>
+    <!-- P-04: Core libraries loaded synchronously for inline script compatibility -->
+    <script src="~/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="~/assets/js/scripts.bundle.js"></script>
+
+    <!-- P-04: Non-critical scripts loaded with defer for better performance -->
+    <script src="~/assets/js/custom/i18n.js" defer></script>
+    <script src="~/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js" defer></script>
+    <script src="~/assets/plugins/custom/datatables/datatables.bundle.js" defer></script>
+    <script src="~/assets/plugins/custom/vis-timeline/vis-timeline.bundle.js" defer></script>
+
+    <!-- P-04: Validation libraries kept synchronous for form compatibility -->
+    <script src="~/lib/jquery.validate.js"></script>
+    <script src="~/lib/jquery.validate.unobtrusive.js"></script>
+
+    <!-- P-04: Utility and custom scripts deferred for better performance -->
+    <script src="~/js/ps/js/SwalCustom.js" defer></script>
+    <script src="~/js/ps/js/genericfx.js" defer></script>
+    <script src="~/js/maskedinput/jquery.maskedinput.min.js" defer></script>
+
+    <script src="~/lib/moment.min.js" defer></script>
+    <script src="~/js/ps/js/datepicker.js" defer></script>
+    <script src="~/js/ps/js/cascadeddl.js" defer></script>
+    @RenderSection("scripts", required: false)
+    <script src="~/lib/sweetalert/sweetalert2@11.js" defer></script>
+    <script src="~/js/ps/js/btnspinnerconf.js" defer></script>
+
+    <!-- SolMed Global Button State Management -->
+    <script src="~/js/solmed-button-states.js" defer></script>
+
+    <!-- SolMed Theme System 2026 -->
+    <script src="~/js/theme-system.js" defer></script>
+    
+    <!-- Domain-specific JS -->
+    @if (!string.IsNullOrEmpty(Context.Request.GetDomainScript()))
+    {
+        <script src="@Context.Request.GetDomainScript()"></script>
+    }
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Funcionalidad específica para Facturex
+            @if (Context.Request.IsFacturexDomain())
+            {
+                <text>
+                // Personalización del tema para Facturex si es necesario
+                if (document.querySelector('.facturex-theme')) {
+                    // Cualquier código JS específico para Facturex
+                }
+                </text>
+            }
+        });
+    </script>
+</body>
+</html>

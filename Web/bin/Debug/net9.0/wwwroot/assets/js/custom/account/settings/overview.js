@@ -1,0 +1,21 @@
+"use strict";
+
+
+var KTAccountSettingsOverview = function () {
+    
+    var initSettings = function() {
+
+    }
+
+    
+    return {
+        init: function () {
+            initSettings();
+        }
+    }
+}();
+
+
+KTUtil.onDOMContentLoaded(function() {
+    KTAccountSettingsOverview.init();
+});

@@ -1,0 +1,310 @@
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@page {
+    size: A4 landscape;
+    margin: 5mm;
+}
+
+@media print {
+    .page {
+        page-break-after: always;
+    }
+    .page:last-child {
+        page-break-after: auto;
+    }
+    body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 7pt;
+    line-height: 1.2;
+    color: #000;
+    background: #fff;
+}
+
+
+input[type="hidden"] {
+    display: none;
+}
+
+
+.page {
+    width: 297mm;
+    min-height: 210mm;
+    margin: 0 auto 10mm auto;
+    padding: 3mm;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+@media print {
+    .page {
+        margin: 0;
+        border: none;
+    }
+}
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #E3F2FD;
+    border: 1px solid #1565C0;
+    padding: 2mm;
+    margin-bottom: 2mm;
+}
+
+.header-left {
+    width: 50mm;
+}
+
+.logo-placeholder {
+    font-weight: bold;
+    font-size: 10pt;
+    color: #1565C0;
+}
+
+.header-center {
+    flex: 1;
+    text-align: center;
+}
+
+.header-title {
+    font-size: 11pt;
+    font-weight: bold;
+    color: #1565C0;
+}
+
+.header-subtitle {
+    font-size: 8pt;
+    color: #666;
+}
+
+.header-right {
+    width: 50mm;
+    text-align: right;
+}
+
+
+.main-container {
+    display: flex;
+    gap: 2mm;
+}
+
+.column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2mm;
+}
+
+.column-left {
+    flex: 0 0 48%;
+}
+
+.column-right {
+    flex: 0 0 52%;
+}
+
+
+.section {
+    border: 1px solid #333;
+    margin-bottom: 1mm;
+}
+
+.section-header {
+    padding: 1mm 2mm;
+    font-weight: bold;
+    font-size: 7pt;
+    text-transform: uppercase;
+    border-bottom: 1px solid #333;
+}
+
+
+.header-blue {
+    background: #E3F2FD;
+    color: #1565C0;
+}
+
+.header-yellow {
+    background: #FFF9C4;
+    color: #F57F17;
+}
+
+.header-green {
+    background: #E8F5E9;
+    color: #2E7D32;
+}
+
+.header-pink {
+    background: #FCE4EC;
+    color: #C2185B;
+}
+
+.header-purple {
+    background: #F3E5F5;
+    color: #7B1FA2;
+}
+
+.header-red {
+    background: #FFEBEE;
+    color: #C62828;
+}
+
+.header-orange {
+    background: #FFF3E0;
+    color: #E65100;
+}
+
+.section-content {
+    padding: 1mm 2mm;
+}
+
+
+.subsection {
+    margin-bottom: 1mm;
+    padding-bottom: 1mm;
+    border-bottom: 1px dotted #ccc;
+}
+
+.subsection:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.subsection-title {
+    font-weight: bold;
+    font-size: 6pt;
+    color: #666;
+    margin-bottom: 0.5mm;
+}
+
+
+.field-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2mm;
+    margin-bottom: 0.5mm;
+}
+
+.field {
+    display: flex;
+    align-items: baseline;
+    gap: 1mm;
+}
+
+.field-sm {
+    flex: 0 0 auto;
+}
+
+.field-xs {
+    flex: 0 0 auto;
+    min-width: 30px;
+}
+
+.field-inline {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 1mm;
+}
+
+.label {
+    font-weight: normal;
+    color: #333;
+    white-space: nowrap;
+}
+
+.value {
+    font-weight: bold;
+    color: #000;
+    min-width: 15px;
+    border-bottom: 1px dotted #999;
+    padding: 0 1mm;
+}
+
+.unit {
+    font-size: 6pt;
+    color: #666;
+}
+
+
+.checkbox-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2mm;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5mm;
+}
+
+.checkbox {
+    width: 8px;
+    height: 8px;
+    border: 1px solid #333;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6pt;
+    font-weight: bold;
+}
+
+.checkbox.checked::after {
+    content: "X";
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 6pt;
+}
+
+table th,
+table td {
+    border: 1px solid #999;
+    padding: 0.5mm 1mm;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table th {
+    background: #f5f5f5;
+    font-weight: bold;
+    font-size: 5pt;
+}
+
+.consultas-table th,
+.consultas-table td {
+    padding: 0.3mm 0.5mm;
+}
+
+.puerperio-table th,
+.puerperio-table td {
+    padding: 0.3mm 0.5mm;
+}
+
+
+.loading {
+    opacity: 0.5;
+}
+
+.error {
+    color: #C62828;
+    font-style: italic;
+}

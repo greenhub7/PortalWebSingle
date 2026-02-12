@@ -1,0 +1,1423 @@
+﻿@* C:\dev\SolMedProd\SolMed\Web\Views\PerinatalHistory\_CurrentPregnancy.cshtml *@
+@model Domain.CurrentPregnancy
+
+<div class="row">
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="col-form-label-sm">PESO ANTERIOR</label>
+                <div class="input-group input-group-sm">
+                    <input asp-for="PreviousWeight" class="form-control" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">Kg</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="col-form-label-sm">TALLA (cm)</label>
+                <input asp-for="Height" class="form-control form-control-sm" />
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="col-form-label-sm">FUM</label>
+                <input asp-for="LastMenstrualPeriod" type="date" class="form-control form-control-sm" />
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="col-form-label-sm">FPP</label>
+                <input asp-for="EstimatedDueDate" type="date" class="form-control form-control-sm" />
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="col-form-label-sm font-weight-bold">EG CONFIABLE POR</label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="small">FUM</label>
+                        <div class="d-flex gap-2">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="ReliableByFUM" value="1" id="fumYes" @(((int?)Model?.ReliableByFUM) == 1 ? "checked" : "") />
+                                <label for="fumYes">Si</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="ReliableByFUM" value="2" id="fumNo" @(((int?)Model?.ReliableByFUM) == 2 ? "checked" : "") />
+                                <label for="fumNo">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small">Eco &lt;20 s.</label>
+                        <div class="d-flex gap-2">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="ReliableByEchoLessThan20Weeks" value="1" id="ecoYes" @(((int?)Model?.ReliableByEchoLessThan20Weeks) == 1 ? "checked" : "") />
+                                <label for="ecoYes">Si</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="ReliableByEchoLessThan20Weeks" value="2" id="ecoNo" @(((int?)Model?.ReliableByEchoLessThan20Weeks) == 2 ? "checked" : "") />
+                                <label for="ecoNo">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <div class="label-with-">
+                    <div class=" @(Model?.OlderThan35 == Domain.YesNoNotRecorded.Yes ? "checked" : "")"></div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="OlderThan35" value="1" id="olderThan35Yes" @(((int?)Model?.OlderThan35) == 1 ? "checked" : "") />
+                        <label class="form-check-label" for="olderThan35Yes">Sí</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="OlderThan35" value="2" id="olderThan35No" @(((int?)Model?.OlderThan35) == 2 ? "checked" : "") />
+                        <label class="form-check-label" for="olderThan35No">No</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="OlderThan35" value="3" id="olderThan35NC" @(((int?)Model?.OlderThan35) == 3 ? "checked" : "") />
+                        <label class="form-check-label" for="olderThan35NC">NC</label>
+                    </div>
+                    <label class="small">> de 35</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <div class="label-with-">
+                    <div class=" @(Model?.YoungerThan15 == Domain.YesNoNotRecorded.Yes ? "checked" : "")"></div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="YoungerThan15" value="1" id="youngerThan15Yes" @(((int?)Model?.YoungerThan15) == 1 ? "checked" : "") />
+                        <label class="form-check-label" for="youngerThan15Yes">Sí</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="YoungerThan15" value="2" id="youngerThan15No" @(((int?)Model?.YoungerThan15) == 2 ? "checked" : "") />
+                        <label class="form-check-label" for="youngerThan15No">No</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="YoungerThan15" value="3" id="youngerThan15NC" @(((int?)Model?.YoungerThan15) == 3 ? "checked" : "") />
+                        <label class="form-check-label" for="youngerThan15NC">NC</label>
+                    </div>
+                    <label class="small">< de 15</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HÁBITOS POR TRIMESTRE -->
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="col-form-label-sm font-weight-bold">HÁBITOS POR TRIMESTRE</label>
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="text-center">1er Trim</th>
+                        <th class="text-center">2do Trim</th>
+                        <th class="text-center">3er Trim</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- FUMA ACT -->
+                    <tr>
+                        <td><strong>FUMA ACT</strong></td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="SmokingFirstTrimester" value="1" id="smoke1Yes" @(((int?)Model?.SmokingFirstTrimester) == 1 ? "checked" : "") />
+                                    <label for="smoke1Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="SmokingFirstTrimester" value="2" id="smoke1No" @(((int?)Model?.SmokingFirstTrimester) == 2 ? "checked" : "") />
+                                    <label for="smoke1No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="SmokingSecondTrimester" value="1" id="smoke2Yes" @(((int?)Model?.SmokingSecondTrimester) == 1 ? "checked" : "") />
+                                    <label for="smoke2Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="SmokingSecondTrimester" value="2" id="smoke2No" @(((int?)Model?.SmokingSecondTrimester) == 2 ? "checked" : "") />
+                                    <label for="smoke2No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="SmokingThirdTrimester" value="1" id="smoke3Yes" @(((int?)Model?.SmokingThirdTrimester) == 1 ? "checked" : "") />
+                                    <label for="smoke3Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="SmokingThirdTrimester" value="2" id="smoke3No" @(((int?)Model?.SmokingThirdTrimester) == 2 ? "checked" : "") />
+                                    <label for="smoke3No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- FUMA PAS -->
+                    <tr>
+                        <td><strong>FUMA PAS</strong></td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="PassiveSmokingFirstTrimester" value="1" id="psmoke1Yes" @(((int?)Model?.PassiveSmokingFirstTrimester) == 1 ? "checked" : "") />
+                                    <label for="psmoke1Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="PassiveSmokingFirstTrimester" value="2" id="psmoke1No" @(((int?)Model?.PassiveSmokingFirstTrimester) == 2 ? "checked" : "") />
+                                    <label for="psmoke1No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="PassiveSmokingSecondTrimester" value="1" id="psmoke2Yes" @(((int?)Model?.PassiveSmokingSecondTrimester) == 1 ? "checked" : "") />
+                                    <label for="psmoke2Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="PassiveSmokingSecondTrimester" value="2" id="psmoke2No" @(((int?)Model?.PassiveSmokingSecondTrimester) == 2 ? "checked" : "") />
+                                    <label for="psmoke2No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="PassiveSmokingThirdTrimester" value="1" id="psmoke3Yes" @(((int?)Model?.PassiveSmokingThirdTrimester) == 1 ? "checked" : "") />
+                                    <label for="psmoke3Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="PassiveSmokingThirdTrimester" value="2" id="psmoke3No" @(((int?)Model?.PassiveSmokingThirdTrimester) == 2 ? "checked" : "") />
+                                    <label for="psmoke3No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- DROGAS -->
+                    <tr>
+                        <td><strong>DROGAS</strong></td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="DrugUseFirstTrimester" value="1" id="drug1Yes" @(((int?)Model?.DrugUseFirstTrimester) == 1 ? "checked" : "") />
+                                    <label for="drug1Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="DrugUseFirstTrimester" value="2" id="drug1No" @(((int?)Model?.DrugUseFirstTrimester) == 2 ? "checked" : "") />
+                                    <label for="drug1No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="DrugUseSecondTrimester" value="1" id="drug2Yes" @(((int?)Model?.DrugUseSecondTrimester) == 1 ? "checked" : "") />
+                                    <label for="drug2Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="DrugUseSecondTrimester" value="2" id="drug2No" @(((int?)Model?.DrugUseSecondTrimester) == 2 ? "checked" : "") />
+                                    <label for="drug2No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="DrugUseThirdTrimester" value="1" id="drug3Yes" @(((int?)Model?.DrugUseThirdTrimester) == 1 ? "checked" : "") />
+                                    <label for="drug3Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="DrugUseThirdTrimester" value="2" id="drug3No" @(((int?)Model?.DrugUseThirdTrimester) == 2 ? "checked" : "") />
+                                    <label for="drug3No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- ALCOHOL -->
+                    <tr>
+                        <td><strong>ALCOHOL</strong></td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="AlcoholUseFirstTrimester" value="1" id="alcohol1Yes" @(((int?)Model?.AlcoholUseFirstTrimester) == 1 ? "checked" : "") />
+                                    <label for="alcohol1Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="AlcoholUseFirstTrimester" value="2" id="alcohol1No" @(((int?)Model?.AlcoholUseFirstTrimester) == 2 ? "checked" : "") />
+                                    <label for="alcohol1No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="AlcoholUseSecondTrimester" value="1" id="alcohol2Yes" @(((int?)Model?.AlcoholUseSecondTrimester) == 1 ? "checked" : "") />
+                                    <label for="alcohol2Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="AlcoholUseSecondTrimester" value="2" id="alcohol2No" @(((int?)Model?.AlcoholUseSecondTrimester) == 2 ? "checked" : "") />
+                                    <label for="alcohol2No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="AlcoholUseThirdTrimester" value="1" id="alcohol3Yes" @(((int?)Model?.AlcoholUseThirdTrimester) == 1 ? "checked" : "") />
+                                    <label for="alcohol3Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="AlcoholUseThirdTrimester" value="2" id="alcohol3No" @(((int?)Model?.AlcoholUseThirdTrimester) == 2 ? "checked" : "") />
+                                    <label for="alcohol3No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- VIOLENCIA -->
+                    <tr>
+                        <td><strong>VIOLENCIA</strong></td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="ViolenceFirstTrimester" value="1" id="violence1Yes" @(((int?)Model?.ViolenceFirstTrimester) == 1 ? "checked" : "") />
+                                    <label for="violence1Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="ViolenceFirstTrimester" value="2" id="violence1No" @(((int?)Model?.ViolenceFirstTrimester) == 2 ? "checked" : "") />
+                                    <label for="violence1No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="ViolenceSecondTrimester" value="1" id="violence2Yes" @(((int?)Model?.ViolenceSecondTrimester) == 1 ? "checked" : "") />
+                                    <label for="violence2Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="ViolenceSecondTrimester" value="2" id="violence2No" @(((int?)Model?.ViolenceSecondTrimester) == 2 ? "checked" : "") />
+                                    <label for="violence2No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="ViolenceThirdTrimester" value="1" id="violence3Yes" @(((int?)Model?.ViolenceThirdTrimester) == 1 ? "checked" : "") />
+                                    <label for="violence3Yes" class="small">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" name="ViolenceThirdTrimester" value="2" id="violence3No" @(((int?)Model?.ViolenceThirdTrimester) == 2 ? "checked" : "") />
+                                    <label for="violence3No" class="small">No</label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group cervix-section">
+            <label class="font-weight-bold">CÉRVIX</label>
+            <div class="row no-gutters">
+                <div class="col-4">
+                    <div class="cervix-exam-group">
+                        <label class="small d-block">Insp. Visual</label>
+                        <div class="d-flex flex-column align-items-start">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="CervixVisualInspection" value="1" id="inspVisualNormal" @(((int?)Model?.CervixVisualInspection) == 1 ? "checked" : "") />
+                                <label class="form-check-label small" for="inspVisualNormal">Normal</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="CervixVisualInspection" value="2" id="inspVisualAbnormal" @(((int?)Model?.CervixVisualInspection) == 2 ? "checked" : "") />
+                                <label class="form-check-label small" for="inspVisualAbnormal">Anormal</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="CervixVisualInspection" value="3" id="inspVisualNotDone" @(((int?)Model?.CervixVisualInspection) == 3 ? "checked" : "") />
+                                <label class="form-check-label small" for="inspVisualNotDone">No se hizo</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="cervix-exam-group">
+                        <label class="small d-block">PAP</label>
+                        <div class="d-flex flex-column align-items-start">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="CervixPapExam" value="1" id="papNormal" @(((int?)Model?.CervixPapExam) == 1 ? "checked" : "") />
+                                <label class="form-check-label small" for="papNormal">Normal</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="CervixPapExam" value="2" id="papAbnormal" @(((int?)Model?.CervixPapExam) == 2 ? "checked" : "") />
+                                <label class="form-check-label small" for="papAbnormal">Anormal</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="CervixPapExam" value="3" id="papNotDone" @(((int?)Model?.CervixPapExam) == 3 ? "checked" : "") />
+                                <label class="form-check-label small" for="papNotDone">No se hizo</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="cervix-exam-group">
+                        <label class="small d-block">COLP</label>
+                        <div class="d-flex flex-column align-items-start">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="CervixColposcopy" value="1" id="colpNormal" @(((int?)Model?.CervixColposcopy) == 1 ? "checked" : "") />
+                                <label class="form-check-label small" for="colpNormal">Normal</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="CervixColposcopy" value="2" id="colpAbnormal" @(((int?)Model?.CervixColposcopy) == 2 ? "checked" : "") />
+                                <label class="form-check-label small" for="colpAbnormal">Anormal</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="CervixColposcopy" value="3" id="colpNotDone" @(((int?)Model?.CervixColposcopy) == 3 ? "checked" : "") />
+                                <label class="form-check-label small" for="colpNotDone">No se hizo</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="font-weight-bold">EX. NORMAL</label>
+            <div class="row no-gutters">
+                <div class="col-6">
+                    <div class="exam-group">
+                        <label class="small d-block">ODONT.</label>
+                        <div class="d-flex gap-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="NormalDentalExamination" value="2" id="normalDentalNo" @(((int?)Model?.NormalDentalExamination) == 2 ? "checked" : "") />
+                                <label class="form-check-label" for="normalDentalNo">no</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="NormalDentalExamination" value="1" id="normalDentalYes" @(((int?)Model?.NormalDentalExamination) == 1 ? "checked" : "") />
+                                <label class="form-check-label" for="normalDentalYes">si</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="exam-group">
+                        <label class="small d-block">MAMAS</label>
+                        <div class="d-flex gap-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="NormalBreastExamination" value="2" id="normalBreastNo" @(((int?)Model?.NormalBreastExamination) == 2 ? "checked" : "") />
+                                <label class="form-check-label" for="normalBreastNo">no</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="NormalBreastExamination" value="1" id="normalBreastYes" @(((int?)Model?.NormalBreastExamination) == 1 ? "checked" : "") />
+                                <label class="form-check-label" for="normalBreastYes">si</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group perinatal-highlight-section" style="background-color: #fff3cd; padding: 8px; border-radius: 4px; border-left: 4px solid #ffc107;">
+            <label class="col-form-label-sm font-weight-bold">GRUPO</label>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <!-- Tipo de sangre y Rh -->
+                    <tr>
+                        <td style="width: 40%;">
+                            <div class="d-flex gap-2 align-items-center">
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="BloodGroupType" value="1" id="bloodGroupA" @(((int?)Model?.BloodGroupType) == 1 ? "checked" : "") />
+                                    <label class="form-check-label" for="bloodGroupA">A</label>
+                                </div>
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="BloodGroupType" value="2" id="bloodGroupB" @(((int?)Model?.BloodGroupType) == 2 ? "checked" : "") />
+                                    <label class="form-check-label" for="bloodGroupB">B</label>
+                                </div>
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="BloodGroupType" value="3" id="bloodGroupAB" @(((int?)Model?.BloodGroupType) == 3 ? "checked" : "") />
+                                    <label class="form-check-label" for="bloodGroupAB">AB</label>
+                                </div>
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="BloodGroupType" value="4" id="bloodGroupO" @(((int?)Model?.BloodGroupType) == 4 ? "checked" : "") />
+                                    <label class="form-check-label" for="bloodGroupO">O</label>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 30%;">
+                            <strong>Rh</strong>
+                            <div class="d-flex gap-2">
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="RhFactorType" value="1" id="rhPositive" @(((int?)Model?.RhFactorType) == 1 ? "checked" : "") />
+                                    <label class="form-check-label" for="rhPositive">+</label>
+                                </div>
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="RhFactorType" value="2" id="rhNegative" @(((int?)Model?.RhFactorType) == 2 ? "checked" : "") />
+                                    <label class="form-check-label" for="rhNegative">-</label>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width: 30%;">
+                            <strong>Inmuniz</strong>
+                            <div class="d-flex gap-2">
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="RhSensitization" value="2" id="rhImmunizNo" @(((int?)Model?.RhSensitization) == 2 ? "checked" : "") />
+                                    <label class="form-check-label" for="rhImmunizNo">no</label>
+                                </div>
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="RhSensitization" value="1" id="rhImmunizYes" @(((int?)Model?.RhSensitization) == 1 ? "checked" : "") />
+                                    <label class="form-check-label" for="rhImmunizYes">si</label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- γ globulina anti D (consolidated from two fields) -->
+                    <tr>
+                        <td colspan="3">
+                            <div class="d-flex align-items-center gap-3">
+                                <strong style="flex-shrink: 0;">γ globulina anti D:</strong>
+                                <div class="d-flex gap-2">
+                                    <div class="form-check form-check-inline mb-0">
+                                        <input class="form-check-input" type="radio" name="AntiDImmunoglobulin" value="2" id="antiDGlobulinNo" @(((int?)Model?.AntiDImmunoglobulin) == 2 ? "checked" : "") />
+                                        <label class="form-check-label" for="antiDGlobulinNo">no</label>
+                                    </div>
+                                    <div class="form-check form-check-inline mb-0">
+                                        <input class="form-check-input" type="radio" name="AntiDImmunoglobulin" value="1" id="antiDGlobulinYes" @(((int?)Model?.AntiDImmunoglobulin) == 1 ? "checked" : "") />
+                                        <label class="form-check-label" for="antiDGlobulinYes">si</label>
+                                    </div>
+                                    <div class="form-check form-check-inline mb-0">
+                                        <input class="form-check-input" type="radio" name="AntiDImmunoglobulin" value="3" id="antiDGlobulinNC" @(((int?)Model?.AntiDImmunoglobulin) == 3 ? "checked" : "") />
+                                        <label class="form-check-label" for="antiDGlobulinNC">nc</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="font-weight-bold">TOXOPLASMOSIS</label>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <!-- <20sem IgG -->
+                    <tr>
+                        <td style="width: 30%;"><strong>&lt;20sem IgG</strong></td>
+                        <td class="text-center" style="width: 23%;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" asp-for="ToxoplasmosisIgGLessThan20Weeks" value="Positive" id="toxoIgGLess20Positive" />
+                                <label class="form-check-label" for="toxoIgGLess20Positive">+</label>
+                            </div>
+                        </td>
+                        <td class="text-center" style="width: 23%;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" asp-for="ToxoplasmosisIgGLessThan20Weeks" value="Not Done" id="toxoIgGLess20NotDone" />
+                                <label class="form-check-label" for="toxoIgGLess20NotDone">no se hizo</label>
+                            </div>
+                        </td>
+                        <td class="text-center" style="width: 23%;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" asp-for="ToxoplasmosisIgGLessThan20Weeks" value="Negative" id="toxoIgGLess20Negative" />
+                                <label class="form-check-label" for="toxoIgGLess20Negative">-</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- ≥20sem IgG -->
+                    <tr>
+                        <td><strong>≥20sem IgG</strong></td>
+                        <td class="text-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" asp-for="ToxoplasmosisIgGGreaterOrEqual20Weeks" value="Positive" id="toxoIgGGreater20Positive" />
+                                <label class="form-check-label" for="toxoIgGGreater20Positive">+</label>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" asp-for="ToxoplasmosisIgGGreaterOrEqual20Weeks" value="Not Done" id="toxoIgGGreater20NotDone" />
+                                <label class="form-check-label" for="toxoIgGGreater20NotDone">no se hizo</label>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" asp-for="ToxoplasmosisIgGGreaterOrEqual20Weeks" value="Negative" id="toxoIgGGreater20Negative" />
+                                <label class="form-check-label" for="toxoIgGGreater20Negative">-</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- 1ª consulta IgM -->
+                    <tr>
+                        <td><strong>1ª consulta IgM</strong></td>
+                        <td class="text-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" asp-for="ToxoplasmosisIgMLessThan20Weeks" value="Positive" id="toxoIgMFirstConsultPositive" />
+                                <label class="form-check-label" for="toxoIgMFirstConsultPositive">+</label>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" asp-for="ToxoplasmosisIgMLessThan20Weeks" value="Not Done" id="toxoIgMFirstConsultNotDone" />
+                                <label class="form-check-label" for="toxoIgMFirstConsultNotDone">no se hizo</label>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" asp-for="ToxoplasmosisIgMLessThan20Weeks" value="Negative" id="toxoIgMFirstConsultNegative" />
+                                <label class="form-check-label" for="toxoIgMFirstConsultNegative">-</label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Hb <20 sem</label>
+            <div class="d-flex align-items-center gap-2">
+                <div class="input-group input-group-sm" style="width: 100px;">
+                    <input asp-for="HemoglobinLessThan20Weeks" class="form-control" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">g/</span>
+                    </div>
+                </div>
+                <div class="form-check mb-0">
+                    <input class="form-check-input" type="checkbox" name="AnemiaLessThan20Weeks" id="anemiaLessThan20Weeks"
+                           @(Model?.AnemiaLessThan20Weeks == true ? "checked" : "") />
+                    <label class="form-check-label text-danger small" for="anemiaLessThan20Weeks">&lt;11.0 g/dl</label>
+                </div>
+               
+                <div class="d-flex gap-3">
+                    <div class="d-flex gap-1 align-items-center">
+                        <span class="small">Fe</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="IronSupplements" value="false" id="ironSupplementsNo" @(Model?.IronSupplements == false ? "checked" : "") />
+                            <label class="form-check-label small" for="ironSupplementsNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="IronSupplements" value="true" id="ironSupplementsYes" @(Model?.IronSupplements == true ? "checked" : "") />
+                            <label class="form-check-label small" for="ironSupplementsYes">si</label>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-1 align-items-center">
+                        <span class="small">Folatos</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="FolateSupplementsLess20" value="false" id="folateSupplementsLess20No" @(Model?.FolateSupplementsLessThan20Weeks == false ? "checked" : "") />
+                            <label class="form-check-label small" for="folateSupplementsLess20No">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="FolateSupplementsLess20" value="true" id="folateSupplementsLess20Yes" @(Model?.FolateSupplementsLessThan20Weeks == true ? "checked" : "") />
+                            <label class="form-check-label small" for="folateSupplementsLess20Yes">si</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="form-group">
+            <label>Hb ≥20 sem</label>
+            <div class="d-flex align-items-center gap-2">
+                <div class="input-group input-group-sm" style="width: 100px;">
+                    <input asp-for="HemoglobinGreaterOrEqual20Weeks" class="form-control" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">g/</span>
+                    </div>
+                </div>
+                <div class="form-check mb-0">
+                    <input class="form-check-input" type="checkbox" name="AnemiaGreaterOrEqual20Weeks" id="anemiaGreaterOrEqual20Weeks"
+                           @(Model?.AnemiaGreaterOrEqual20Weeks == true ? "checked" : "") />
+                    <label class="form-check-label text-danger small" for="anemiaGreaterOrEqual20Weeks">&lt;11.0 g/dl</label>
+                </div>
+               
+                <div class="d-flex gap-3">
+                    <div class="d-flex gap-1 align-items-center">
+                        <span class="small">Fe</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="IronSupplementsGreater20" value="false" id="ironSupplementsGreater20No" @(Model?.IronSupplementsGreaterOrEqual20Weeks == false ? "checked" : "") />
+                            <label class="form-check-label small" for="ironSupplementsGreater20No">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="IronSupplementsGreater20" value="true" id="ironSupplementsGreater20Yes" @(Model?.IronSupplementsGreaterOrEqual20Weeks == true ? "checked" : "") />
+                            <label class="form-check-label small" for="ironSupplementsGreater20Yes">si</label>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-1 align-items-center">
+                        <span class="small">Folatos</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="FolateSupplements" value="false" id="folateSupplementsNo" @(Model?.FolateSupplements == false ? "checked" : "") />
+                            <label class="form-check-label small" for="folateSupplementsNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="FolateSupplements" value="true" id="folateSupplementsYes" @(Model?.FolateSupplements == true ? "checked" : "") />
+                            <label class="form-check-label small" for="folateSupplementsYes">si</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-5">
+            <div class="row">
+
+            <div class="col-md-6">
+                <label>CHAGAS</label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="ChagasTestResult" value="Not Done" id="chagasNotDone" />
+                            <label class="form-check-label" for="chagasNotDone">No se hizo</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="ChagasTestResult" value="Negative" id="chagasNegative" />
+                            <label class="form-check-label" for="chagasNegative">-</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="ChagasTestResult" value="Positive" id="chagasPositive" />
+                            <label class="form-check-label" for="chagasPositive">+</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label>PALUDISMO/MALARIA</label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="MalariaTestResult" value="Not Done" id="malariaNotDone" />
+                            <label class="form-check-label" for="malariaNotDone">No se hizo</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="MalariaTestResult" value="Negative" id="malariaNegative" />
+                            <label class="form-check-label" for="malariaNegative">-</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="MalariaTestResult" value="Positive" id="malariaPositive" />
+                            <label class="form-check-label" for="malariaPositive">+</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <label>BACTERIURIA <20 sem</label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="BacteriuriaTestResultLessThan20Weeks" value="Not Done" id="bacteriuriaLess20NotDone" />
+                            <label class="form-check-label" for="bacteriuriaLess20NotDone">No se hizo</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="BacteriuriaTestResultLessThan20Weeks" value="Negative" id="bacteriuriaLess20Negative" />
+                            <label class="form-check-label" for="bacteriuriaLess20Negative">-</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="BacteriuriaTestResultLessThan20Weeks" value="Positive" id="bacteriuriaLess20Positive" />
+                            <label class="form-check-label" for="bacteriuriaLess20Positive">+</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label>BACTERIURIA ≥20 sem</label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="BacteriuriaTestResultGreaterOrEqual20Weeks" value="Not Done" id="bacteriuriaGreater20NotDone" />
+                            <label class="form-check-label" for="bacteriuriaGreater20NotDone">No se hizo</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="BacteriuriaTestResultGreaterOrEqual20Weeks" value="Negative" id="bacteriuriaGreater20Negative" />
+                            <label class="form-check-label" for="bacteriuriaGreater20Negative">-</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="BacteriuriaTestResultGreaterOrEqual20Weeks" value="Positive" id="bacteriuriaGreater20Positive" />
+                            <label class="form-check-label" for="bacteriuriaGreater20Positive">+</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>GLUCEMIA EN AYUNAS <20 sem</label>
+                <div class="input-group input-group-sm">
+                    <input asp-for="GlucoseLessThan20Weeks" class="form-control" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">mg/dl</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label>GLUCEMIA EN AYUNAS ≥30 sem</label>
+                <div class="input-group input-group-sm">
+                    <input asp-for="GlucoseGreaterOrEqual30Weeks" class="form-control" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">mg/dl</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label>ESTREPTOCOCO B 35-37 semanas</label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="StreptococcusBTest3537Weeks" value="Not Done" id="streptococcusNotDone" />
+                            <label class="form-check-label" for="streptococcusNotDone">No se hizo</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="StreptococcusBTest3537Weeks" value="Negative" id="streptococcusNegative" />
+                            <label class="form-check-label" for="streptococcusNegative">-</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="StreptococcusBTest3537Weeks" value="Positive" id="streptococcusPositive" />
+                            <label class="form-check-label" for="streptococcusPositive">+</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>PREPARACIÓN PARA EL PARTO</label>
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input bool-radio" type="radio" asp-for="BirthPreparation" value="true" id="birthPrepYes" />
+                        <label class="form-check-label" for="birthPrepYes">Si</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input bool-radio" type="radio" asp-for="BirthPreparation" value="false" id="birthPrepNo" />
+                        <label class="form-check-label" for="birthPrepNo">No</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label>CONSEJERIA LACTANCIA MATERNA</label>
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input bool-radio" type="radio" asp-for="BreastfeedingCounseling" value="true" id="breastfeedingCounselingYes" />
+                        <label class="form-check-label" for="breastfeedingCounselingYes">Si</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input bool-radio" type="radio" asp-for="BreastfeedingCounseling" value="false" id="breastfeedingCounselingNo" />
+                        <label class="form-check-label" for="breastfeedingCounselingNo">No</label>
+                    </div>
+                </div>
+            </div>
+            </div> 
+        </div>
+
+
+
+        <div class="col-md-7">
+            <!-- VACUNAS - Nueva estructura completa -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-form-label-sm font-weight-bold">VACUNAS</label>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2"></th>
+                                    <th colspan="4" class="text-center"> </th>
+                                    <th rowspan="2" class="text-center">Fecha</th>
+                                    <th rowspan="2" class="text-center">Edad gest.<br />semanas</th>
+                                    <th rowspan="2" class="text-center">Nº total<br />dosis</th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center small">no</th>
+                                    <th class="text-center small">Si previa<br />embarazo</th>
+                                    <th class="text-center small">Si durante<br />embarazo</th>
+                                    <th class="text-center small">Si postparto<br />o aborto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Tétanos/Difteria -->
+                                <tr>
+                                    <td><strong>tétanos/difteria</strong></td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineTetanusDiphtheriaTime" value="1" @(((int?)Model?.VaccineTetanusDiphtheriaTime) == 1 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineTetanusDiphtheriaTime" value="2" @(((int?)Model?.VaccineTetanusDiphtheriaTime) == 2 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineTetanusDiphtheriaTime" value="3" @(((int?)Model?.VaccineTetanusDiphtheriaTime) == 3 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineTetanusDiphtheriaTime" value="4" @(((int?)Model?.VaccineTetanusDiphtheriaTime) == 4 ? "checked" : "") />
+                                    </td>
+                                    <td><input type="date" class="form-control form-control-sm" name="VaccineTetanusDiphtheriaDate" value="@Model?.VaccineTetanusDiphtheriaDate?.ToString("yyyy-MM-dd")" style="width: 150px;" /></td>
+                                    <td><input type="hidden" name="VaccineTetanusDiphtheriaGestationalWeeks" value="@Model?.VaccineTetanusDiphtheriaGestationalWeeks" /></td>
+                                    <td><input type="number" class="form-control form-control-sm" name="VaccineTetanusDiphtheriaTotalDoses" value="@Model?.VaccineTetanusDiphtheriaTotalDoses" style="width: 60px;" /></td>
+                                </tr>
+
+                                <!-- Tdap -->
+                                <tr>
+                                    <td><strong>tdap</strong></td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineTdapTime" value="1" @(((int?)Model?.VaccineTdapTime) == 1 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineTdapTime" value="2" @(((int?)Model?.VaccineTdapTime) == 2 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineTdapTime" value="3" @(((int?)Model?.VaccineTdapTime) == 3 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineTdapTime" value="4" @(((int?)Model?.VaccineTdapTime) == 4 ? "checked" : "") />
+                                    </td>
+                                    <td><input type="date" class="form-control form-control-sm" name="VaccineTdapDate" value="@Model?.VaccineTdapDate?.ToString("yyyy-MM-dd")" style="width: 150px;" /></td>
+                                    <td><input type="number" class="form-control form-control-sm" name="VaccineTdapGestationalWeeks" value="@Model?.VaccineTdapGestationalWeeks" style="width: 60px;" /></td>
+                                    <td><input type="hidden" name="VaccineTdapTotalDoses" value="@Model?.VaccineTdapTotalDoses" /></td>
+                                </tr>
+
+                                <!-- Influenza -->
+                                <tr>
+                                    <td><strong>influenza</strong></td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineInfluenzaTime" value="1" @(((int?)Model?.VaccineInfluenzaTime) == 1 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineInfluenzaTime" value="2" @(((int?)Model?.VaccineInfluenzaTime) == 2 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineInfluenzaTime" value="3" @(((int?)Model?.VaccineInfluenzaTime) == 3 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineInfluenzaTime" value="4" @(((int?)Model?.VaccineInfluenzaTime) == 4 ? "checked" : "") />
+                                    </td>
+                                    <td><input type="date" class="form-control form-control-sm" name="VaccineInfluenzaDate" value="@Model?.VaccineInfluenzaDate?.ToString("yyyy-MM-dd")" style="width: 150px;" /></td>
+                                    <td><input type="number" class="form-control form-control-sm" name="VaccineInfluenzaGestationalWeeks" value="@Model?.VaccineInfluenzaGestationalWeeks" style="width: 60px;" /></td>
+                                    <td><input type="hidden" name="VaccineInfluenzaTotalDoses" value="@Model?.VaccineInfluenzaTotalDoses" /></td>
+                                </tr>
+
+                                <!-- Rubeola -->
+                                <tr>
+                                    <td><strong>rubeola</strong></td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineRubellaTime" value="1" @(((int?)Model?.VaccineRubellaTime) == 1 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineRubellaTime" value="2" @(((int?)Model?.VaccineRubellaTime) == 2 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineRubellaTime" value="3" @(((int?)Model?.VaccineRubellaTime) == 3 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineRubellaTime" value="4" @(((int?)Model?.VaccineRubellaTime) == 4 ? "checked" : "") />
+                                    </td>
+                                    <td><input type="date" class="form-control form-control-sm" name="VaccineRubellaDate" value="@Model?.VaccineRubellaDate?.ToString("yyyy-MM-dd")" style="width: 150px;" /></td>
+                                    <td><input type="number" class="form-control form-control-sm" name="VaccineRubellaGestationalWeeks" value="@Model?.VaccineRubellaGestationalWeeks" style="width: 60px;" /></td>
+                                    <td><input type="hidden" name="VaccineRubellaTotalDoses" value="@Model?.VaccineRubellaTotalDoses" /></td>
+                                </tr>
+
+                                <!-- Hepatitis B -->
+                                <tr>
+                                    <td><strong>hepatitis B</strong></td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineHepatitisBTime" value="1" @(((int?)Model?.VaccineHepatitisBTime) == 1 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineHepatitisBTime" value="2" @(((int?)Model?.VaccineHepatitisBTime) == 2 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineHepatitisBTime" value="3" @(((int?)Model?.VaccineHepatitisBTime) == 3 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineHepatitisBTime" value="4" @(((int?)Model?.VaccineHepatitisBTime) == 4 ? "checked" : "") />
+                                    </td>
+                                    <td><input type="date" class="form-control form-control-sm" name="VaccineHepatitisBDate" value="@Model?.VaccineHepatitisBDate?.ToString("yyyy-MM-dd")" style="width: 150px;" /></td>
+                                    <td><input type="number" class="form-control form-control-sm" name="VaccineHepatitisBGestationalWeeks" value="@Model?.VaccineHepatitisBGestationalWeeks" style="width: 60px;" /></td>
+                                    <td><input type="hidden" name="VaccineHepatitisBTotalDoses" value="@Model?.VaccineHepatitisBTotalDoses" /></td>
+                                </tr>
+
+                                <!-- Hepatitis A -->
+                                <tr>
+                                    <td><strong>hepatitis A</strong></td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineHepatitisATime" value="1" @(((int?)Model?.VaccineHepatitisATime) == 1 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineHepatitisATime" value="2" @(((int?)Model?.VaccineHepatitisATime) == 2 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineHepatitisATime" value="3" @(((int?)Model?.VaccineHepatitisATime) == 3 ? "checked" : "") />
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="radio" name="VaccineHepatitisATime" value="4" @(((int?)Model?.VaccineHepatitisATime) == 4 ? "checked" : "") />
+                                    </td>
+                                    <td><input type="date" class="form-control form-control-sm" name="VaccineHepatitisADate" value="@Model?.VaccineHepatitisADate?.ToString("yyyy-MM-dd")" style="width: 150px;" /></td>
+                                    <td><input type="number" class="form-control form-control-sm" name="VaccineHepatitisAGestationalWeeks" value="@Model?.VaccineHepatitisAGestationalWeeks" style="width: 60px;" /></td>
+                                    <td><input type="hidden" name="VaccineHepatitisATotalDoses" value="@Model?.VaccineHepatitisATotalDoses" /></td>
+                                </tr>
+
+                                <!-- Tamizaje hepatitis B (fila separada) -->
+                                <tr>
+                                    <td colspan="5" class="text-center"><strong>tamizaje hepatitis B</strong></td>
+                                    <td colspan="3" class="text-center">
+                                        <div class="d-flex gap-2 justify-content-start">
+                                            <div class="form-check form-check-inline mb-0">
+                                                <input type="radio" name="HepatitisBScreening" value="2" id="hepBScreenNo" @(((int?)Model?.HepatitisBScreening) == 2 ? "checked" : "") />
+                                                <label for="hepBScreenNo">no</label>
+                                            </div>
+                                            <div class="form-check form-check-inline mb-0">
+                                                <input type="radio" name="HepatitisBScreening" value="1" id="hepBScreenYes" @(((int?)Model?.HepatitisBScreening) == 1 ? "checked" : "") />
+                                                <label for="hepBScreenYes">si</label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+
+
+
+
+</div>
+
+<div class="row mt-3">
+    <div class="col-12">
+        <h6 class="font-weight-bold">VIH - Diagnóstico Tratamiento</h6>
+    </div>
+</div>
+ 
+
+<!-- Tamizaje hepatitis B duplicado eliminado - usar HepatitisBScreening en tabla de vacunas -->
+<div class="row mt-3">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="font-weight-bold"> <20 sem</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="col-form-label-sm">Prueba solicitada</label>
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVTestRequestedLessThan20Weeks" value="2" id="hivTestRequestedLess20No" @(((int?)Model?.HIVTestRequestedLessThan20Weeks) == 2 ? "checked" : "") />
+                            <label class="form-check-label" for="hivTestRequestedLess20No">No</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVTestRequestedLessThan20Weeks" value="1" id="hivTestRequestedLess20Yes" @(((int?)Model?.HIVTestRequestedLessThan20Weeks) == 1 ? "checked" : "") />
+                            <label class="form-check-label" for="hivTestRequestedLess20Yes">Si</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVTestRequestedLessThan20Weeks" value="3" id="hivTestRequestedLess20NC" @(((int?)Model?.HIVTestRequestedLessThan20Weeks) == 3 ? "checked" : "") />
+                            <label class="form-check-label" for="hivTestRequestedLess20NC">NC</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="col-form-label-sm">Resultado</label>
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVTestResultLessThan20Weeks" value="2" id="hivTestResultLess20Negative" @(((int?)Model?.HIVTestResultLessThan20Weeks) == 2 ? "checked" : "") />
+                            <label class="form-check-label" for="hivTestResultLess20Negative">-</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVTestResultLessThan20Weeks" value="1" id="hivTestResultLess20Positive" @(((int?)Model?.HIVTestResultLessThan20Weeks) == 1 ? "checked" : "") />
+                            <label class="form-check-label" for="hivTestResultLess20Positive">+</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVTestResultLessThan20Weeks" value="3" id="hivTestResultLess20NA" @(((int?)Model?.HIVTestResultLessThan20Weeks) == 3 ? "checked" : "") />
+                            <label class="form-check-label" for="hivTestResultLess20NA">n/c</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVTestResultLessThan20Weeks" value="4" id="hivTestResultLess20SD" @(((int?)Model?.HIVTestResultLessThan20Weeks) == 4 ? "checked" : "") />
+                            <label class="form-check-label" for="hivTestResultLess20SD">s/d</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="col-form-label-sm">TARV en emb.</label>
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVARTLessThan20Weeks" value="1" id="hivARTLess20Yes" @(((int?)Model?.HIVARTLessThan20Weeks) == 1 ? "checked" : "") />
+                            <label class="form-check-label" for="hivARTLess20Yes">Sí</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVARTLessThan20Weeks" value="2" id="hivARTLess20No" @(((int?)Model?.HIVARTLessThan20Weeks) == 2 ? "checked" : "") />
+                            <label class="form-check-label" for="hivARTLess20No">No</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVARTLessThan20Weeks" value="3" id="hivARTLess20Nc" @(((int?)Model?.HIVARTLessThan20Weeks) == 3 ? "checked" : "") />
+                            <label class="form-check-label" for="hivARTLess20Nc">NC</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="font-weight-bold">  ≥20 sem</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="col-form-label-sm">Prueba solicitada</label>
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVTestRequestedGreaterOrEqual20Weeks" value="2" id="hivTestRequestedGreater20No" @(((int?)Model?.HIVTestRequestedGreaterOrEqual20Weeks) == 2 ? "checked" : "") />
+                            <label class="form-check-label" for="hivTestRequestedGreater20No">No</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVTestRequestedGreaterOrEqual20Weeks" value="1" id="hivTestRequestedGreater20Yes" @(((int?)Model?.HIVTestRequestedGreaterOrEqual20Weeks) == 1 ? "checked" : "") />
+                            <label class="form-check-label" for="hivTestRequestedGreater20Yes">Si</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVTestRequestedGreaterOrEqual20Weeks" value="3" id="hivTestRequestedGreater20NC" @(((int?)Model?.HIVTestRequestedGreaterOrEqual20Weeks) == 3 ? "checked" : "") />
+                            <label class="form-check-label" for="hivTestRequestedGreater20NC">NC</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="col-form-label-sm">Resultado</label>
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVTestResultGreaterOrEqual20Weeks" value="2" id="hivTestResultGreater20Negative" @(((int?)Model?.HIVTestResultGreaterOrEqual20Weeks) == 2 ? "checked" : "") />
+                            <label class="form-check-label" for="hivTestResultGreater20Negative">-</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVTestResultGreaterOrEqual20Weeks" value="1" id="hivTestResultGreater20Positive" @(((int?)Model?.HIVTestResultGreaterOrEqual20Weeks) == 1 ? "checked" : "") />
+                            <label class="form-check-label" for="hivTestResultGreater20Positive">+</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVTestResultGreaterOrEqual20Weeks" value="3" id="hivTestResultGreater20NA" @(((int?)Model?.HIVTestResultGreaterOrEqual20Weeks) == 3 ? "checked" : "") />
+                            <label class="form-check-label" for="hivTestResultGreater20NA">n/c</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVTestResultGreaterOrEqual20Weeks" value="4" id="hivTestResultGreater20SD" @(((int?)Model?.HIVTestResultGreaterOrEqual20Weeks) == 4 ? "checked" : "") />
+                            <label class="form-check-label" for="hivTestResultGreater20SD">s/d</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="col-form-label-sm">TARV en emb.</label>
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVARTGreaterOrEqual20Weeks" value="1" id="hivARTGreater20Yes" @(((int?)Model?.HIVARTGreaterOrEqual20Weeks) == 1 ? "checked" : "") />
+                            <label class="form-check-label" for="hivARTGreater20Yes">Sí</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVARTGreaterOrEqual20Weeks" value="2" id="hivARTGreater20No" @(((int?)Model?.HIVARTGreaterOrEqual20Weeks) == 2 ? "checked" : "") />
+                            <label class="form-check-label" for="hivARTGreater20No">No</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="HIVARTGreaterOrEqual20Weeks" value="3" id="hivARTGreater20Nc" @(((int?)Model?.HIVARTGreaterOrEqual20Weeks) == 3 ? "checked" : "") />
+                            <label class="form-check-label" for="hivARTGreater20Nc">NC</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SIFILIS - Diagnóstico Tratamiento según formulario oficial -->
+<div class="row mt-3">
+    <div class="col-12">
+        <h6 class="font-weight-bold">SIFILIS - Diagnóstico Tratamiento</h6>
+    </div>
+</div>
+<div class="row mt-3">
+    <!-- <20 sem -->
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="font-weight-bold">&lt;20 sem</label>
+            <table class="table table-sm table-bordered mb-2">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="text-center">-</th>
+                        <th class="text-center">+</th>
+                        <th class="text-center">s/d</th>
+                        <th class="text-center">n/c</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>no treponémica</strong></td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisNonTreponemalResultLessThan20Weeks" value="1" @(((int?)Model?.SyphilisNonTreponemalResultLessThan20Weeks) == 1 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisNonTreponemalResultLessThan20Weeks" value="2" @(((int?)Model?.SyphilisNonTreponemalResultLessThan20Weeks) == 2 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisNonTreponemalResultLessThan20Weeks" value="3" @(((int?)Model?.SyphilisNonTreponemalResultLessThan20Weeks) == 3 ? "checked" : "") />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><strong>treponémica</strong></td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreponemalResultLessThan20Weeks" value="1" @(((int?)Model?.SyphilisTreponemalResultLessThan20Weeks) == 1 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreponemalResultLessThan20Weeks" value="2" @(((int?)Model?.SyphilisTreponemalResultLessThan20Weeks) == 2 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreponemalResultLessThan20Weeks" value="3" @(((int?)Model?.SyphilisTreponemalResultLessThan20Weeks) == 3 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreponemalResultLessThan20Weeks" value="4" @(((int?)Model?.SyphilisTreponemalResultLessThan20Weeks) == 4 ? "checked" : "") />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-sm table-bordered mb-0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="text-center">no</th>
+                        <th class="text-center">si</th>
+                        <th class="text-center">s/d</th>
+                        <th class="text-center">n/c</th>
+                        <th class="text-center">semanas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Tratamiento</strong></td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreatmentOptionLessThan20Weeks" value="1" @(((int?)Model?.SyphilisTreatmentOptionLessThan20Weeks) == 1 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreatmentOptionLessThan20Weeks" value="2" @(((int?)Model?.SyphilisTreatmentOptionLessThan20Weeks) == 2 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreatmentOptionLessThan20Weeks" value="3" @(((int?)Model?.SyphilisTreatmentOptionLessThan20Weeks) == 3 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreatmentOptionLessThan20Weeks" value="4" @(((int?)Model?.SyphilisTreatmentOptionLessThan20Weeks) == 4 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="number" class="form-control form-control-sm" name="SyphilisTreatmentWeeksLessThan20Weeks" value="@Model?.SyphilisTreatmentWeeksLessThan20Weeks" style="width: 60px;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tto. de la pareja</strong></td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisPartnerTreatmentLessThan20Weeks" value="1" @(((int?)Model?.SyphilisPartnerTreatmentLessThan20Weeks) == 1 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisPartnerTreatmentLessThan20Weeks" value="2" @(((int?)Model?.SyphilisPartnerTreatmentLessThan20Weeks) == 2 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisPartnerTreatmentLessThan20Weeks" value="3" @(((int?)Model?.SyphilisPartnerTreatmentLessThan20Weeks) == 3 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisPartnerTreatmentLessThan20Weeks" value="4" @(((int?)Model?.SyphilisPartnerTreatmentLessThan20Weeks) == 4 ? "checked" : "") />
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ≥20 sem -->
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="font-weight-bold">≥20 sem</label>
+            <table class="table table-sm table-bordered mb-2">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="text-center">-</th>
+                        <th class="text-center">+</th>
+                        <th class="text-center">s/d</th>
+                        <th class="text-center">n/c</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>no treponémica</strong></td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisNonTreponemalResultGreaterOrEqual20Weeks" value="1" @(((int?)Model?.SyphilisNonTreponemalResultGreaterOrEqual20Weeks) == 1 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisNonTreponemalResultGreaterOrEqual20Weeks" value="2" @(((int?)Model?.SyphilisNonTreponemalResultGreaterOrEqual20Weeks) == 2 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisNonTreponemalResultGreaterOrEqual20Weeks" value="3" @(((int?)Model?.SyphilisNonTreponemalResultGreaterOrEqual20Weeks) == 3 ? "checked" : "") />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><strong>treponémica</strong></td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreponemalResultGreaterOrEqual20Weeks" value="1" @(((int?)Model?.SyphilisTreponemalResultGreaterOrEqual20Weeks) == 1 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreponemalResultGreaterOrEqual20Weeks" value="2" @(((int?)Model?.SyphilisTreponemalResultGreaterOrEqual20Weeks) == 2 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreponemalResultGreaterOrEqual20Weeks" value="3" @(((int?)Model?.SyphilisTreponemalResultGreaterOrEqual20Weeks) == 3 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreponemalResultGreaterOrEqual20Weeks" value="4" @(((int?)Model?.SyphilisTreponemalResultGreaterOrEqual20Weeks) == 4 ? "checked" : "") />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-sm table-bordered mb-0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="text-center">no</th>
+                        <th class="text-center">si</th>
+                        <th class="text-center">s/d</th>
+                        <th class="text-center">n/c</th>
+                        <th class="text-center">semanas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Tratamiento</strong></td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreatmentOptionGreaterOrEqual20Weeks" value="1" @(((int?)Model?.SyphilisTreatmentOptionGreaterOrEqual20Weeks) == 1 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreatmentOptionGreaterOrEqual20Weeks" value="2" @(((int?)Model?.SyphilisTreatmentOptionGreaterOrEqual20Weeks) == 2 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreatmentOptionGreaterOrEqual20Weeks" value="3" @(((int?)Model?.SyphilisTreatmentOptionGreaterOrEqual20Weeks) == 3 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisTreatmentOptionGreaterOrEqual20Weeks" value="4" @(((int?)Model?.SyphilisTreatmentOptionGreaterOrEqual20Weeks) == 4 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="number" class="form-control form-control-sm" name="SyphilisTreatmentWeeksGreaterOrEqual20Weeks" value="@Model?.SyphilisTreatmentWeeksGreaterOrEqual20Weeks" style="width: 60px;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tto. de la pareja</strong></td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisPartnerTreatmentGreaterOrEqual20Weeks" value="1" @(((int?)Model?.SyphilisPartnerTreatmentGreaterOrEqual20Weeks) == 1 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisPartnerTreatmentGreaterOrEqual20Weeks" value="2" @(((int?)Model?.SyphilisPartnerTreatmentGreaterOrEqual20Weeks) == 2 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisPartnerTreatmentGreaterOrEqual20Weeks" value="3" @(((int?)Model?.SyphilisPartnerTreatmentGreaterOrEqual20Weeks) == 3 ? "checked" : "") />
+                        </td>
+                        <td class="text-center">
+                            <input type="radio" name="SyphilisPartnerTreatmentGreaterOrEqual20Weeks" value="4" @(((int?)Model?.SyphilisPartnerTreatmentGreaterOrEqual20Weeks) == 4 ? "checked" : "") />
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    
+    .form-group label {
+        font-weight: bold;
+        font-size: 11px;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+    }
+
+    .form-control-sm {
+        height: calc(1.5em + .5rem + 2px);
+        font-size: .875rem;
+    }
+
+    .form-check-inline {
+        margin-right: 10px;
+    }
+
+    .form-check-input {
+        margin-right: 5px;
+    }
+
+    
+    .perinatal-highlight-section {
+        background-color: #fff3cd;
+        padding: 8px;
+        border-radius: 4px;
+        border-left: 4px solid #ffc107;
+    }
+
+    .form-group:has(input[name*="BloodGroup"]),
+    .form-group:has(input[name*="HIV"]),
+    .form-group:has(input[name*="Cervix"]) {
+        background-color: #fff3cd;
+        padding: 8px;
+        border-radius: 4px;
+        border-left: 4px solid #ffc107;
+    }
+
+    
+    .col-md-2:has(input[name="OlderThan35"]),
+    .col-md-2:has(input[name="YoungerThan15"]) {
+        display: none;
+    }
+</style>

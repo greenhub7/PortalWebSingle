@@ -1,0 +1,17 @@
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\bin\Debug\net10.0\Common.deps.json
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\bin\Debug\net10.0\Common.dll
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\bin\Debug\net10.0\Common.pdb
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\bin\Debug\net10.0\CommonTasks.dll
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\bin\Debug\net10.0\Domain.dll
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\bin\Debug\net10.0\CommonTasks.pdb
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\bin\Debug\net10.0\Domain.pdb
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\obj\Debug\net10.0\Common.csproj.AssemblyReference.cache
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\obj\Debug\net10.0\Common.GeneratedMSBuildEditorConfig.editorconfig
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\obj\Debug\net10.0\Common.AssemblyInfoInputs.cache
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\obj\Debug\net10.0\Common.AssemblyInfo.cs
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\obj\Debug\net10.0\Common.csproj.CoreCompileInputs.cache
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\obj\Debug\net10.0\Common.csproj.Up2Date
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\obj\Debug\net10.0\Common.dll
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\obj\Debug\net10.0\refint\Common.dll
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\obj\Debug\net10.0\Common.pdb
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\obj\Debug\net10.0\ref\Common.dll

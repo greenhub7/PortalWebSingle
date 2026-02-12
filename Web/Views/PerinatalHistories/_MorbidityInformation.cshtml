@@ -1,0 +1,1294 @@
+@* SolMed 2026 - Morbidity Information with nullable radios *@
+@model Domain.MorbidityInformation
+
+@* Helper function for nullable radio group *@
+@functions {
+    string GetRadioChecked(string fieldValue, string optionValue) {
+        return fieldValue == optionValue ? "checked" : "";
+    }
+}
+
+<div class="row">
+    @* TRASTORNOS HIPERTENSIVOS *@
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="d-flex align-items-center mb-2">
+                <label class="font-weight-bold mr-3 mb-0">TRASTORNOS HIPERTENSIVOS</label>
+                <div class="form-check form-check-inline mb-0">
+                    <input class="form-check-input nullable-radio" type="radio" name="HasHypertensiveDisorders" value="no" id="hypertensiveDisordersNo"
+                           @(Model?.HasHypertensiveDisorders == false ? "checked" : "") />
+                    <label class="form-check-label" for="hypertensiveDisordersNo">no</label>
+                </div>
+                <div class="form-check form-check-inline mb-0">
+                    <input class="form-check-input nullable-radio" type="radio" name="HasHypertensiveDisorders" value="si" id="hypertensiveDisordersSi"
+                           @(Model?.HasHypertensiveDisorders == true ? "checked" : "") />
+                    <label class="form-check-label" for="hypertensiveDisordersSi">si</label>
+                </div>
+            </div>
+
+            <div class="ml-3">
+                @* Hipertension cronica *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 220px;">Hipertension cronica</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="ChronicHypertension" value="no" id="chronicHypertensionNo"
+                               @(Model?.ChronicHypertension == false ? "checked" : "") />
+                        <label class="form-check-label" for="chronicHypertensionNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="ChronicHypertension" value="si" id="chronicHypertensionSi"
+                               @(Model?.ChronicHypertension == true ? "checked" : "") />
+                        <label class="form-check-label" for="chronicHypertensionSi">si</label>
+                    </div>
+                </div>
+
+                @* Pre-eclampsia leve *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 220px;">Pre-eclampsia leve</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="MildPreeclampsia" value="no" id="mildPreeclampsiaNo"
+                               @(Model?.MildPreeclampsia == false ? "checked" : "") />
+                        <label class="form-check-label" for="mildPreeclampsiaNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="MildPreeclampsia" value="si" id="mildPreeclampsiaSi"
+                               @(Model?.MildPreeclampsia == true ? "checked" : "") />
+                        <label class="form-check-label" for="mildPreeclampsiaSi">si</label>
+                    </div>
+                </div>
+
+                @* Pre-eclampsia severa *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 220px;">Pre-eclampsia severa</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="SeverePreeclampsia" value="no" id="severePreeclampsiaNo"
+                               @(Model?.SeverePreeclampsia == false ? "checked" : "") />
+                        <label class="form-check-label" for="severePreeclampsiaNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="SeverePreeclampsia" value="si" id="severePreeclampsiaSi"
+                               @(Model?.SeverePreeclampsia == true ? "checked" : "") />
+                        <label class="form-check-label" for="severePreeclampsiaSi">si</label>
+                    </div>
+                </div>
+
+                @* Eclampsia *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 220px;">Eclampsia</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Eclampsia" value="no" id="eclampsiaNo"
+                               @(Model?.Eclampsia == false ? "checked" : "") />
+                        <label class="form-check-label" for="eclampsiaNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Eclampsia" value="si" id="eclampsiaSi"
+                               @(Model?.Eclampsia == true ? "checked" : "") />
+                        <label class="form-check-label" for="eclampsiaSi">si</label>
+                    </div>
+                </div>
+
+                @* HELLP *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 220px;">HELLP</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="HELLP" value="no" id="hellpNo"
+                               @(Model?.HELLP == false ? "checked" : "") />
+                        <label class="form-check-label" for="hellpNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="HELLP" value="si" id="hellpSi"
+                               @(Model?.HELLP == true ? "checked" : "") />
+                        <label class="form-check-label" for="hellpSi">si</label>
+                    </div>
+                </div>
+
+                @* Hipertension gestacional *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 220px;">Hipertension gestacional</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="GestationalHypertension" value="no" id="gestationalHypertensionNo"
+                               @(Model?.GestationalHypertension == false ? "checked" : "") />
+                        <label class="form-check-label" for="gestationalHypertensionNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="GestationalHypertension" value="si" id="gestationalHypertensionSi"
+                               @(Model?.GestationalHypertension == true ? "checked" : "") />
+                        <label class="form-check-label" for="gestationalHypertensionSi">si</label>
+                    </div>
+                </div>
+
+                @* Hipertension cronica + PE sobreimpuesta *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 220px;">Hipertension cronica + PE sobreimpuesta</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="ChronicHypertensionWithSuperimposedPreeclampsia" value="no" id="chronicHypertensionPENo"
+                               @(Model?.ChronicHypertensionWithSuperimposedPreeclampsia == false ? "checked" : "") />
+                        <label class="form-check-label" for="chronicHypertensionPENo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="ChronicHypertensionWithSuperimposedPreeclampsia" value="si" id="chronicHypertensionPESi"
+                               @(Model?.ChronicHypertensionWithSuperimposedPreeclampsia == true ? "checked" : "") />
+                        <label class="form-check-label" for="chronicHypertensionPESi">si</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* INFECCIONES *@
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="d-flex align-items-center mb-2">
+                <label class="font-weight-bold mr-3 mb-0">INFECCIONES</label>
+                <div class="form-check form-check-inline mb-0">
+                    <input class="form-check-input nullable-radio" type="radio" name="HasInfections" value="no" id="infectionsNo"
+                           @(Model?.HasInfections == false ? "checked" : "") />
+                    <label class="form-check-label" for="infectionsNo">no</label>
+                </div>
+                <div class="form-check form-check-inline mb-0">
+                    <input class="form-check-input nullable-radio" type="radio" name="HasInfections" value="si" id="infectionsSi"
+                           @(Model?.HasInfections == true ? "checked" : "") />
+                    <label class="form-check-label" for="infectionsSi">si</label>
+                </div>
+            </div>
+
+            <div class="ml-3">
+                @* Sepsis *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Sepsis</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Sepsis" value="no" id="sepsisNo"
+                               @(Model?.Sepsis == false ? "checked" : "") />
+                        <label class="form-check-label" for="sepsisNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Sepsis" value="si" id="sepsisSi"
+                               @(Model?.Sepsis == true ? "checked" : "") />
+                        <label class="form-check-label" for="sepsisSi">si</label>
+                    </div>
+                </div>
+
+                @* Endometritis *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Endometritis</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Endometritis" value="no" id="endometritisNo"
+                               @(Model?.Endometritis == false ? "checked" : "") />
+                        <label class="form-check-label" for="endometritisNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Endometritis" value="si" id="endometritisSi"
+                               @(Model?.Endometritis == true ? "checked" : "") />
+                        <label class="form-check-label" for="endometritisSi">si</label>
+                    </div>
+                </div>
+
+                @* Corioamnionitis *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Corioamnionitis</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Chorioamnionitis" value="no" id="chorioamnionitisNo"
+                               @(Model?.Chorioamnionitis == false ? "checked" : "") />
+                        <label class="form-check-label" for="chorioamnionitisNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Chorioamnionitis" value="si" id="chorioamnionitisSi"
+                               @(Model?.Chorioamnionitis == true ? "checked" : "") />
+                        <label class="form-check-label" for="chorioamnionitisSi">si</label>
+                    </div>
+                </div>
+
+                @* Bacteriuria asintomatica *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Bacteriuria asintomatica</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="AsymptomaticBacteriuria" value="no" id="asymptomaticBacteriuriaNo"
+                               @(Model?.AsymptomaticBacteriuria == false ? "checked" : "") />
+                        <label class="form-check-label" for="asymptomaticBacteriuriaNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="AsymptomaticBacteriuria" value="si" id="asymptomaticBacteriuriaSi"
+                               @(Model?.AsymptomaticBacteriuria == true ? "checked" : "") />
+                        <label class="form-check-label" for="asymptomaticBacteriuriaSi">si</label>
+                    </div>
+                </div>
+
+                @* Pielonefritis *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Pielonefritis</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Pyelonephritis" value="no" id="pyelonephritisNo"
+                               @(Model?.Pyelonephritis == false ? "checked" : "") />
+                        <label class="form-check-label" for="pyelonephritisNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Pyelonephritis" value="si" id="pyelonephritisSi"
+                               @(Model?.Pyelonephritis == true ? "checked" : "") />
+                        <label class="form-check-label" for="pyelonephritisSi">si</label>
+                    </div>
+                </div>
+
+                @* Neumonia *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Neumonia</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Pneumonia" value="no" id="pneumoniaNo"
+                               @(Model?.Pneumonia == false ? "checked" : "") />
+                        <label class="form-check-label" for="pneumoniaNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Pneumonia" value="si" id="pneumoniaSi"
+                               @(Model?.Pneumonia == true ? "checked" : "") />
+                        <label class="form-check-label" for="pneumoniaSi">si</label>
+                    </div>
+                </div>
+
+                @* Infeccion herida cesarea *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Infeccion herida cesarea</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="CesareanWoundInfection" value="no" id="cesareanWoundInfectionNo"
+                               @(Model?.CesareanWoundInfection == false ? "checked" : "") />
+                        <label class="form-check-label" for="cesareanWoundInfectionNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="CesareanWoundInfection" value="si" id="cesareanWoundInfectionSi"
+                               @(Model?.CesareanWoundInfection == true ? "checked" : "") />
+                        <label class="form-check-label" for="cesareanWoundInfectionSi">si</label>
+                    </div>
+                </div>
+
+                @* Infeccion episiorrafia *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Infeccion episiorrafia</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="EpisiotomyInfection" value="no" id="episiotomyInfectionNo"
+                               @(Model?.EpisiotomyInfection == false ? "checked" : "") />
+                        <label class="form-check-label" for="episiotomyInfectionNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="EpisiotomyInfection" value="si" id="episiotomyInfectionSi"
+                               @(Model?.EpisiotomyInfection == true ? "checked" : "") />
+                        <label class="form-check-label" for="episiotomyInfectionSi">si</label>
+                    </div>
+                </div>
+
+                @* Otra infeccion - con input *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Otra infeccion</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="OtherInfection" value="no" id="otherInfectionNo"
+                               @(Model?.OtherInfection == false ? "checked" : "") />
+                        <label class="form-check-label" for="otherInfectionNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="OtherInfection" value="si" id="otherInfectionSi"
+                               @(Model?.OtherInfection == true ? "checked" : "") />
+                        <label class="form-check-label" for="otherInfectionSi">si</label>
+                    </div>
+                    <input type="text" class="form-control form-control-sm ml-2" name="OtherInfectionDetail" id="otherInfectionDetail"
+                           value="@Model?.OtherInfectionDetail" style="width: 120px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* HEMORRAGIA *@
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="font-weight-bold">HEMORRAGIA</label>
+
+            @* Trimestres *@
+            <div class="row mt-2">
+                <div class="col-4">
+                    <div class="d-flex flex-column">
+                        <span class="font-weight-bold small">1<sup>er</sup> TRIM</span>
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input nullable-radio" type="radio" name="HasFirstTrimesterHemorrhage" value="no" id="firstTrimHemNo"
+                                       @(Model?.HasFirstTrimesterHemorrhage == false ? "checked" : "") />
+                                <label class="form-check-label small" for="firstTrimHemNo">no</label>
+                            </div>
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input nullable-radio" type="radio" name="HasFirstTrimesterHemorrhage" value="si" id="firstTrimHemSi"
+                                       @(Model?.HasFirstTrimesterHemorrhage == true ? "checked" : "") />
+                                <label class="form-check-label small" for="firstTrimHemSi">si</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="d-flex flex-column">
+                        <span class="font-weight-bold small">2<sup>o</sup> TRIM</span>
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input nullable-radio" type="radio" name="HasSecondTrimesterHemorrhage" value="no" id="secondTrimHemNo"
+                                       @(Model?.HasSecondTrimesterHemorrhage == false ? "checked" : "") />
+                                <label class="form-check-label small" for="secondTrimHemNo">no</label>
+                            </div>
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input nullable-radio" type="radio" name="HasSecondTrimesterHemorrhage" value="si" id="secondTrimHemSi"
+                                       @(Model?.HasSecondTrimesterHemorrhage == true ? "checked" : "") />
+                                <label class="form-check-label small" for="secondTrimHemSi">si</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="d-flex flex-column">
+                        <span class="font-weight-bold small">3<sup>er</sup> TRIM/PP</span>
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input nullable-radio" type="radio" name="HasThirdTrimesterHemorrhage" value="no" id="thirdTrimHemNo"
+                                       @(Model?.HasThirdTrimesterHemorrhage == false ? "checked" : "") />
+                                <label class="form-check-label small" for="thirdTrimHemNo">no</label>
+                            </div>
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input nullable-radio" type="radio" name="HasThirdTrimesterHemorrhage" value="si" id="thirdTrimHemSi"
+                                       @(Model?.HasThirdTrimesterHemorrhage == true ? "checked" : "") />
+                                <label class="form-check-label small" for="thirdTrimHemSi">si</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* Sub-opciones de hemorragia en 3 columnas *@
+            <div class="row mt-2">
+                @* Primera columna - 1er trimestre *@
+                <div class="col-4">
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-1 small" style="min-width: 80px;">Post aborto</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="PostAbortionHemorrhage" value="no" id="postAbortionNo" />
+                            <label class="form-check-label small" for="postAbortionNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="PostAbortionHemorrhage" value="si" id="postAbortionSi" />
+                            <label class="form-check-label small" for="postAbortionSi">si</label>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-1 small" style="min-width: 80px;">Mola hidatif.</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="HydatidiformMole" value="no" id="hydatidiformMoleNo" />
+                            <label class="form-check-label small" for="hydatidiformMoleNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="HydatidiformMole" value="si" id="hydatidiformMoleSi" />
+                            <label class="form-check-label small" for="hydatidiformMoleSi">si</label>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-1 small" style="min-width: 80px;">Emb. ectopico</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="EctopicPregnancy" value="no" id="ectopicPregnancyNo" />
+                            <label class="form-check-label small" for="ectopicPregnancyNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="EctopicPregnancy" value="si" id="ectopicPregnancySi" />
+                            <label class="form-check-label small" for="ectopicPregnancySi">si</label>
+                        </div>
+                    </div>
+                </div>
+
+                @* Segunda columna - 2o trimestre *@
+                <div class="col-4">
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-1 small" style="min-width: 85px;">Placenta previa</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="PlacentaPrevia" value="no" id="placentaPreviaNo" />
+                            <label class="form-check-label small" for="placentaPreviaNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="PlacentaPrevia" value="si" id="placentaPreviewSi" />
+                            <label class="form-check-label small" for="placentaPreviewSi">si</label>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-1 small" style="min-width: 85px;">Acretismo plac.</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="AccretaPlacentaPP" value="no" id="accretaPlacentaNo" />
+                            <label class="form-check-label small" for="accretaPlacentaNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="AccretaPlacentaPP" value="si" id="accretaPlacentaSi" />
+                            <label class="form-check-label small" for="accretaPlacentaSi">si</label>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-1 small" style="min-width: 85px;">DPPNI</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="AbruptioPlacentae" value="no" id="abruptioPlacentaeNo" />
+                            <label class="form-check-label small" for="abruptioPlacentaeNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="AbruptioPlacentae" value="si" id="abruptioPlacentaeSi" />
+                            <label class="form-check-label small" for="abruptioPlacentaeSi">si</label>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-1 small" style="min-width: 85px;">Hem. 2do Trim</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="SecondTrimesterHemorrhage" value="no" id="secondTrimHemorrhageNo" />
+                            <label class="form-check-label small" for="secondTrimHemorrhageNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="SecondTrimesterHemorrhage" value="si" id="secondTrimHemorrhageSi" />
+                            <label class="form-check-label small" for="secondTrimHemorrhageSi">si</label>
+                        </div>
+                    </div>
+                </div>
+
+                @* Tercera columna - 3er trimestre/postparto *@
+                <div class="col-4">
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-1 small" style="min-width: 85px;">Rotura uterina</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="UterineRupture" value="no" id="uterineRuptureNo" />
+                            <label class="form-check-label small" for="uterineRuptureNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="UterineRupture" value="si" id="uterineRuptureSi" />
+                            <label class="form-check-label small" for="uterineRuptureSi">si</label>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-1 small" style="min-width: 85px;">Hem. postparto</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="PostpartumHemorrhage" value="no" id="postpartumHemorrhageNo" />
+                            <label class="form-check-label small" for="postpartumHemorrhageNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="PostpartumHemorrhage" value="si" id="postpartumHemorrhageSi" />
+                            <label class="form-check-label small" for="postpartumHemorrhageSi">si</label>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-1 small" style="min-width: 85px;">Atonia uterina</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="UterineAtony" value="no" id="uterineAtonyNo" />
+                            <label class="form-check-label small" for="uterineAtonyNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="UterineAtony" value="si" id="uterineAtonySi" />
+                            <label class="form-check-label small" for="uterineAtonySi">si</label>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-1 small" style="min-width: 85px;">Restos</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="RetainedPlacenta" value="no" id="retainedPlacentaNo" />
+                            <label class="form-check-label small" for="retainedPlacentaNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="RetainedPlacenta" value="si" id="retainedPlacentaSi" />
+                            <label class="form-check-label small" for="retainedPlacentaSi">si</label>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-1 small" style="min-width: 85px;">Desgarros</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="PlacentalTears" value="no" id="placentalTearsNo" />
+                            <label class="form-check-label small" for="placentalTearsNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="PlacentalTears" value="si" id="placentalTearsSi" />
+                            <label class="form-check-label small" for="placentalTearsSi">si</label>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-1 small" style="min-width: 85px;">Def. coagulacion</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="CoagulationDefect" value="no" id="coagulationDefectNo" />
+                            <label class="form-check-label small" for="coagulationDefectNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="CoagulationDefect" value="si" id="coagulationDefectSi" />
+                            <label class="form-check-label small" for="coagulationDefectSi">si</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    @* TRASTORNOS METABOLICOS *@
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="d-flex align-items-center mb-2">
+                <label class="font-weight-bold mr-3 mb-0">TRASTORNOS METABOLICOS</label>
+                <div class="form-check form-check-inline mb-0">
+                    <input class="form-check-input nullable-radio" type="radio" name="HasMetabolicDisorders" value="no" id="metabolicDisordersNo"
+                           @(Model?.HasMetabolicDisorders == false ? "checked" : "") />
+                    <label class="form-check-label" for="metabolicDisordersNo">no</label>
+                </div>
+                <div class="form-check form-check-inline mb-0">
+                    <input class="form-check-input nullable-radio" type="radio" name="HasMetabolicDisorders" value="si" id="metabolicDisordersSi"
+                           @(Model?.HasMetabolicDisorders == true ? "checked" : "") />
+                    <label class="form-check-label" for="metabolicDisordersSi">si</label>
+                </div>
+            </div>
+
+            @* DIABETES MELLITUS *@
+            <div class="ml-2 mb-3">
+                <div class="d-flex align-items-center mb-2">
+                    <span class="font-weight-bold mr-3">DIABETES MELLITUS</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="HasDiabetesMellitus" value="no" id="diabetesMellitusNo"
+                               @(Model?.HasDiabetesMellitus == false ? "checked" : "") />
+                        <label class="form-check-label" for="diabetesMellitusNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="HasDiabetesMellitus" value="si" id="diabetesMellitusSi"
+                               @(Model?.HasDiabetesMellitus == true ? "checked" : "") />
+                        <label class="form-check-label" for="diabetesMellitusSi">si</label>
+                    </div>
+                </div>
+
+                <div class="ml-3">
+                    @* Tolerancia oral a la glucosa anormal *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 200px;">Tolerancia oral a la glucosa anormal</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="AbnormalOralGlucoseTolerance" value="no" id="abnormalGlucoseNo" />
+                            <label class="form-check-label" for="abnormalGlucoseNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="AbnormalOralGlucoseTolerance" value="si" id="abnormalGlucoseSi" />
+                            <label class="form-check-label" for="abnormalGlucoseSi">si</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="AbnormalOralGlucoseTolerance" value="no_se_hizo" id="abnormalGlucoseNoSeHizo" />
+                            <label class="form-check-label" for="abnormalGlucoseNoSeHizo">no se hizo</label>
+                        </div>
+                    </div>
+
+                    @* D.M. insulino dependiente previa *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 200px;">D.M. insulino dependiente previa</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="PreexistingInsulinDependentDM" value="no" id="insulinDepDMNo" />
+                            <label class="form-check-label" for="insulinDepDMNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="PreexistingInsulinDependentDM" value="si" id="insulinDepDMSi" />
+                            <label class="form-check-label" for="insulinDepDMSi">si</label>
+                        </div>
+                    </div>
+
+                    @* D.M. no insulino dependiente previa *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 200px;">D.M. no insulino dependiente previa</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="PreexistingNonInsulinDependentDM" value="no" id="nonInsulinDepDMNo" />
+                            <label class="form-check-label" for="nonInsulinDepDMNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="PreexistingNonInsulinDependentDM" value="si" id="nonInsulinDepDMSi" />
+                            <label class="form-check-label" for="nonInsulinDepDMSi">si</label>
+                        </div>
+                    </div>
+
+                    @* D.M. gestacional *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 200px;">D.M. gestacional</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="GestationalDiabetes" value="no" id="gestationalDiabetesNo" />
+                            <label class="form-check-label" for="gestationalDiabetesNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="GestationalDiabetes" value="si" id="gestationalDiabetesSi" />
+                            <label class="form-check-label" for="gestationalDiabetesSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Cetoacidosis *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 200px;">Cetoacidosis</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Ketoacidosis" value="no" id="ketoacidosisNo" />
+                            <label class="form-check-label" for="ketoacidosisNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Ketoacidosis" value="si" id="ketoacidosisSi" />
+                            <label class="form-check-label" for="ketoacidosisSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Estado hiperosmolar *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 200px;">Estado hiperosmolar</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="HyperosmolarState" value="no" id="hyperosmolarStateNo" />
+                            <label class="form-check-label" for="hyperosmolarStateNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="HyperosmolarState" value="si" id="hyperosmolarStateSi" />
+                            <label class="form-check-label" for="hyperosmolarStateSi">si</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* TRASTORNOS TIROIDEOS *@
+            <div class="ml-2">
+                <div class="d-flex align-items-center mb-2">
+                    <span class="font-weight-bold mr-3">TRASTORNOS TIROIDEOS</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="HasThyroidDisorders" value="no" id="thyroidDisordersNo"
+                               @(Model?.HasThyroidDisorders == false ? "checked" : "") />
+                        <label class="form-check-label" for="thyroidDisordersNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="HasThyroidDisorders" value="si" id="thyroidDisordersSi"
+                               @(Model?.HasThyroidDisorders == true ? "checked" : "") />
+                        <label class="form-check-label" for="thyroidDisordersSi">si</label>
+                    </div>
+                </div>
+
+                <div class="ml-3">
+                    @* Hipotiroidismo *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 150px;">Hipotiroidismo</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Hypothyroidism" value="no" id="hypothyroidismNo" />
+                            <label class="form-check-label" for="hypothyroidismNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Hypothyroidism" value="si" id="hypothyroidismSi" />
+                            <label class="form-check-label" for="hypothyroidismSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Hipertiroidismo *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 150px;">Hipertiroidismo</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Hyperthyroidism" value="no" id="hyperthyroidismNo" />
+                            <label class="form-check-label" for="hyperthyroidismNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Hyperthyroidism" value="si" id="hyperthyroidismSi" />
+                            <label class="form-check-label" for="hyperthyroidismSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Crisis tiroidea *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 150px;">Crisis tiroidea</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="ThyroidCrisis" value="no" id="thyroidCrisisNo" />
+                            <label class="form-check-label" for="thyroidCrisisNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="ThyroidCrisis" value="si" id="thyroidCrisisSi" />
+                            <label class="form-check-label" for="thyroidCrisisSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Otro trastorno metabolico - con 4 inputs *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 150px;">Otro trast. metab.</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="OtherMetabolicDisorder" value="no" id="otherMetabolicNo" />
+                            <label class="form-check-label" for="otherMetabolicNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="OtherMetabolicDisorder" value="si" id="otherMetabolicSi" />
+                            <label class="form-check-label" for="otherMetabolicSi">si</label>
+                        </div>
+                    </div>
+                    <div class="ml-3 mt-1">
+                        <div class="d-flex mb-1">
+                            <input type="text" class="form-control form-control-sm mr-1" name="OtherMetabolicDetail1" id="otherMetabolicDetail1"
+                                   value="@Model?.OtherMetabolicDetail1" style="width: 100px;" placeholder="1" />
+                            <input type="text" class="form-control form-control-sm" name="OtherMetabolicDetail2" id="otherMetabolicDetail2"
+                                   value="@Model?.OtherMetabolicDetail2" style="width: 100px;" placeholder="2" />
+                        </div>
+                        <div class="d-flex">
+                            <input type="text" class="form-control form-control-sm mr-1" name="OtherMetabolicDetail3" id="otherMetabolicDetail3"
+                                   value="@Model?.OtherMetabolicDetail3" style="width: 100px;" placeholder="3" />
+                            <input type="text" class="form-control form-control-sm" name="OtherMetabolicDetail4" id="otherMetabolicDetail4"
+                                   value="@Model?.OtherMetabolicDetail4" style="width: 100px;" placeholder="4" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* OTROS TRASTORNOS *@
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="d-flex align-items-center mb-2">
+                <label class="font-weight-bold mr-3 mb-0">OTROS TRASTORNOS</label>
+                <div class="form-check form-check-inline mb-0">
+                    <input class="form-check-input nullable-radio" type="radio" name="HasOtherDisorders" value="no" id="otherDisordersNo"
+                           @(Model?.HasOtherDisorders == false ? "checked" : "") />
+                    <label class="form-check-label" for="otherDisordersNo">no</label>
+                </div>
+                <div class="form-check form-check-inline mb-0">
+                    <input class="form-check-input nullable-radio" type="radio" name="HasOtherDisorders" value="si" id="otherDisordersSi"
+                           @(Model?.HasOtherDisorders == true ? "checked" : "") />
+                    <label class="form-check-label" for="otherDisordersSi">si</label>
+                </div>
+            </div>
+
+            <div class="ml-3">
+                @* Hiperemesis gravidica *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Hiperemesis gravidica</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="HyperemesisGravidarum" value="no" id="hyperemesisNo" />
+                        <label class="form-check-label" for="hyperemesisNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="HyperemesisGravidarum" value="si" id="hyperemesisSi" />
+                        <label class="form-check-label" for="hyperemesisSi">si</label>
+                    </div>
+                </div>
+
+                @* Trombosis venosa profunda *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Trombosis venosa profunda</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="DeepVeinThrombosis" value="no" id="deepVeinThrombosisNo" />
+                        <label class="form-check-label" for="deepVeinThrombosisNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="DeepVeinThrombosis" value="si" id="deepVeinThrombosisSi" />
+                        <label class="form-check-label" for="deepVeinThrombosisSi">si</label>
+                    </div>
+                </div>
+
+                @* Tromboembolismo pulmonar *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Tromboembolismo pulmonar</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="PulmonaryThromboembolism" value="no" id="pulmonaryThromboembolismNo" />
+                        <label class="form-check-label" for="pulmonaryThromboembolismNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="PulmonaryThromboembolism" value="si" id="pulmonaryThromboembolismSi" />
+                        <label class="form-check-label" for="pulmonaryThromboembolismSi">si</label>
+                    </div>
+                </div>
+
+                @* Embolia L.A. *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Embolia L.A.</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="AmniocEmbolism" value="no" id="amniocEmbolismNo" />
+                        <label class="form-check-label" for="amniocEmbolismNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="AmniocEmbolism" value="si" id="amniocEmbolismSi" />
+                        <label class="form-check-label" for="amniocEmbolismSi">si</label>
+                    </div>
+                </div>
+
+                @* Cardiopatia *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Cardiopatia</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Cardiopathy" value="no" id="cardiopathyNo" />
+                        <label class="form-check-label" for="cardiopathyNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Cardiopathy" value="si" id="cardiopathySi" />
+                        <label class="form-check-label" for="cardiopathySi">si</label>
+                    </div>
+                </div>
+
+                @* Valvulopatia *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Valvulopatia</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Valvulopathy" value="no" id="valvulopathyNo" />
+                        <label class="form-check-label" for="valvulopathyNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Valvulopathy" value="si" id="valvulopathySi" />
+                        <label class="form-check-label" for="valvulopathySi">si</label>
+                    </div>
+                </div>
+
+                @* Convulsiones *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Convulsiones</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Convulsions" value="no" id="convulsionsNo" />
+                        <label class="form-check-label" for="convulsionsNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Convulsions" value="si" id="convulsionsSi" />
+                        <label class="form-check-label" for="convulsionsSi">si</label>
+                    </div>
+                </div>
+
+                @* Alteracion del estado de conciencia *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Alteracion del estado de conciencia</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="ConsciousnessAlteration" value="no" id="consciousnessAlterationNo" />
+                        <label class="form-check-label" for="consciousnessAlterationNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="ConsciousnessAlteration" value="si" id="consciousnessAlterationSi" />
+                        <label class="form-check-label" for="consciousnessAlterationSi">si</label>
+                    </div>
+                </div>
+
+                @* Oliguria *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Oliguria</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Oliguria" value="no" id="oliguriaNo" />
+                        <label class="form-check-label" for="oliguriaNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Oliguria" value="si" id="oliguriaSi" />
+                        <label class="form-check-label" for="oliguriaSi">si</label>
+                    </div>
+                </div>
+
+                @* Anemia *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Anemia</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Anemia" value="no" id="anemiaNo" />
+                        <label class="form-check-label" for="anemiaNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Anemia" value="si" id="anemiaSi" />
+                        <label class="form-check-label" for="anemiaSi">si</label>
+                    </div>
+                </div>
+
+                @* Anemia falciforme *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Anemia falciforme</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="SickleCellAnemia" value="no" id="sickleCellAnemiaNo" />
+                        <label class="form-check-label" for="sickleCellAnemiaNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="SickleCellAnemia" value="si" id="sickleCellAnemiaSi" />
+                        <label class="form-check-label" for="sickleCellAnemiaSi">si</label>
+                    </div>
+                </div>
+
+                @* Enfermedad renal *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Enfermedad renal</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="RenalDisease" value="no" id="renalDiseaseNo" />
+                        <label class="form-check-label" for="renalDiseaseNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="RenalDisease" value="si" id="renalDiseaseSi" />
+                        <label class="form-check-label" for="renalDiseaseSi">si</label>
+                    </div>
+                </div>
+
+                @* Neoplasia maligna *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Neoplasia maligna</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="MalignantNeoplasia" value="no" id="malignantNeoplasiaNo" />
+                        <label class="form-check-label" for="malignantNeoplasiaNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="MalignantNeoplasia" value="si" id="malignantNeoplasiaSi" />
+                        <label class="form-check-label" for="malignantNeoplasiaSi">si</label>
+                    </div>
+                </div>
+
+                @* Trastorno psiquiatrico *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Trastorno psiquiatrico</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="PsychiatricDisorder" value="no" id="psychiatricDisorderNo" />
+                        <label class="form-check-label" for="psychiatricDisorderNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="PsychiatricDisorder" value="si" id="psychiatricDisorderSi" />
+                        <label class="form-check-label" for="psychiatricDisorderSi">si</label>
+                    </div>
+                </div>
+
+                @* Colestasis *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Colestasis</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Cholestasis" value="no" id="cholestasisNo" />
+                        <label class="form-check-label" for="cholestasisNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Cholestasis" value="si" id="cholestasisSi" />
+                        <label class="form-check-label" for="cholestasisSi">si</label>
+                    </div>
+                </div>
+
+                @* Otros - con 3 inputs *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 180px;">Otros</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="OtherDisorder" value="no" id="otherDisorderNo" />
+                        <label class="form-check-label" for="otherDisorderNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="OtherDisorder" value="si" id="otherDisorderSi" />
+                        <label class="form-check-label" for="otherDisorderSi">si</label>
+                    </div>
+                </div>
+                <div class="ml-3 mt-1">
+                    <div class="d-flex flex-wrap">
+                        <input type="text" class="form-control form-control-sm mr-1 mb-1" name="OtherDisorderDetail1" id="otherDisorderDetail1"
+                               value="@Model?.OtherDisorderDetail1" style="width: 100px;" placeholder="1" />
+                        <input type="text" class="form-control form-control-sm mr-1 mb-1" name="OtherDisorderDetail2" id="otherDisorderDetail2"
+                               value="@Model?.OtherDisorderDetail2" style="width: 100px;" placeholder="2" />
+                        <input type="text" class="form-control form-control-sm mb-1" name="OtherDisorderDetail3" id="otherDisorderDetail3"
+                               value="@Model?.OtherDisorderDetail3" style="width: 100px;" placeholder="3" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* COMPLICACIONES OBSTETRICAS *@
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="d-flex align-items-center mb-2">
+                <label class="font-weight-bold mr-3 mb-0">COMPLICACIONES OBSTETRICAS</label>
+                <div class="form-check form-check-inline mb-0">
+                    <input class="form-check-input nullable-radio" type="radio" name="HasObstetricComplications" value="no" id="obstetricComplicationsNo"
+                           @(Model?.HasObstetricComplications == false ? "checked" : "") />
+                    <label class="form-check-label" for="obstetricComplicationsNo">no</label>
+                </div>
+                <div class="form-check form-check-inline mb-0">
+                    <input class="form-check-input nullable-radio" type="radio" name="HasObstetricComplications" value="si" id="obstetricComplicationsSi"
+                           @(Model?.HasObstetricComplications == true ? "checked" : "") />
+                    <label class="form-check-label" for="obstetricComplicationsSi">si</label>
+                </div>
+            </div>
+
+            <div class="ml-3">
+                @* Parto obstruido *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 200px;">Parto obstruido</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="ObstructedLabor" value="no" id="obstructedLaborNo" />
+                        <label class="form-check-label" for="obstructedLaborNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="ObstructedLabor" value="si" id="obstructedLaborSi" />
+                        <label class="form-check-label" for="obstructedLaborSi">si</label>
+                    </div>
+                </div>
+
+                @* Rotura prolongada de membranas *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 200px;">Rotura prolongada de membranas</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="ProlongedRuptureOfMembranes" value="no" id="prolongedROMNo" />
+                        <label class="form-check-label" for="prolongedROMNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="ProlongedRuptureOfMembranes" value="si" id="prolongedROMSi" />
+                        <label class="form-check-label" for="prolongedROMSi">si</label>
+                    </div>
+                </div>
+
+                @* Oligoamnios *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 200px;">Oligoamnios</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Oligohydramnios" value="no" id="oligohydramniosNo" />
+                        <label class="form-check-label" for="oligohydramniosNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Oligohydramnios" value="si" id="oligohydramniosSi" />
+                        <label class="form-check-label" for="oligohydramniosSi">si</label>
+                    </div>
+                </div>
+
+                @* Polihidramnios *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 200px;">Polihidramnios</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Polyhydramnios" value="no" id="polyhydramniosNo" />
+                        <label class="form-check-label" for="polyhydramniosNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="Polyhydramnios" value="si" id="polyhydramniosSi" />
+                        <label class="form-check-label" for="polyhydramniosSi">si</label>
+                    </div>
+                </div>
+
+                @* Sufrimiento fetal agudo *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 200px;">Sufrimiento fetal agudo</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="AcuteFetalDistress" value="no" id="acuteFetalDistressNo" />
+                        <label class="form-check-label" for="acuteFetalDistressNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="AcuteFetalDistress" value="si" id="acuteFetalDistressSi" />
+                        <label class="form-check-label" for="acuteFetalDistressSi">si</label>
+                    </div>
+                </div>
+
+                @* Restriccion de crecimiento intrauterino *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 200px;">Restriccion de crecimiento intrauterino</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="IntrauterineGrowthRestriction" value="no" id="iugrNo" />
+                        <label class="form-check-label" for="iugrNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="IntrauterineGrowthRestriction" value="si" id="iugrSi" />
+                        <label class="form-check-label" for="iugrSi">si</label>
+                    </div>
+                </div>
+
+                @* Otro - con input *@
+                <div class="d-flex align-items-center mb-1">
+                    <span class="mr-2" style="min-width: 200px;">Otro</span>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="OtherObstetricComplication" value="no" id="otherObstetricCompNo" />
+                        <label class="form-check-label" for="otherObstetricCompNo">no</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input nullable-radio" type="radio" name="OtherObstetricComplication" value="si" id="otherObstetricCompSi" />
+                        <label class="form-check-label" for="otherObstetricCompSi">si</label>
+                    </div>
+                    <input type="text" class="form-control form-control-sm ml-2" name="OtherObstetricComplicationDetail" id="otherObstetricCompDetail"
+                           value="@Model?.OtherObstetricComplicationDetail" style="width: 120px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* INTERVENCIONES *@
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="form-group">
+            <label class="font-weight-bold mb-2">INTERVENCIONES</label>
+            <div class="row">
+                @* Primera columna *@
+                <div class="col-md-4">
+                    @* Alumbramiento manual *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 220px;">Alumbramiento manual</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="ManualRemovalOfPlacenta" value="no" id="manualRemovalNo" />
+                            <label class="form-check-label" for="manualRemovalNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="ManualRemovalOfPlacenta" value="si" id="manualRemovalSi" />
+                            <label class="form-check-label" for="manualRemovalSi">si</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="ManualRemovalOfPlacenta" value="sd" id="manualRemovalSd" />
+                            <label class="form-check-label" for="manualRemovalSd">s/d</label>
+                        </div>
+                    </div>
+
+                    @* Uterotonicos para tto. hemorragia - con input *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 220px;">Uterotonicos para tto. hemorragia</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="UterotronicsForHemorrhage" value="no" id="uterotronicsNo" />
+                            <label class="form-check-label" for="uterotronicsNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="UterotronicsForHemorrhage" value="si" id="uterotronicsSi" />
+                            <label class="form-check-label" for="uterotronicsSi">si</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="UterotronicsForHemorrhage" value="sd" id="uterotronicsSd" />
+                            <label class="form-check-label" for="uterotronicsSd">s/d</label>
+                        </div>
+                    </div>
+                    <div class="ml-3 mb-2">
+                        <input type="text" class="form-control form-control-sm" name="OtherUterotronicsDetail" id="otherUterotronicsDetail"
+                               value="@Model?.OtherUterotronicsDetail" placeholder="Cuales..." style="width: 200px;" />
+                    </div>
+
+                    @* Via venosa central *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 220px;">Via venosa central</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="CentralVenousAccess" value="no" id="centralVenousAccessNo" />
+                            <label class="form-check-label" for="centralVenousAccessNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="CentralVenousAccess" value="si" id="centralVenousAccessSi" />
+                            <label class="form-check-label" for="centralVenousAccessSi">si</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="CentralVenousAccess" value="sd" id="centralVenousAccessSd" />
+                            <label class="form-check-label" for="centralVenousAccessSd">s/d</label>
+                        </div>
+                    </div>
+
+                    @* Administracion de hemoderivados - con input *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 220px;">Administracion de hemoderivados</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="BloodProductsTransfusion" value="no" id="bloodProductsNo" />
+                            <label class="form-check-label" for="bloodProductsNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="BloodProductsTransfusion" value="si" id="bloodProductsSi" />
+                            <label class="form-check-label" for="bloodProductsSi">si</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="BloodProductsTransfusion" value="sd" id="bloodProductsSd" />
+                            <label class="form-check-label" for="bloodProductsSd">s/d</label>
+                        </div>
+                    </div>
+                    <div class="ml-3 mb-2">
+                        <input type="text" class="form-control form-control-sm" name="BloodProductsDetail" id="bloodProductsDetail"
+                               value="@Model?.BloodProductsDetail" placeholder="N° de vol" style="width: 200px;" />
+                    </div>
+                </div>
+
+                @* Segunda columna *@
+                <div class="col-md-4">
+                    @* Laparotomia (excluye cesarea) *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 220px;">Laparotomia (excluye cesarea)</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Laparotomy" value="no" id="laparotomyNo" />
+                            <label class="form-check-label" for="laparotomyNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Laparotomy" value="si" id="laparotomySi" />
+                            <label class="form-check-label" for="laparotomySi">si</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Laparotomy" value="sd" id="laparotomySd" />
+                            <label class="form-check-label" for="laparotomySd">s/d</label>
+                        </div>
+                    </div>
+
+                    @* Ingreso a UCI >= 7 dias *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 220px;">Ingreso a UCI >= 7 dias</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="ICUAdmissionDaysGreaterOrEqualSeven" value="no" id="icuAdmissionNo" />
+                            <label class="form-check-label" for="icuAdmissionNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="ICUAdmissionDaysGreaterOrEqualSeven" value="si" id="icuAdmissionSi" />
+                            <label class="form-check-label" for="icuAdmissionSi">si</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="ICUAdmissionDaysGreaterOrEqualSeven" value="sd" id="icuAdmissionSd" />
+                            <label class="form-check-label" for="icuAdmissionSd">s/d</label>
+                        </div>
+                    </div>
+                    <div class="ml-3 mb-2">
+                        <input type="number" min="7" class="form-control form-control-sm" name="ICUAdmissionDays" id="icuAdmissionDays"
+                               value="@Model?.ICUAdmissionDays" placeholder="Dias..." style="width: 80px;" />
+                    </div>
+
+                    @* Uso de ATB IV para tto. de complicacion infecciosa - con input *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 220px;">Uso de ATB IV para tto. de complicacion infecciosa</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="IntravenousAntibioticsForInfection" value="no" id="ivAntibioticsNo" />
+                            <label class="form-check-label" for="ivAntibioticsNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="IntravenousAntibioticsForInfection" value="si" id="ivAntibioticsSi" />
+                            <label class="form-check-label" for="ivAntibioticsSi">si</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="IntravenousAntibioticsForInfection" value="sd" id="ivAntibioticsSd" />
+                            <label class="form-check-label" for="ivAntibioticsSd">s/d</label>
+                        </div>
+                    </div>
+                    <div class="ml-3 mb-2">
+                        <input type="text" class="form-control form-control-sm" name="AntibioticsDetail" id="antibioticsDetail"
+                               value="@Model?.AntibioticsDetail" placeholder="Cuales..." style="width: 200px;" />
+                    </div>
+                </div>
+
+                @* Tercera columna *@
+                <div class="col-md-4">
+                    @* Traje antishock no neumatico *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 250px;">Traje antishock no neumatico</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="NonPneumaticAntiShockGarment" value="no" id="antiShockGarmentNo" />
+                            <label class="form-check-label" for="antiShockGarmentNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="NonPneumaticAntiShockGarment" value="si" id="antiShockGarmentSi" />
+                            <label class="form-check-label" for="antiShockGarmentSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Balones hidrostaticos *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 250px;">Balones hidrostaticos</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="HydrostaticBalloons" value="no" id="hydrostaticBalloonsNo" />
+                            <label class="form-check-label" for="hydrostaticBalloonsNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="HydrostaticBalloons" value="si" id="hydrostaticBalloonsSi" />
+                            <label class="form-check-label" for="hydrostaticBalloonsSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Suturas B-Lynch o similares *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 250px;">Suturas B-Lynch o similares</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="BLynchSutures" value="no" id="bLynchSuturesNo" />
+                            <label class="form-check-label" for="bLynchSuturesNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="BLynchSutures" value="si" id="bLynchSuturesSi" />
+                            <label class="form-check-label" for="bLynchSuturesSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Ligaduras hemostaticas de las arterias uterinas/hipogastricas *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 250px;">Ligaduras hemostaticas arterias uterinas/hipogastricas</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="UterineOrHypogastricArteryLigature" value="no" id="arteryLigatureNo" />
+                            <label class="form-check-label" for="arteryLigatureNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="UterineOrHypogastricArteryLigature" value="si" id="arteryLigatureSi" />
+                            <label class="form-check-label" for="arteryLigatureSi">si</label>
+                        </div>
+                    </div>
+
+                    @* Embolizaciones *@
+                    <div class="d-flex align-items-center mb-1">
+                        <span class="mr-2" style="min-width: 250px;">Embolizaciones</span>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Embolization" value="no" id="embolizationNo" />
+                            <label class="form-check-label" for="embolizationNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input nullable-radio" type="radio" name="Embolization" value="si" id="embolizationSi" />
+                            <label class="form-check-label" for="embolizationSi">si</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

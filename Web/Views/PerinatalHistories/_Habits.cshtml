@@ -1,0 +1,84 @@
+@* Vista parcial para Hábitos *@
+@model Domain.MedicalBackground
+
+<div class="habits-section">
+    <div class="font-weight-bold mb-2 text-center" style="background: #d3d3d3; padding: 5px; border: 1px solid #000;">HÁBITOS</div>
+
+    <!-- FUMADORA ACTIVA -->
+    <div class="form-group">
+        <label>FUMADORA ACTIVA</label>
+        <div class="d-flex gap-2">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="CurrentSmoker" value="true" id="currentSmokerYes" @(Model?.CurrentSmoker == true ? "checked" : "") />
+                <label class="form-check-label" for="currentSmokerYes">Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="CurrentSmoker" value="false" id="currentSmokerNo" @(Model?.CurrentSmoker == false ? "checked" : "") />
+                <label class="form-check-label" for="currentSmokerNo">No</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- FUMADORA PASIVA -->
+    <div class="form-group">
+        <label>FUMADORA PASIVA</label>
+        <div class="d-flex gap-2">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="PassiveSmoker" value="true" id="passiveSmokerYes" @(Model?.PassiveSmoker == true ? "checked" : "") />
+                <label class="form-check-label" for="passiveSmokerYes">Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="PassiveSmoker" value="false" id="passiveSmokerNo" @(Model?.PassiveSmoker == false ? "checked" : "") />
+                <label class="form-check-label" for="passiveSmokerNo">No</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- DROGAS -->
+    <div class="form-group">
+        <label>DROGAS</label>
+        <div class="d-flex gap-2">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="DrugUse" value="true" id="drugUseYes" @(Model?.DrugUse == true ? "checked" : "") />
+                <label class="form-check-label" for="drugUseYes">Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="DrugUse" value="false" id="drugUseNo" @(Model?.DrugUse == false ? "checked" : "") />
+                <label class="form-check-label" for="drugUseNo">No</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- ALCOHOL -->
+    <div class="form-group">
+        <label>ALCOHOL</label>
+        <div class="d-flex gap-2">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="AlcoholUse" value="true" id="alcoholUseYes" @(Model?.AlcoholUse == true ? "checked" : "") />
+                <label class="form-check-label" for="alcoholUseYes">Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="AlcoholUse" value="false" id="alcoholUseNo" @(Model?.AlcoholUse == false ? "checked" : "") />
+                <label class="form-check-label" for="alcoholUseNo">No</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+.habits-section .form-group label {
+    font-weight: bold;
+    font-size: 11px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.habits-section .form-check-inline {
+    margin-right: 10px;
+}
+
+.habits-section .form-check-input {
+    margin-right: 5px;
+}
+</style>

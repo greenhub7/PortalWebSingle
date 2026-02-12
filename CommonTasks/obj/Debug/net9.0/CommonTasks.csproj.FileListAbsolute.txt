@@ -1,0 +1,12 @@
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\CommonTasks\bin\Debug\net9.0\CommonTasks.deps.json
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\CommonTasks\bin\Debug\net9.0\CommonTasks.dll
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\CommonTasks\bin\Debug\net9.0\CommonTasks.pdb
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\CommonTasks\obj\Debug\net9.0\CommonTasks.csproj.AssemblyReference.cache
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\CommonTasks\obj\Debug\net9.0\CommonTasks.GeneratedMSBuildEditorConfig.editorconfig
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\CommonTasks\obj\Debug\net9.0\CommonTasks.AssemblyInfoInputs.cache
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\CommonTasks\obj\Debug\net9.0\CommonTasks.AssemblyInfo.cs
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\CommonTasks\obj\Debug\net9.0\CommonTasks.csproj.CoreCompileInputs.cache
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\CommonTasks\obj\Debug\net9.0\CommonTasks.dll
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\CommonTasks\obj\Debug\net9.0\refint\CommonTasks.dll
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\CommonTasks\obj\Debug\net9.0\CommonTasks.pdb
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\CommonTasks\obj\Debug\net9.0\ref\CommonTasks.dll

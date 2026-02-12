@@ -1,0 +1,61 @@
+
+
+
+
+@import url('medical-theme.css');
+
+
+
+
+ 
+@media (max-width: 768px) {
+    #quickNoteModal .modal-dialog {
+        margin: 0.5rem;
+        max-width: calc(100% - 1rem);
+    }
+
+    #quickNoteModal .modal-body {
+        padding: 1rem;
+    }
+
+    #quickNoteModal .modal-header,
+    #quickNoteModal .modal-footer {
+        padding: 0.75rem 1rem;
+    }
+
+    #quickNoteModal textarea {
+        min-height: 120px !important;
+    }
+}
+
+
+#quickNoteModal .modal-content {
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+#quickNoteModal .modal-header {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-bottom: 2px solid #dee2e6;
+}
+
+#quickNoteModal .form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+#quickNoteModal .input-group-text {
+    background-color: #f8f9fa;
+    border-color: #ced4da;
+}
+
+
+#noteCharCount {
+    font-family: monospace;
+    font-size: 0.75rem;
+}
+
+
+#saveQuickNoteBtn:disabled {
+    opacity: 0.7;
+}

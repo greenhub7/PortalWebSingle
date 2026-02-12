@@ -1,0 +1,1512 @@
+﻿@using System.Security.Claims
+@using Application.Models
+@using Domain.Enums
+@using Web.Services
+@using Web.Helpers
+@model Web.Models.PatientView
+@using Microsoft.AspNetCore.Routing
+@using Microsoft.AspNetCore.Html
+@inject Web.Services.MenuService MenuService
+@{
+    ViewBag.Title = "Detalle de Paciente";
+    var medicalHistoryOptions = await MenuService.GetMenuOptionsAsync(300, User.FindFirstValue(ClaimTypes.NameIdentifier), false);
+ 
+} 
+<style>
+
+    .container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    transition: margin-left 0.3s ease;
+    }
+
+    body.menu-expanded .container-fluid {
+    margin-left: 250px;
+    }
+
+    .patient-card { 
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 0.75rem;
+    position: relative;
+    z-index: 1;
+    }
+
+    .patient-card-header {
+    background: #f8f9fa;
+    padding: 0.75rem 1rem;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 2px solid #3498db;
+    }
+
+    .patient-card-body {
+    padding: 0.5rem;
+    }
+
+    .info-group {
+    margin-bottom: 0.75rem;
+    }
+
+    .info-label {
+    font-weight: bold;
+    color: #2c3e50;
+    }
+
+    .info-value {
+    color: #34495e;
+    margin-top: 0.1rem;
+    }
+
+    .action-buttons {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 0.75rem;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    }
+
+    .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 0.5rem;
+    padding: 0.25rem;
+    }
+
+    .note-card {
+    margin: 0;
+    border: 1px solid rgba(0,0,0,.125);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .note-card:hover {
+    transform: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .note-content {
+    margin: 0;
+    padding: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: inherit;
+    font-size: 0.9rem;
+    background: none;
+    border: none;
+    color: inherit;
+    overflow: hidden;
+    max-height: 150px;
+    line-height: 1.4;
+    }
+
+    .card {
+    margin: 0;
+    transition: box-shadow 0.2s;
+    }
+
+    .card-header {
+  
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    }
+
+    .card-body {
+    padding: 0.5rem;
+    }
+
+    .card-footer {
+    padding: 0.25rem 0.5rem;
+    background: none;
+    border-top: 1px solid rgba(0,0,0,.125);
+    }
+
+    .badge {
+    font-size: 0.9rem;
+    font-weight: normal;
+    padding: 0.4rem 0.6rem;
+    }
+
+    .btn-outline-danger {
+    padding: 0.25rem 0.5rem;
+    }
+
+    .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+    }
+
+    .btn-sm {
+    padding: 0.15rem 0.4rem;
+    font-size: 0.8rem;
+    }
+
+    .medical-history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+    }
+
+    .history-option {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    }
+
+    .history-option:hover {
+    background-color: #f8f9fa;
+    text-decoration: none;
+    }
+
+    .text-truncate {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    }
+
+    .card-header h5 {
+    font-size: 0.95rem;
+    line-height: 1.2;
+    margin-bottom: 0;
+    }
+
+    .gap-2 {
+    gap: 0.5rem;
+    }
+
+    .py-1 {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+    }
+
+    .py-2 {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    }
+
+    .fas {
+    margin-right: 0.25rem;
+    }
+
+    .compact-view {
+    line-height: 1.3;
+    }
+
+    .card-header .btn-sm {
+    line-height: 1;
+    vertical-align: middle;
+    }
+
+    @@media (max-width: 768px) {
+    .container-fluid {
+    padding-right: 10px;
+    padding-left: 10px;
+    }
+
+    body.menu-expanded .container-fluid {
+    margin-left: 0;
+    padding-left: 10px;
+    }
+
+    .action-buttons {
+    margin-left: -10px;
+    margin-right: -10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    }
+
+    .action-buttons .btn {
+    margin-bottom: 0.5rem;
+    width: 100%;
+    }
+
+    .col-md-4 {
+    margin-bottom: 0.75rem;
+    }
+
+    .notes-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    }
+
+    .patient-card-body {
+    padding: 0.5rem;
+    }
+
+    .card-header, .card-body, .card-footer {
+    padding: 0.5rem;
+    }
+    }
+
+    @@media (max-width: 576px) {
+    .container-fluid {
+    padding-right: 8px;
+    padding-left: 8px;
+    }
+
+    .info-group {
+    margin-bottom: 0.5rem;
+    }
+
+    .patient-card {
+    margin-bottom: 0.5rem;
+    }
+    }
+
+    @@media print {
+    .action-buttons,
+    .btn {
+    display: none !important;
+    }
+
+    .container-fluid {
+    margin-left: 0 !important;
+    padding: 0 !important;
+    }
+
+    .patient-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ddd;
+    }
+    }
+
+    .alert-section .card {
+        border: none;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .alert-section .list-group-item {
+        border-left: 3px solid transparent;
+        transition: all 0.2s;
+    }
+
+        .alert-section .list-group-item:hover {
+            background-color: rgba(0,0,0,0.02);
+        }
+
+    .bg-light-info {
+        background-color: rgba(13, 202, 240, 0.1);
+        border-left-color: #0dcaf0 !important;
+    }
+
+    .bg-light-warning {
+        background-color: rgba(255, 193, 7, 0.1);
+        border-left-color: #ffc107 !important;
+    }
+
+    .bg-light-danger {
+        background-color: rgba(220, 53, 69, 0.1);
+        border-left-color: #dc3545 !important;
+    }
+
+    .asa-badge {
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        font-weight: bold;
+        font-size: 1.25rem;
+    }
+
+    
+    select, input[type="checkbox"], input[type="radio"], 
+    .form-select, .form-check-input, .flatpickr-input {
+        cursor: pointer !important;
+    }
+
+    input[type="text"], input[type="email"], input[type="tel"], 
+    input[type="number"], textarea, .form-control {
+        cursor: text !important;
+    }
+
+    
+    .nav-tabs-line {
+        border-bottom: 2px solid #f1f3f4;
+    }
+
+    .nav-tabs-line .nav-link {
+        border: none;
+        border-bottom: 2px solid transparent;
+        background: none;
+        color: #6c757d;
+        padding: 0.75rem 1rem;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+
+    .nav-tabs-line .nav-link:hover {
+        border-bottom-color: #dee2e6;
+        color: #495057;
+    }
+
+    .nav-tabs-line .nav-link.active {
+        color: var(--medical-blue-600);
+        border-bottom-color: var(--medical-blue-600);
+        background: none;
+    }
+
+    .tab-content {
+        min-height: 200px;
+    }
+
+    @@media (max-width: 768px) {
+        .nav-tabs-line .nav-link {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.9rem;
+        }
+        
+        .nav-tabs {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .nav-tabs .nav-item {
+            flex-shrink: 0;
+        }
+    }
+</style>
+<div class="container-fluid"> 
+    <div class=" mb-4">
+        <div class="row">
+            <div class="col-md-2 col-sm-3">
+                <a class="btn btn-success w-100" href="@Url.Action("Index", "Patients")">
+                    <i class="fas fa-reply"></i> Listado de Pacientes
+                </a>
+            </div>
+            <div class="col-md-2 col-sm-3">
+                <a class="btn btn-warning w-100" href="@Url.Action("AddOrUpdate", "Patients", new { id = Model.PatientId })">
+                    <i class="fas fa-edit"></i> Modificar
+                </a>
+            </div>
+            <div class="col-md-2 col-sm-3">
+                <button class="btn btn-outline-info w-100" id="BtnPrintA4">
+                    <i class="fas fa-print"></i> Imprimir
+                </button>
+            </div>
+            <div class="col-md-1 col-sm-1">
+                <a class="btn btn-outline-danger w-100"
+                href="@Url.Action("Delete", "Patients", new { id = Model.PatientId })"
+                onclick="return confirm('¿Está seguro que desea eliminar este registro?')">
+                    <i class="fas fa-trash"></i>  
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="patient-card">
+        <input type="hidden" asp-for="BornDate" />
+        <input type="hidden" asp-for="BornDateStr" />
+        <div class="patient-card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="info-group">
+                        <div class="info-label">Expediente:</div>
+                        <div style="font-size:large" class="info-value">@Model.Record2</div>
+                    </div> 
+                </div>
+                <div class="col-md-3"> 
+                    <div class="info-group">
+                        <div class="info-label">Cédula:</div>
+                        <div class="info-value">@Model.Rnc</div>
+                    </div> 
+                </div>
+                <div class="col-md-3">
+
+                    <div class="info-group">
+                        <div class="info-label">Género:</div>
+                        <div class="info-value">@Model.Gender?.Name</div>
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                    <div class="info-group">
+                        <div class="info-label">Exp Fis. Ant:</div>
+                        <div class="info-value">@Model.Record3</div>
+                    </div>
+
+                </div>
+                <div class="col-md-3"> 
+                    <div class="info-group">
+                        <div class="info-label">Nombre Completo:</div>
+                        <div class="info-value">@Model.FullName</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-group">
+                        <div class="info-label">Edad:</div>
+                        <div class="info-value">
+                            @if (Model.BornDate.HasValue)
+                            {
+                                <span id="patient-age">@Model.Age</span>
+                                <input type="hidden" id="patient-birthdate" value="@Model.BornDate.Value.ToString("dd/MM/yyyy")" />
+                            }
+                            else
+                            {
+                                @Model.Age
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="info-group">
+                        <div class="info-label">Tipo de Sangre:</div>
+                        <div class="info-value">@Model.BloodType?.Name</div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-3">
+
+                    <div class="info-group">
+                        <div class="info-label">Etnia:</div>
+                        <div class="info-value">@Model.EthnicityId</div>
+                    </div> 
+                </div>
+                <div class="col-md-3">
+
+                    <div class="info-group">
+                        <div class="info-label">Estado Civil:</div>
+                        <div class="info-value">
+                            @Model.MaritalSituation?.Name
+                            @(Model.LiveAlone ? "(Vive Solo)" : "")
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+
+                    <div class="info-group">
+                        <div class="info-label">Nivel Educativo:</div>
+                        <div class="info-value">
+                            @Model.SchoolLevel?.Name
+                            @(Model.Literated ? "Alfabeta: Sí" : "")
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-group">
+                        <div class="info-label">Teléfono:</div>
+                        <div class="info-value">@Model.Tel</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-group">
+                        <div class="info-label">Celular:</div>
+                        <div class="info-value">@Model.Cel</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-group">
+                        <div class="info-label">Email:</div>
+                        <div class="info-value">@Model.Email</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-group">
+                        <div class="info-label">Localidad:</div>
+                        <div class="info-value">@Model.Location</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-group">
+                        <div class="info-label">Dirección:</div>
+                        <div class="info-value">@Model.Address</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="patient-card"> 
+        <div class="patient-card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="info-group">
+                        <div class="info-label">Seguro:</div>
+                        <div class="info-value">@Model.Insurance?.Name</div>
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                    <div class="info-group">
+                        <div class="info-label">Número de Seguro:</div>
+                        <div class="info-value">@Model.InsuranceNumber</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-group">
+                        <div class="info-label">NSS:</div>
+                        <div class="info-value">@Model.Nss</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Información Clínica con Tabs -->
+    <div class="patient-card">
+        <div class="patient-card-header py-2">
+            <h4 class="mb-3">Información Clínica</h4>
+            
+            <!-- Navigation tabs -->
+            <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-primary" id="clinicalInfoTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="alerts-tab" data-bs-toggle="tab" data-bs-target="#alerts" type="button" role="tab" aria-controls="alerts" aria-selected="true">
+                        <i class="fas fa-exclamation-circle me-2"></i>Alertas Clínicas
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="observations-tab" data-bs-toggle="tab" data-bs-target="#observations" type="button" role="tab" aria-controls="observations" aria-selected="false">
+                        <i class="fas fa-sticky-note me-2"></i>Notas u Observaciones Importantes
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="conditions-tab" data-bs-toggle="tab" data-bs-target="#conditions" type="button" role="tab" aria-controls="conditions" aria-selected="false">
+                        <i class="fas fa-diagnoses me-2"></i>Condiciones Médicas
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="allergies-tab" data-bs-toggle="tab" data-bs-target="#allergies" type="button" role="tab" aria-controls="allergies" aria-selected="false">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Alergias
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="diagnosis-tab" data-bs-toggle="tab" data-bs-target="#diagnosis" type="button" role="tab" aria-controls="diagnosis" aria-selected="false">
+                        <i class="fas fa-file-medical me-2"></i>Diagnósticos CIE-10
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="motivational-tab" data-bs-toggle="tab" data-bs-target="#motivational" type="button" role="tab" aria-controls="motivational" aria-selected="false">
+                        <i class="fas fa-heart me-2"></i>Mensajes/Recordatorios de Motivación
+                    </button>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="patient-card-body p-0">
+            <div class="tab-content" id="clinicalInfoTabContent">
+                <!-- Alertas Clínicas Tab -->
+                <div class="tab-pane fade show active" id="alerts" role="tabpanel" aria-labelledby="alerts-tab">
+ 
+                    <div class="p-2">
+                        @if (Model.Alerts != null && Model.Alerts.Any())
+                        {
+                            <div class="alert-section">
+                                @foreach (var alertGroup in Model.Alerts.GroupBy(a => a.Category).OrderBy(g => g.Key))
+                                {
+                                    <div class="card mb-3">
+                                        <div class="card-header bg-light py-2">
+                                            <h5 class="mb-0 d-flex align-items-center">
+                                                <i class="fas fa-clipboard-list mr-2"></i>
+                                                @alertGroup.Key (@alertGroup.Count())
+                                            </h5>
+                                        </div>
+                                        <div class="card-body p-0">
+                                            <div class="list-group list-group-flush">
+                                                @foreach (var alert in alertGroup.OrderByDescending(a => (int)a.Severity))
+                                                {
+                                                    <div class="list-group-item py-2 px-3 @GetAlertClass(alert.Severity)">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="alert-icon mr-3">
+                                                                @switch (alert.Severity)
+                                                                {
+                                                                    case AlertSeverity.Info:
+                                                                        <i class="fas fa-info-circle text-info"></i>
+                                                                        break;
+                                                                    case AlertSeverity.Warning:
+                                                                        <i class="fas fa-exclamation-triangle text-warning"></i>
+                                                                        break;
+                                                                    case AlertSeverity.Danger:
+                                                                        <i class="fas fa-exclamation-circle text-danger"></i>
+                                                                        break;
+                                                                    case AlertSeverity.Critical:
+                                                                        <i class="fas fa-radiation-alt text-danger"></i>
+                                                                        break;
+                                                                }
+                                                            </div>
+                                                            <div class="flex-grow-1">
+                                                                <h6 class="mb-1">@alert.Message</h6>
+                                                                <p class="mb-0 small">@alert.Details</p>
+                                                                <small class="">Fuente: @alert.SourceModule</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-success mb-0">
+                                <i class="fas fa-check-circle mr-2"></i> No hay alertas importantes para este paciente
+                            </div>
+                        }
+
+                        @if (Model.AsaClassification.HasValue)
+                        {
+                            <div class="mt-3">
+                                <div class="card">
+                                    <div class="card-header bg-light py-2">
+                                        <h5 class="mb-0 d-flex align-items-center">
+                                            <i class="fas fa-procedures mr-2"></i>
+                                            Clasificación ASA
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="asa-badge mr-3 @GetAsaBadgeClass(Model.AsaClassification.Value)">
+                                                ASA @Model.AsaClassification
+                                            </div>
+                                            <div>
+                                                <p class="mb-0">@Model.AsaDescription</p>
+                                                <small class="">Última evaluación anestésica</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+        
+                    </div>
+                </div>
+
+                <!-- Observaciones Tab -->
+                <div class="tab-pane fade" id="observations" role="tabpanel" aria-labelledby="observations-tab">
+                    <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+                       
+                        <button type="button" class="btn btn-primary btn-sm" data-quicknote-create data-patient-id="@Model.PatientId">
+                            <i class="fas fa-plus-circle"></i> Agregar Observación
+                        </button>
+                    </div>
+                    <div class="p-2">
+                        <div id="quickNotesContainer">
+                                              </div>
+                    </div>
+                </div>
+
+                <!-- Condiciones Tab -->
+                <div class="tab-pane fade" id="conditions" role="tabpanel" aria-labelledby="conditions-tab">
+                    <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+                       
+                        <button type="button" class="btn btn-primary btn-sm" data-condition-create data-patient-id="@Model.PatientId">
+                            <i class="fas fa-plus-circle"></i> Agregar Condición
+                        </button>
+                    </div>
+                    <div class="p-2">
+                        <div id="conditionsContainer">
+                                           </div>
+                    </div>
+                </div>
+
+                <!-- Alergias Tab -->
+                <div class="tab-pane fade" id="allergies" role="tabpanel" aria-labelledby="allergies-tab">
+                    <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+                       
+                        <button type="button" class="btn btn-primary btn-sm" data-allergy-create data-patient-id="@Model.PatientId">
+                            <i class="fas fa-plus-circle"></i> Agregar Alergia
+                        </button>
+                    </div>
+                    <div class="p-2">
+                        <div id="allergiesContainer">
+                                             </div>
+                    </div>
+                </div>
+                
+                <!-- Diagnósticos Tab -->
+                <div class="tab-pane fade" id="diagnosis" role="tabpanel" aria-labelledby="diagnosis-tab">
+                    <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+                     
+                        <button type="button" class="btn btn-primary btn-sm" data-diagnosis-create data-patient-id="@Model.PatientId">
+                            <i class="fas fa-plus-circle"></i> Agregar Diagnóstico
+                        </button>
+                    </div>
+                    <div class="p-2">
+                        <div id="diagnosisContainer">
+                                         </div>
+                    </div>
+                </div>
+                
+                <!-- Mensajes de Motivación Tab -->
+                <div class="tab-pane fade" id="motivational" role="tabpanel" aria-labelledby="motivational-tab">
+                    <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+                        
+                        <button type="button" class="btn btn-success btn-sm" data-motivational-create data-patient-id="@Model.PatientId">
+                            <i class="fas fa-plus-circle"></i> Crear Mensaje
+                        </button>
+                    </div>
+                    <div class="p-2">
+                        <div id="motivationalContainer">
+                                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="patient-card">
+        <div class="patient-card-header">
+            <h4 class="mb-0">Historial </h4>
+        </div>
+        <div class="patient-card-body">
+            <div class="medical-history-grid">
+                @foreach (var option in medicalHistoryOptions)
+                {
+                    var parameters = new RouteValueDictionary();
+                    if (option.RouteParameters == "PatientId")
+                    {
+                        parameters["id"] = Model.PatientId;
+                    }
+                    else if (option.RouteParameters == "PersonId")
+                    {
+                        parameters["id"] = Model.PersonId;
+                    }
+                    else if (option.RouteParameters == "PersonIdComplete")
+                    {
+                        parameters["personId"] = Model.PersonId;
+                    }
+                    parameters.Add("screenName", option.Name);
+                    <a href="@Url.Action(option.Action, option.Controller, parameters)"
+                       class="btn btn-outline-primary history-option">
+                        <img src="@option.Icon" alt="" class="mb-2" style="width: 40px; height: 40px;">
+                        <div>@option.Name</div>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@functions {
+    string GetAlertClass(AlertSeverity severity)
+    {
+        return severity switch
+        {
+            AlertSeverity.Info => "bg-light-info",
+            AlertSeverity.Warning => "bg-light-warning",
+             AlertSeverity.Danger => "bg-light-danger",
+             AlertSeverity.Critical => "bg-danger text-white",
+            _ => ""
+        };
+    }
+
+    string GetAsaBadgeClass(int asaLevel)
+    {
+        return asaLevel switch
+        {
+            1 => "badge badge-success",
+            2 => "badge badge-info",
+            3 => "badge badge-warning",
+            4 => "badge badge-danger",
+            5 => "badge badge-dark",
+            6 => "badge badge-dark",
+            _ => "badge badge-secondary"
+        };
+    }
+}
+@section Scripts {
+    <script>
+        var UrlPrintA4 = '@Url.Action("PatientA4", "Reports", new { id = Model.PatientId })';
+        $(document).ready(function() {
+            $("#BtnPrintA4").click(function() {
+                window.open(UrlPrintA4, '_blank');
+            });
+
+            
+            var birthdate = $('#patient-birthdate').val();
+            if (birthdate) {
+                var ageWithUnit = calculateAgeWithUnit(birthdate);
+                if (ageWithUnit) {
+                    $('#patient-age').text(ageWithUnit);
+                }
+            }
+
+            
+            setupMotivationalMessageHandlers();
+        });
+
+        function setupMotivationalMessageHandlers() {
+            
+            function checkCreditsAndSend(messageType, messageId, callback) {
+                $.get('@Url.Action("GetCreditsSummary", "Appointments")', function(data) {
+                    if (data.success) {
+                        let credits = 0;
+                        let hasCredits = false;
+                        
+                        switch(messageType.toLowerCase()) {
+                            case 'email':
+                                credits = data.email;
+                                hasCredits = data.hasEmail;
+                                break;
+                            case 'sms':
+                                credits = data.sms;
+                                hasCredits = data.hasSms;
+                                break;
+                            case 'whatsapp':
+                                credits = data.whatsapp;
+                                hasCredits = data.hasWhatsApp;
+                                break;
+                        }
+
+                        if (!hasCredits) {
+                            Swal.fire({
+                                title: 'Sin créditos',
+                                text: `No tienes créditos de ${messageType} disponibles. Créditos actuales: ${credits}`,
+                                icon: 'warning',
+                                confirmButtonText: 'Comprar créditos',
+                                showCancelButton: true,
+                                cancelButtonText: 'Cancelar'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.open('@Url.Action("PurchaseCredits", "MessageCredits")', '_blank');
+                                }
+                            });
+                            return;
+                        }
+
+                        Swal.fire({
+                            title: `¿Enviar mensaje motivacional por ${messageType}?`,
+                            html: `Se consumirá 1 crédito de ${messageType}.<br><strong>Créditos disponibles: ${credits}</strong>`,
+                            icon: 'question',
+                            showCancelButton: true,
+                            confirmButtonText: 'Sí, enviar',
+                            cancelButtonText: 'Cancelar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                callback();
+                            }
+                        });
+                    }
+                });
+            }
+
+            
+            $(document).on('click', '[data-send-motivational-email]', function() {
+                const messageId = $(this).data('send-motivational-email');
+                
+                checkCreditsAndSend('Email', messageId, function() {
+                    const loadingDialog = Swal.fire({
+                        title: 'Enviando mensaje...',
+                        text: 'Por favor espere...',
+                        allowOutsideClick: false,
+                        didOpen: () => { Swal.showLoading(); }
+                    });
+
+                    $.ajax({
+                        url: '@Url.Action("SendMotivationalEmail", "Patients")',
+                        type: 'POST',
+                        data: { messageId: messageId, patientId: @Model.PatientId },
+                        success: function(response) {
+                            loadingDialog.close();
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'Mensaje enviado',
+                                    html: `${response.message}<br>Créditos restantes: ${response.creditsRemaining}`,
+                                    icon: 'success',
+                                    confirmButtonText: 'Aceptar'
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: response.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'Aceptar'
+                                });
+                            }
+                        }
+                    });
+                });
+            });
+
+            
+            $(document).on('click', '[data-send-motivational-sms]', function() {
+                const messageId = $(this).data('send-motivational-sms');
+                
+                checkCreditsAndSend('SMS', messageId, function() {
+                    const loadingDialog = Swal.fire({
+                        title: 'Enviando SMS...',
+                        text: 'Por favor espere...',
+                        allowOutsideClick: false,
+                        didOpen: () => { Swal.showLoading(); }
+                    });
+
+                    $.ajax({
+                        url: '@Url.Action("SendMotivationalSMS", "Patients")',
+                        type: 'POST',
+                        data: { messageId: messageId, patientId: @Model.PatientId },
+                        success: function(response) {
+                            loadingDialog.close();
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'SMS enviado',
+                                    html: `${response.message}<br>Créditos restantes: ${response.creditsRemaining}`,
+                                    icon: 'success',
+                                    confirmButtonText: 'Aceptar'
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: response.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'Aceptar'
+                                });
+                            }
+                        }
+                    });
+                });
+            });
+
+            
+            $(document).on('click', '[data-send-motivational-whatsapp]', function() {
+                const messageId = $(this).data('send-motivational-whatsapp');
+                
+                checkCreditsAndSend('WhatsApp', messageId, function() {
+                    const loadingDialog = Swal.fire({
+                        title: 'Enviando WhatsApp...',
+                        text: 'Por favor espere...',
+                        allowOutsideClick: false,
+                        didOpen: () => { Swal.showLoading(); }
+                    });
+
+                    $.ajax({
+                        url: '@Url.Action("SendMotivationalWhatsApp", "Patients")',
+                        type: 'POST',
+                        data: { messageId: messageId, patientId: @Model.PatientId },
+                        success: function(response) {
+                            loadingDialog.close();
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'WhatsApp enviado',
+                                    html: `${response.message}<br>Créditos restantes: ${response.creditsRemaining}`,
+                                    icon: 'success',
+                                    confirmButtonText: 'Aceptar'
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: response.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'Aceptar'
+                                });
+                            }
+                        }
+                    });
+                });
+            });
+
+            
+            $(document).on('click', '[data-send-motivational-whatsapp-web]', function() {
+                const messageId = $(this).data('send-motivational-whatsapp-web');
+
+                $.ajax({
+                    url: '@Url.Action("GetMotivationalMessage", "Patients")',
+                    type: 'GET',
+                    data: { messageId: messageId },
+                    success: function(response) {
+                        if (response.success) {
+                            const patientName = '@Model.FullName';
+                            const clinicName = '@ViewBag.Author?.Name' || 'Nuestra clínica';
+                            const phoneNumber = '@Model.Cel' || '@Model.Tel';
+
+                            const message = `🌟 Mensaje Motivacional - ${clinicName}
+
+Estimado/a ${patientName},
+
+${response.message.customMessage}
+
+Con cariño,
+${clinicName}`;
+
+                            const whatsappUrl = `https:
+                            window.open(whatsappUrl, '_blank');
+                        } else {
+                            Swal.fire('Error', response.message, 'error');
+                        }
+                    }
+                });
+            });
+        }
+
+        function calculateAgeWithUnit(dateString) {
+            let parts = dateString.split('/');
+            if (parts.length !== 3) {
+                return null;
+            }
+
+            let birthDate = new Date(parts[2], parts[1] - 1, parts[0]);
+
+            if (isNaN(birthDate.getTime())) {
+                return null;
+            }
+
+            let today = new Date();
+
+            
+            let diffMs = today - birthDate;
+
+            
+            let diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+            if (diffDays < 0) {
+                return null; 
+            }
+
+            
+            if (diffDays < 28) {
+                return diffDays + " días";
+            }
+
+            
+            let diffMonths = Math.floor(diffDays / 30.44);
+
+            
+            if (diffMonths < 24) {
+                return diffMonths + " meses";
+            }
+
+            
+            let age = today.getFullYear() - birthDate.getFullYear();
+            let monthDiff = today.getMonth() - birthDate.getMonth();
+
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            if (age > 130) {
+                return null; 
+            }
+
+            return age + " años";
+        }
+    </script>
+    
+    <!-- Modular JavaScript Files -->
+    <script src="~/js/views/quicknotes.js?v=@DateTime.Now.Ticks"></script>
+    <script src="~/js/views/conditions.js?v=@DateTime.Now.Ticks"></script>
+    <script src="~/js/views/allergies.js?v=@DateTime.Now.Ticks"></script>
+    <script src="~/js/views/diagnostics.js?v=@DateTime.Now.Ticks"></script>
+    <script src="~/js/views/motivational-messages.js?v=@DateTime.Now.Ticks"></script>
+    
+    <!-- Minimal Initialization Script -->
+    <script>
+        
+        console.log('=== SolMed Patient Details Script Loaded ===');
+        console.log('Script Version: 2025.01.29.007'); 
+        console.log('Load Time:', new Date().toISOString());
+        console.log('jQuery loaded:', typeof jQuery !== 'undefined' ? 'YES (v' + jQuery.fn.jquery + ')' : 'NO');
+        console.log('Patient ID:', @Model.PatientId);
+        
+        
+        window.currentPatientId = @Model.PatientId;
+        
+        $(document).ready(function() {
+            console.log('=== Details.cshtml jQuery Document Ready ===');
+            console.log('Verifying modular JavaScript modules...');
+            
+            
+            console.log('QuickNotesModal available:', typeof window.QuickNotesModal !== 'undefined');
+            console.log('ConditionsManager available:', typeof window.ConditionsManager !== 'undefined');
+            console.log('AllergiesManager available:', typeof window.AllergiesManager !== 'undefined');
+            console.log('DiagnosticsManager available:', typeof window.DiagnosticsManager !== 'undefined');
+            console.log('MotivationalMessagesManager available:', typeof window.MotivationalMessagesManager !== 'undefined');
+            
+            
+            console.log('Condition buttons found:', $('[data-condition-create], [data-edit-condition]').length);
+            console.log('Allergy buttons found:', $('[data-allergy-create], [data-edit-allergy]').length);
+            console.log('Diagnostic buttons found:', $('[data-diagnosis-create], [data-edit-diagnosis]').length);
+            console.log('QuickNote buttons found:', $('[data-quicknote-create], [data-edit-quicknote]').length);
+            console.log('Motivational buttons found:', $('[data-motivational-create], [data-edit-motivational]').length);
+            
+            console.log('=== MODULAR INITIALIZATION COMPLETE ===');
+            console.log('Ready to handle clicks on create/edit buttons');
+            console.log('All modules successfully loaded and initialized');
+        
+    }); 
+    
+    
+    </script>
+    
+    <!-- Custom CSS for Condition Modal -->
+    <style>
+        .swal-condition-modal {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .swal-condition-content {
+            max-height: none !important;
+            overflow: visible !important;
+            padding: 0 !important;
+        }
+        
+        .swal-condition-form {
+            max-height: none !important;
+            overflow: visible !important;
+        }
+        
+        .swal-condition-modal .swal2-html-container {
+            max-height: none !important;
+            overflow: visible !important;
+            margin: 0 !important;
+            padding: 1rem !important;
+        }
+        
+        .swal-condition-modal .form-label {
+            margin-bottom: 0.25rem !important;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .swal-condition-modal .input-group-text {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+            color: #6c757d;
+            padding: 0.25rem 0.5rem;
+        }
+        
+        .swal-condition-modal .form-control,
+        .swal-condition-modal .form-select {
+            border-color: #dee2e6;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+        }
+        
+        .swal-condition-modal .form-control:focus,
+        .swal-condition-modal .form-select:focus {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 0.125rem rgba(13, 110, 253, 0.25);
+        }
+        
+        .swal-condition-modal .form-check-input {
+            margin-top: 0.125rem;
+        }
+        
+        .swal-condition-modal .form-check-label {
+            margin-left: 0.25rem;
+            color: #495057;
+        }
+        
+        .swal-condition-modal .bg-light {
+            background-color: #f8f9fa !important;
+            border: 1px solid #e9ecef;
+        }
+        
+        
+        .swal-condition-modal.swal2-popup {
+            max-height: 90vh !important;
+            width: 750px !important;
+            margin: auto;
+        }
+        
+        
+        .swal-condition-modal .swal2-content,
+        .swal-condition-modal .swal2-html-container {
+            overflow: visible !important;
+        }
+        
+        
+        @@media (max-width: 768px) {
+            .swal-condition-modal.swal2-popup {
+                width: 95% !important;
+                max-width: 95% !important;
+                margin: 5px !important;
+            }
+            
+            .swal-condition-form .col-8,
+            .swal-condition-form .col-6,
+            .swal-condition-form .col-4 {
+                margin-bottom: 0.5rem;
+            }
+        }
+        
+        
+        .swal-allergy-modal {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .swal-allergy-content {
+            max-height: none !important;
+            overflow: visible !important;
+            padding: 0 !important;
+        }
+        
+        .swal-allergy-form {
+            max-height: none !important;
+            overflow: visible !important;
+        }
+        
+        .swal-allergy-modal .swal2-html-container {
+            max-height: none !important;
+            overflow: visible !important;
+            margin: 0 !important;
+            padding: 1rem !important;
+        }
+        
+        .swal-allergy-modal .form-label {
+            margin-bottom: 0.25rem !important;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .swal-allergy-modal .input-group-text {
+            background-color: #fff3cd;
+            border-color: #ffeaa7;
+            color: #856404;
+            padding: 0.25rem 0.5rem;
+        }
+        
+        .swal-allergy-modal .form-control,
+        .swal-allergy-modal .form-select {
+            border-color: #ffeaa7;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+        }
+        
+        .swal-allergy-modal .form-control:focus,
+        .swal-allergy-modal .form-select:focus {
+            border-color: #ffc107;
+            box-shadow: 0 0 0 0.125rem rgba(255, 193, 7, 0.25);
+        }
+        
+        .swal-allergy-modal .form-check-input {
+            margin-top: 0.125rem;
+        }
+        
+        .swal-allergy-modal .form-check-label {
+            margin-left: 0.25rem;
+            color: #495057;
+        }
+        
+        .swal-allergy-modal .form-check-input:checked {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+        
+        .swal-allergy-modal .bg-light {
+            background-color: #fff3cd !important;
+            border: 1px solid #ffeaa7;
+        }
+        
+        
+        .swal-allergy-modal.swal2-popup {
+            max-height: 90vh !important;
+            width: 700px !important;
+            margin: auto;
+        }
+        
+        
+        .swal-allergy-modal .swal2-content,
+        .swal-allergy-modal .swal2-html-container {
+            overflow: visible !important;
+        }
+        
+        
+        @@media (max-width: 768px) {
+            .swal-allergy-modal.swal2-popup {
+                width: 95% !important;
+                max-width: 95% !important;
+                margin: 5px !important;
+            }
+            
+            .swal-allergy-form .col-7,
+            .swal-allergy-form .col-6,
+            .swal-allergy-form .col-5 {
+                margin-bottom: 0.5rem;
+            }
+        }
+        
+        
+        .swal2-container .select2-container {
+            z-index: 99999 !important;
+            flex: 1;
+        }
+        
+        .swal2-container .select2-dropdown {
+            z-index: 99999 !important;
+        }
+        
+        .swal2-container .select2-container--default .select2-selection--single {
+            height: calc(1.5em + 0.5rem + 2px);
+            padding: 0.25rem 0.5rem;
+            font-size: 0.85rem;
+            border-color: #ffeaa7;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        
+        .swal2-container .select2-container--default .select2-selection--single:focus {
+            border-color: #ffc107;
+            box-shadow: 0 0 0 0.125rem rgba(255, 193, 7, 0.25);
+        }
+        
+        .swal2-container .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 1.5;
+            padding-left: 0;
+            color: #495057;
+        }
+        
+        .swal2-container .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: calc(1.5em + 0.5rem);
+        }
+        
+        
+        .swal-allergy-form .input-group {
+            display: flex;
+            align-items: stretch;
+        }
+        
+        .swal-allergy-form .input-group .select2-container {
+            position: relative !important;
+            flex: 1 1 auto;
+            width: 1% !important;
+            min-width: 0;
+        }
+        
+        .swal-allergy-form .input-group-text + .select2-container .select2-selection {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+        
+        
+        .swal-diagnosis-modal {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .swal-diagnosis-content {
+            max-height: none !important;
+            overflow: visible !important;
+            padding: 0 !important;
+        }
+        
+        .swal-diagnosis-form {
+            max-height: none !important;
+            overflow: visible !important;
+        }
+        
+        .swal-diagnosis-modal .swal2-html-container {
+            max-height: none !important;
+            overflow: visible !important;
+            margin: 0 !important;
+            padding: 1rem !important;
+        }
+        
+        .swal-diagnosis-modal .form-label {
+            margin-bottom: 0.25rem !important;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .swal-diagnosis-modal .input-group-text {
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
+            color: #0c5460;
+            padding: 0.25rem 0.5rem;
+        }
+        
+        .swal-diagnosis-modal .form-control,
+        .swal-diagnosis-modal .form-select {
+            border-color: #bee5eb;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+        }
+        
+        .swal-diagnosis-modal .form-control:focus,
+        .swal-diagnosis-modal .form-select:focus {
+            border-color: #17a2b8;
+            box-shadow: 0 0 0 0.125rem rgba(23, 162, 184, 0.25);
+        }
+        
+        .swal-diagnosis-modal .bg-light {
+            background-color: #d1ecf1 !important;
+            border: 1px solid #bee5eb;
+        }
+        
+        
+        .swal-diagnosis-modal.swal2-popup {
+            max-height: 90vh !important;
+            width: 800px !important;
+            margin: auto;
+        }
+        
+        
+        .swal-diagnosis-modal .swal2-content,
+        .swal-diagnosis-modal .swal2-html-container {
+            overflow: visible !important;
+        }
+        
+        
+        @@media (max-width: 768px) {
+            .swal-diagnosis-modal.swal2-popup {
+                width: 95% !important;
+                max-width: 95% !important;
+                margin: 5px !important;
+            }
+            
+            .swal-diagnosis-form .col-12,
+            .swal-diagnosis-form .col-6 {
+                margin-bottom: 0.5rem;
+            }
+        }
+        
+        
+        .swal-diagnosis-form .input-group {
+            display: flex;
+            align-items: stretch;
+        }
+        
+        .swal-diagnosis-form .input-group .select2-container {
+            position: relative !important;
+            flex: 1 1 auto;
+            width: 1% !important;
+            min-width: 0;
+        }
+        
+        .swal-diagnosis-form .input-group-text + .select2-container .select2-selection {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+            border-color: #bee5eb !important;
+        }
+    </style>
+    
+    <!-- Select2 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    
+    <!-- Select2 JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    <script>
+        
+        function updateCharCount(inputId, counterId, maxLength) {
+            const input = document.getElementById(inputId);
+            const counter = document.getElementById(counterId);
+            
+            if (input && counter) {
+                const currentLength = input.value.length;
+                counter.textContent = currentLength;
+                
+                
+                if (currentLength > maxLength * 0.9) {
+                    counter.style.color = '#dc3545'; 
+                } else if (currentLength > maxLength * 0.7) {
+                    counter.style.color = '#fd7e14'; 
+                } else {
+                    counter.style.color = '#6c757d'; 
+                }
+            }
+        }
+    </script>
+}

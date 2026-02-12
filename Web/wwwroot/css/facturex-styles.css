@@ -1,0 +1,278 @@
+﻿
+:root {
+    --facturex-primary: #0056b3;
+    --facturex-secondary: #003366;
+    --facturex-accent: #4dabf7;
+    --facturex-light: #e6f3ff;
+    --facturex-dark: #001f3f;
+}
+
+.facturex-theme .btn-primary {
+    background-color: var(--facturex-primary);
+    border-color: var(--facturex-primary);
+}
+
+    .facturex-theme .btn-primary:hover {
+        background-color: var(--facturex-secondary);
+        border-color: var(--facturex-secondary);
+    }
+
+.facturex-theme .btn-outline-primary {
+    color: var(--facturex-primary);
+    border-color: var(--facturex-primary);
+}
+
+    .facturex-theme .btn-outline-primary:hover {
+        background-color: var(--facturex-primary);
+        border-color: var(--facturex-primary);
+        color: white;
+    }
+
+.facturex-theme .text-primary {
+    color: var(--facturex-primary) !important;
+}
+
+.facturex-theme .bg-primary {
+    background-color: var(--facturex-primary) !important;
+}
+
+.facturex-hero {
+    background-color: var(--facturex-light);
+    padding: 80px 0;
+}
+
+.facturex-theme .hero-title {
+    color: var(--facturex-dark);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.facturex-theme .hero-subtitle {
+    color: #444;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.facturex-theme .section-title h2 {
+    color: var(--facturex-dark);
+    font-size: 2rem;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+    .facturex-theme .section-title h2:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: var(--facturex-primary);
+    }
+
+.facturex-theme .service-card {
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    background-color: white;
+    height: 100%;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .facturex-theme .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+.facturex-theme .service-icon {
+    margin-bottom: 20px;
+}
+
+.facturex-theme .feature-card {
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    background-color: white;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    
+    .facturex-theme .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+.facturex-theme .client-category {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    transition: transform 0.3s;
+}
+
+    .facturex-theme .client-category:hover {
+        transform: translateY(-5px);
+    }
+
+.facturex-theme .icon-container {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--facturex-light);
+    border-radius: 50%;
+}
+
+.facturex-theme .testimonial-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    height: 100%;
+}
+
+.facturex-theme .testimonial-content {
+    margin-bottom: 20px;
+}
+
+.facturex-theme .testimonial-rating {
+    color: #ffc107;
+    margin-bottom: 15px;
+}
+
+.facturex-theme .testimonial-author {
+    display: flex;
+    align-items: center;
+}
+
+.facturex-theme .testimonial-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.facturex-theme .cta {
+    background: linear-gradient(135deg, var(--facturex-primary) 0%, var(--facturex-secondary) 100%);
+    padding: 80px 0;
+    color: white;
+    text-align: center;
+}
+
+.facturex-theme .cta-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.facturex-theme .btn-cta {
+    background-color: white;
+    color: var(--facturex-primary);
+    font-weight: 600;
+}
+
+    .facturex-theme .btn-cta:hover {
+        background-color: var(--facturex-light);
+        color: var(--facturex-primary);
+    }
+
+.facturex-theme .contact-info {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.facturex-theme .contact-item {
+    display: flex;
+    align-items: flex-start;
+}
+
+.facturex-theme .contact-icon {
+    width: 40px;
+    height: 40px;
+    background-color: var(--facturex-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: var(--facturex-primary);
+}
+
+.facturex-theme .social-links a {
+    color: var(--facturex-primary);
+    transition: color 0.3s;
+}
+
+    .facturex-theme .social-links a:hover {
+        color: var(--facturex-secondary);
+    }
+
+.facturex-theme .contact-form {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    height: 100%;
+}
+
+.facturex-theme .form-control:focus {
+    border-color: var(--facturex-primary);
+    box-shadow: 0 0 0 0.25rem rgba(0, 86, 179, 0.25);
+}
+
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.float-animation {
+    animation: float 6s ease-in-out infinite;
+}
+
+
+@media (max-width: 991.98px) {
+    .facturex-theme .hero-title {
+        font-size: 2rem;
+    }
+
+    .facturex-theme .cta-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .facturex-theme .hero {
+        padding: 50px 0;
+    }
+
+    .facturex-theme .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .facturex-theme .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .facturex-theme .cta-title {
+        font-size: 1.5rem;
+    }
+}

@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - SolMed</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:locale" content="es_Es" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="SolMed - Sistema de Turnos" />
+    <meta property="og:url" content="https://SolMed.app/" />
+    <meta property="og:site_name" content="PraySoft | SolMed" />
+    <link rel="shortcut icon" href="~/assets/media/logos/favicon.ico" />
+
+    <link href="~/lib/googlefont.css" rel="stylesheet" />
+    <link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/sweetalert/sweetalert2.min.css" rel="stylesheet" />
+
+    <!-- Digital font para reloj -->
+    <link href="https://fonts.cdnfonts.com/css/digital-7-mono" rel="stylesheet">
+
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+
+<body id="kt_body" class="bg-white">
+    <div class="d-flex flex-column flex-root">
+        @RenderBody()
+    </div>
+
+    <script src="~/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="~/assets/js/scripts.bundle.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

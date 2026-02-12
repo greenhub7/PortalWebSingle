@@ -1,0 +1,29 @@
+{
+  "profiles": {
+    "SolMed - Hot Reload": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation",
+        "DOTNET_HOTRELOAD_ENABLED": "1",
+        "DOTNET_WATCH_RESTART_ON_RUDE_EDIT": "1"
+      },
+      "dotnetRunMessages": true,
+      "hotReloadEnabled": true,
+      "hotReloadProfile": "aspnetcore"
+    },
+    "SolMed - Production (Sin Hot Reload)": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production",
+        "DOTNET_HOTRELOAD_ENABLED": "0"
+      },
+      "dotnetRunMessages": true,
+      "hotReloadEnabled": false
+    }
+  }
+}

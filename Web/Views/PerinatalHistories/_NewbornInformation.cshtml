@@ -1,0 +1,835 @@
+@* C:\dev\SolMedProd\SolMed\Web\Views\PerinatalHistory\_NewbornInformation.cshtml *@
+@model Domain.NewbornInformation
+
+@* ============ SECCION RECIEN NACIDO ============ *@
+<div class="row">
+    @* Primera columna: SEXO, PESO AL NACER, P. CEFALICO, LONGITUD *@
+    <div class="col-md-2">
+        @* SEXO - horizontal *@
+        <div class="form-group mb-2">
+            <label class="small font-weight-bold">SEXO</label>
+            <div class="d-flex flex-wrap" style="font-size: 11px;">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="Sex" value="F" id="sexF"
+                           @(Model?.Sex == "F" ? "checked" : "") />
+                    <label class="form-check-label" for="sexF">f</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="Sex" value="M" id="sexM"
+                           @(Model?.Sex == "M" ? "checked" : "") />
+                    <label class="form-check-label" for="sexM">m</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="Sex" value="Undefined" id="sexUndefined"
+                           @(Model?.Sex == "Undefined" ? "checked" : "") />
+                    <label class="form-check-label" for="sexUndefined">no definido</label>
+                </div>
+            </div>
+        </div>
+
+        @* PESO AL NACER - radios editables *@
+        <div class="form-group mb-2">
+            <label class="small font-weight-bold">PESO AL NACER</label>
+            <div class="d-flex align-items-center">
+                <input type="number" class="form-control form-control-sm" id="BirthWeight" name="BirthWeight"
+                       style="width: 70px;" step="1" min="0" max="9999"
+                       value="@(Model?.BirthWeight?.ToString())" />
+                <span class="ml-1 small">g</span>
+            </div>
+            <div class="mt-1" style="font-size: 10px;">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="BirthWeightCategory" value="low" id="weightLow" />
+                    <label class="form-check-label" for="weightLow">&lt; 2500 g</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="BirthWeightCategory" value="high" id="weightHigh" />
+                    <label class="form-check-label" for="weightHigh">&gt;= 4000 g</label>
+                </div>
+            </div>
+        </div>
+
+        @* P. CEFALICO *@
+        <div class="form-group mb-2">
+            <label class="small font-weight-bold">P. CEFALICO</label>
+            <div class="d-flex align-items-center">
+                <input type="number" class="form-control form-control-sm" id="HeadCircumference" name="HeadCircumference"
+                       style="width: 60px;" step="0.1" min="0" max="99"
+                       value="@(Model?.HeadCircumference?.ToString())" />
+                <span class="ml-1 small">cm</span>
+            </div>
+        </div>
+
+        @* LONGITUD *@
+        <div class="form-group mb-2">
+            <label class="small font-weight-bold">LONGITUD</label>
+            <div class="d-flex align-items-center">
+                <input type="number" class="form-control form-control-sm" id="Length" name="Length"
+                       style="width: 60px;" step="0.1" min="0" max="99"
+                       value="@(Model?.Length?.ToString())" />
+                <span class="ml-1 small">cm</span>
+            </div>
+        </div>
+    </div>
+
+    @* Segunda columna: EDAD GESTACIONAL, PESO E.G., APGAR *@
+    <div class="col-md-2">
+        @* EDAD GESTACIONAL - radios horizontales *@
+        <div class="form-group mb-2">
+            <label class="small font-weight-bold">EDAD GESTACIONAL</label>
+            <div class="d-flex align-items-center mb-1">
+                <input type="number" class="form-control form-control-sm" id="GestationalAgeWeeks" name="GestationalAgeWeeks"
+                       style="width: 45px;" min="20" max="44"
+                       value="@(Model?.GestationalAgeWeeks?.ToString())" />
+                <span class="mx-1 small">sem.</span>
+                <input type="number" class="form-control form-control-sm" id="GestationalAgeDays" name="GestationalAgeDays"
+                       style="width: 40px;" min="0" max="6"
+                       value="@(Model?.GestationalAgeDays?.ToString())" />
+                <span class="ml-1 small">días</span>
+            </div>
+            <div class="d-flex flex-wrap">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="GestationalAgeMethod" value="FUM" id="gaMethodFUM"
+                           @(Model?.GestationalAgeMethod == "FUM" ? "checked" : "") />
+                    <label class="form-check-label" for="gaMethodFUM">FUM</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="GestationalAgeMethod" value="ECO" id="gaMethodECO"
+                           @(Model?.GestationalAgeMethod == "ECO" ? "checked" : "") />
+                    <label class="form-check-label" for="gaMethodECO">ECO</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="GestationalAgeMethod" value="ESTIMADA" id="gaMethodEstimada"
+                           @(Model?.GestationalAgeMethod == "ESTIMADA" ? "checked" : "") />
+                    <label class="form-check-label" for="gaMethodEstimada">ESTIMADA</label>
+                </div>
+            </div>
+        </div>
+
+        @* PESO E.G. *@
+        <div class="form-group mb-2">
+            <label class="small font-weight-bold">PESO E.G.</label>
+            <div style="font-size: 10px;">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="WeightForGestationalAge" value="Adequate" id="pesoEGAdec"
+                           @(Model?.WeightForGestationalAge == "Adequate" ? "checked" : "") />
+                    <label class="form-check-label" for="pesoEGAdec">adec.</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="WeightForGestationalAge" value="Small" id="pesoEGPeq"
+                           @(Model?.WeightForGestationalAge == "Small" ? "checked" : "") />
+                    <label class="form-check-label" for="pesoEGPeq">peq.</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="WeightForGestationalAge" value="Large" id="pesoEGGde"
+                           @(Model?.WeightForGestationalAge == "Large" ? "checked" : "") />
+                    <label class="form-check-label" for="pesoEGGde">gde.</label>
+                </div>
+            </div>
+        </div>
+
+        @* APGAR *@
+        <div class="form-group mb-2">
+            <label class="small font-weight-bold">APGAR (min)</label>
+            <div class="d-flex align-items-center">
+                <input type="number" class="form-control form-control-sm" id="ApgarFirstMinute" name="ApgarFirstMinute"
+                       style="width: 40px;" min="0" max="10"
+                       value="@(Model?.ApgarFirstMinute?.ToString())" />
+                <span class="mx-1 small">1<sup>er</sup></span>
+                <input type="number" class="form-control form-control-sm" id="ApgarFifthMinute" name="ApgarFifthMinute"
+                       style="width: 40px;" min="0" max="10"
+                       value="@(Model?.ApgarFifthMinute?.ToString())" />
+                <span class="ml-1 small">5<sup>to</sup></span>
+            </div>
+        </div>
+    </div>
+
+    @* Tercera columna: LACTANCIA y REANIMACION *@
+    <div class="col-md-3">
+        @* Lactancia materna inicio precoz *@
+        <div class="form-group mb-2">
+            <label class="small font-weight-bold">Lactancia materna inicio precoz</label>
+            <div class="d-inline-flex ml-2" style="font-size: 10px;">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="EarlyBreastfeedingStatus" value="false" id="lactanciaNo"
+                           @(Model?.EarlyBreastfeedingInitiation == false ? "checked" : "") />
+                    <label class="form-check-label" for="lactanciaNo">no</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="EarlyBreastfeedingStatus" value="true" id="lactanciaSi"
+                           @(Model?.EarlyBreastfeedingInitiation == true ? "checked" : "") />
+                    <label class="form-check-label" for="lactanciaSi">si</label>
+                </div>
+            </div>
+        </div>
+
+        @* REANIMACION - etiquetas arriba, radios abajo, alineado izquierda *@
+        <div class="form-group mb-2">
+            <label class="small font-weight-bold">REANIMACION</label>
+            <div class="d-flex flex-wrap">
+                <div class="mr-3 mb-1">
+                    <div class="mb-0">estimulac.</div>
+                    <div class="d-flex">
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="ResuscitationStimulationStatus" value="false" id="stimNo"
+                                   @(Model?.ResuscitationStimulation == false ? "checked" : "") />
+                            <label class="form-check-label" for="stimNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="ResuscitationStimulationStatus" value="true" id="stimSi"
+                                   @(Model?.ResuscitationStimulation == true ? "checked" : "") />
+                            <label class="form-check-label" for="stimSi">si</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mr-3 mb-1">
+                    <div class="mb-0">aspiración</div>
+                    <div class="d-flex">
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="ResuscitationAspirationStatus" value="false" id="aspirNo"
+                                   @(Model?.ResuscitationAspiration == false ? "checked" : "") />
+                            <label class="form-check-label" for="aspirNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="ResuscitationAspirationStatus" value="true" id="aspirSi"
+                                   @(Model?.ResuscitationAspiration == true ? "checked" : "") />
+                            <label class="form-check-label" for="aspirSi">si</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mr-3 mb-1">
+                    <div class="mb-0">máscara</div>
+                    <div class="d-flex">
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="ResuscitationMaskStatus" value="false" id="maskNo"
+                                   @(Model?.ResuscitationMask == false ? "checked" : "") />
+                            <label class="form-check-label" for="maskNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="ResuscitationMaskStatus" value="true" id="maskSi"
+                                   @(Model?.ResuscitationMask == true ? "checked" : "") />
+                            <label class="form-check-label" for="maskSi">si</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mr-3 mb-1">
+                    <div class="mb-0">oxígeno</div>
+                    <div class="d-flex">
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="ResuscitationOxygenStatus" value="false" id="oxygenNo"
+                                   @(Model?.ResuscitationOxygen == false ? "checked" : "") />
+                            <label class="form-check-label" for="oxygenNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="ResuscitationOxygenStatus" value="true" id="oxygenSi"
+                                   @(Model?.ResuscitationOxygen == true ? "checked" : "") />
+                            <label class="form-check-label" for="oxygenSi">si</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mr-3 mb-1">
+                    <div class="mb-0">masaje</div>
+                    <div class="d-flex">
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="ResuscitationMassageStatus" value="false" id="massageNo"
+                                   @(Model?.ResuscitationMassage == false ? "checked" : "") />
+                            <label class="form-check-label" for="massageNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="ResuscitationMassageStatus" value="true" id="massageSi"
+                                   @(Model?.ResuscitationMassage == true ? "checked" : "") />
+                            <label class="form-check-label" for="massageSi">si</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mr-3 mb-1">
+                    <div class="mb-0">intubación</div>
+                    <div class="d-flex">
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="ResuscitationIntubationStatus" value="false" id="intubNo"
+                                   @(Model?.ResuscitationIntubation == false ? "checked" : "") />
+                            <label class="form-check-label" for="intubNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="ResuscitationIntubationStatus" value="true" id="intubSi"
+                                   @(Model?.ResuscitationIntubation == true ? "checked" : "") />
+                            <label class="form-check-label" for="intubSi">si</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mr-3 mb-1">
+                    <div class="mb-0">medicación</div>
+                    <div class="d-flex">
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="ResuscitationMedicationStatus" value="false" id="medicNo"
+                                   @(Model?.ResuscitationMedication == false ? "checked" : "") />
+                            <label class="form-check-label" for="medicNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-0">
+                            <input class="form-check-input" type="radio" name="ResuscitationMedicationStatus" value="true" id="medicSi"
+                                   @(Model?.ResuscitationMedication == true ? "checked" : "") />
+                            <label class="form-check-label" for="medicSi">si</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* Cuarta columna: ATENDIO PARTO y NEONATO *@
+    <div class="col-md-5">
+        <div class="form-group mb-2">
+            <label class="small font-weight-bold">ATENDIO</label>
+            <div style="font-size: 10px;">
+                @* PARTO *@
+                <div class="d-flex align-items-center mb-2">
+                    <span class="font-weight-bold mr-2" style="min-width: 60px;">PARTO</span>
+                    <div class="d-inline-flex flex-wrap align-items-center">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="DeliveryAttendantType" value="medico" id="partoMedico"
+                                   @(Model?.DeliveryAttendantType == "medico" ? "checked" : "") />
+                            <label class="form-check-label" for="partoMedico">médico</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="DeliveryAttendantType" value="obst" id="partoObst"
+                                   @(Model?.DeliveryAttendantType == "obst" ? "checked" : "") />
+                            <label class="form-check-label" for="partoObst">obst.</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="DeliveryAttendantType" value="enf" id="partoEnf"
+                                   @(Model?.DeliveryAttendantType == "enf" ? "checked" : "") />
+                            <label class="form-check-label" for="partoEnf">enf.</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="DeliveryAttendantType" value="auxil" id="partoAuxil"
+                                   @(Model?.DeliveryAttendantType == "auxil" ? "checked" : "") />
+                            <label class="form-check-label" for="partoAuxil">auxil.</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="DeliveryAttendantType" value="estud" id="partoEstud"
+                                   @(Model?.DeliveryAttendantType == "estud" ? "checked" : "") />
+                            <label class="form-check-label" for="partoEstud">estud.</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="DeliveryAttendantType" value="empir" id="partoEmpir"
+                                   @(Model?.DeliveryAttendantType == "empir" ? "checked" : "") />
+                            <label class="form-check-label" for="partoEmpir">empir.</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="DeliveryAttendantType" value="otro" id="partoOtro"
+                                   @(Model?.DeliveryAttendantType == "otro" ? "checked" : "") />
+                            <label class="form-check-label" for="partoOtro">otro</label>
+                        </div>
+                        <div class="ml-2">
+                            <span>Nombre</span>
+                            <input type="text" class="form-control form-control-sm d-inline-block ml-1"
+                                   id="DeliveryAttendantName" name="DeliveryAttendantName"
+                                   style="width: 150px;" value="@Model?.DeliveryAttendantName" />
+                        </div>
+                    </div>
+                </div>
+
+                @* NEONATO *@
+                <div class="d-flex align-items-center">
+                    <span class="font-weight-bold mr-2" style="min-width: 60px;">NEONATO</span>
+                    <div class="d-inline-flex flex-wrap align-items-center">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="NeonatalAttendantType" value="medico" id="neoMedico"
+                                   @(Model?.NeonatalAttendantType == "medico" ? "checked" : "") />
+                            <label class="form-check-label" for="neoMedico">médico</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="NeonatalAttendantType" value="obst" id="neoObst"
+                                   @(Model?.NeonatalAttendantType == "obst" ? "checked" : "") />
+                            <label class="form-check-label" for="neoObst">obst.</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="NeonatalAttendantType" value="enf" id="neoEnf"
+                                   @(Model?.NeonatalAttendantType == "enf" ? "checked" : "") />
+                            <label class="form-check-label" for="neoEnf">enf.</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="NeonatalAttendantType" value="auxil" id="neoAuxil"
+                                   @(Model?.NeonatalAttendantType == "auxil" ? "checked" : "") />
+                            <label class="form-check-label" for="neoAuxil">auxil.</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="NeonatalAttendantType" value="estud" id="neoEstud"
+                                   @(Model?.NeonatalAttendantType == "estud" ? "checked" : "") />
+                            <label class="form-check-label" for="neoEstud">estud.</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="NeonatalAttendantType" value="empir" id="neoEmpir"
+                                   @(Model?.NeonatalAttendantType == "empir" ? "checked" : "") />
+                            <label class="form-check-label" for="neoEmpir">empir.</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="NeonatalAttendantType" value="otro" id="neoOtro"
+                                   @(Model?.NeonatalAttendantType == "otro" ? "checked" : "") />
+                            <label class="form-check-label" for="neoOtro">otro</label>
+                        </div>
+                        <div class="ml-2">
+                            <span>Nombre</span>
+                            <input type="text" class="form-control form-control-sm d-inline-block ml-1"
+                                   id="NeonatalAttendantName" name="NeonatalAttendantName"
+                                   style="width: 150px;" value="@Model?.NeonatalAttendantName" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* ============ SECCIONES ADICIONALES (debajo de RECIEN NACIDO) ============ *@
+<div class="row mt-3">
+    @* DEFECTOS CONGENITOS *@
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="small font-weight-bold">DEFECTOS CONGENITOS</label>
+            <div style="font-size: 10px;">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="BirthDefectsType" value="no" id="birthDefectsNo"
+                           @(Model?.BirthDefectsType == "no" ? "checked" : "") />
+                    <label class="form-check-label" for="birthDefectsNo">no</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="BirthDefectsType" value="menor" id="birthDefectsMenor"
+                           @(Model?.BirthDefectsType == "menor" ? "checked" : "") />
+                    <label class="form-check-label" for="birthDefectsMenor">menor</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="BirthDefectsType" value="mayor" id="birthDefectsMayor"
+                           @(Model?.BirthDefectsType == "mayor" ? "checked" : "") />
+                    <label class="form-check-label" for="birthDefectsMayor">mayor</label>
+                </div>
+            </div>
+            <div class="mt-1">
+                <input type="text" class="form-control form-control-sm" id="BirthDefectsCode" name="BirthDefectsCode"
+                       placeholder="código" style="width: 80px;" value="@Model?.BirthDefectsCode" />
+            </div>
+        </div>
+    </div>
+
+    @* ENFERMEDADES *@
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="small font-weight-bold">ENFERMEDADES</label>
+            <div style="font-size: 10px;">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="DiseasesOption" value="ninguna" id="diseasesNinguna"
+                           @(Model?.DiseasesOption == "ninguna" ? "checked" : "") />
+                    <label class="form-check-label" for="diseasesNinguna">ninguna</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="DiseasesOption" value="una_o_mas" id="diseasesUnaOMas"
+                           @(Model?.DiseasesOption == "una_o_mas" ? "checked" : "") />
+                    <label class="form-check-label" for="diseasesUnaOMas">1 ó más</label>
+                </div>
+            </div>
+            <div class="mt-1 d-flex flex-wrap" style="gap: 2px;">
+                <input type="text" class="form-control form-control-sm" id="DiseaseCode1" name="DiseaseCode1"
+                       placeholder="código" style="width: 55px; font-size: 9px;" value="@Model?.DiseaseCode1" />
+                <input type="text" class="form-control form-control-sm" id="DiseaseCode2" name="DiseaseCode2"
+                       placeholder="código" style="width: 55px; font-size: 9px;" value="@Model?.DiseaseCode2" />
+                <input type="text" class="form-control form-control-sm" id="DiseaseCode3" name="DiseaseCode3"
+                       placeholder="código" style="width: 55px; font-size: 9px;" value="@Model?.DiseaseCode3" />
+                <input type="text" class="form-control form-control-sm" id="DiseaseCode4" name="DiseaseCode4"
+                       placeholder="código" style="width: 55px; font-size: 9px;" value="@Model?.DiseaseCode4" />
+                <input type="text" class="form-control form-control-sm" id="DiseaseCode5" name="DiseaseCode5"
+                       placeholder="código" style="width: 55px; font-size: 9px;" value="@Model?.DiseaseCode5" />
+                <input type="text" class="form-control form-control-sm" id="DiseaseCode6" name="DiseaseCode6"
+                       placeholder="código" style="width: 55px; font-size: 9px;" value="@Model?.DiseaseCode6" />
+            </div>
+        </div>
+    </div>
+
+    @* TAMIZAJE NEONATAL - etiquetas arriba, radios abajo, alineado izquierda *@
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="small font-weight-bold">TAMIZAJE NEONATAL</label>
+            <div>
+                @* Primera fila: VIH en RN *@
+                <div class="d-flex flex-wrap mb-1">
+                    <span class="font-weight-bold mr-2 align-self-center"></span>
+                    <div class="mr-3">
+                        <div class="mb-0">VIH en RN Expuesto</div>
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="HIVExposedStatus" value="no" id="hivExpNo"
+                                       @(Model?.HIVExposedStatus == "no" ? "checked" : "") />
+                                <label class="form-check-label" for="hivExpNo">no</label>
+                            </div>
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="HIVExposedStatus" value="si" id="hivExpSi"
+                                       @(Model?.HIVExposedStatus == "si" ? "checked" : "") />
+                                <label class="form-check-label" for="hivExpSi">si</label>
+                            </div>
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="HIVExposedStatus" value="s/d" id="hivExpSd"
+                                       @(Model?.HIVExposedStatus == "s/d" ? "checked" : "") />
+                                <label class="form-check-label" for="hivExpSd">s/d</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="mb-0">VIH en RN Tto.</div>
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="HIVTreatmentStatus" value="no" id="hivTtoNo"
+                                       @(Model?.HIVTreatmentStatus == "no" ? "checked" : "") />
+                                <label class="form-check-label" for="hivTtoNo">no</label>
+                            </div>
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="HIVTreatmentStatus" value="si" id="hivTtoSi"
+                                       @(Model?.HIVTreatmentStatus == "si" ? "checked" : "") />
+                                <label class="form-check-label" for="hivTtoSi">si</label>
+                            </div>
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="HIVTreatmentStatus" value="s/d" id="hivTtoSd"
+                                       @(Model?.HIVTreatmentStatus == "s/d" ? "checked" : "") />
+                                <label class="form-check-label" for="hivTtoSd">s/d</label>
+                            </div>
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="HIVTreatmentStatus" value="n/c" id="hivTtoNc"
+                                       @(Model?.HIVTreatmentStatus == "n/c" ? "checked" : "") />
+                                <label class="form-check-label" for="hivTtoNc">n/c</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* Segunda fila: VDRL + Tto *@
+                <div class="d-flex flex-wrap mb-1">
+                    <div class="mr-3">
+                        <div class="mb-0 font-weight-bold">VDRL</div>
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="VDRLResult" value="-" id="vdrlNeg"
+                                       @(Model?.VDRLResult == "-" ? "checked" : "") />
+                                <label class="form-check-label" for="vdrlNeg">-</label>
+                            </div>
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="VDRLResult" value="+" id="vdrlPos"
+                                       @(Model?.VDRLResult == "+" ? "checked" : "") />
+                                <label class="form-check-label" for="vdrlPos">+</label>
+                            </div>
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="VDRLResult" value="no_se_hizo" id="vdrlNoHizo"
+                                       @(Model?.VDRLResult == "no_se_hizo" ? "checked" : "") />
+                                <label class="form-check-label" for="vdrlNoHizo">no se hizo</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="mb-0 font-weight-bold">VDRL Tto</div>
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="VDRLTreatment" value="no" id="vdrlTtoNo"
+                                       @(Model?.VDRLTreatment == "no" ? "checked" : "") />
+                                <label class="form-check-label" for="vdrlTtoNo">no</label>
+                            </div>
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="VDRLTreatment" value="si" id="vdrlTtoSi"
+                                       @(Model?.VDRLTreatment == "si" ? "checked" : "") />
+                                <label class="form-check-label" for="vdrlTtoSi">si</label>
+                            </div>
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="VDRLTreatment" value="n/c" id="vdrlTtoNc"
+                                       @(Model?.VDRLTreatment == "n/c" ? "checked" : "") />
+                                <label class="form-check-label" for="vdrlTtoNc">n/c</label>
+                            </div>
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="VDRLTreatment" value="s/d" id="vdrlTtoSd"
+                                       @(Model?.VDRLTreatment == "s/d" ? "checked" : "") />
+                                <label class="form-check-label" for="vdrlTtoSd">s/d</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* Tercera fila: Audic, Chagas, Bilirrub, Toxo IgM, Hb patía, Cardiov - etiquetas arriba *@
+                <div class="d-flex flex-wrap mb-1">
+                    @foreach (var item in new[] {
+                        new { Name = "ScreeningAudic", Label = "Audic", Value = Model?.ScreeningAudic },
+                        new { Name = "ScreeningChagas", Label = "Chagas", Value = Model?.ScreeningChagas },
+                        new { Name = "ScreeningBilirrub", Label = "Bilirrub.", Value = Model?.ScreeningBilirrub },
+                        new { Name = "ScreeningToxoIgM", Label = "Toxo IgM", Value = Model?.ScreeningToxoIgM },
+                        new { Name = "ScreeningHbPatia", Label = "Hb patía", Value = Model?.ScreeningHbPatia },
+                        new { Name = "ScreeningCardiov", Label = "Cardiov", Value = Model?.ScreeningCardiov }
+                    })
+                    {
+                        <div class="mr-2 mb-1">
+                            <div class="mb-0">@item.Label</div>
+                            <div class="d-flex">
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="@item.Name" value="-" id="@(item.Name)Neg"
+                                           @(item.Value == "-" ? "checked" : "") />
+                                    <label class="form-check-label" for="@(item.Name)Neg">-</label>
+                                </div>
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="@item.Name" value="+" id="@(item.Name)Pos"
+                                           @(item.Value == "+" ? "checked" : "") />
+                                    <label class="form-check-label" for="@(item.Name)Pos">+</label>
+                                </div>
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="@item.Name" value="no_se_hizo" id="@(item.Name)NoHizo"
+                                           @(item.Value == "no_se_hizo" ? "checked" : "") />
+                                    <label class="form-check-label" for="@(item.Name)NoHizo">no se hizo</label>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                @* Cuarta fila: Metabólicas *@
+                <div class="d-flex flex-wrap">
+                    <div>
+                        <div class="mb-0 font-weight-bold">Metabólicas</div>
+                        <div class="d-flex">
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="ScreeningMetabolicStatus" value="no_realizado" id="metabNoReal"
+                                       @(Model?.ScreeningMetabolicStatus == "no_realizado" ? "checked" : "") />
+                                <label class="form-check-label" for="metabNoReal">no realizado</label>
+                            </div>
+                            <div class="form-check form-check-inline mb-0">
+                                <input class="form-check-input" type="radio" name="ScreeningMetabolicStatus" value="realizado" id="metabReal"
+                                       @(Model?.ScreeningMetabolicStatus == "realizado" ? "checked" : "") />
+                                <label class="form-check-label" for="metabReal">realizado</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* Fallece en Sala de parto + REFERIDO *@
+    <div class="col-md-2">
+        <div class="form-group mb-2">
+            <label class="small font-weight-bold">Fallece en Sala de parto</label>
+            <div >
+                <div class="d-flex align-items-center mb-1">
+                    <span style="min-width: 40px;">Madre</span>
+                    <div class="d-inline-flex ml-1">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="MotherDiedInDeliveryRoom" value="false" id="motherDiedNo"
+                                   @(Model?.MotherDiedInDeliveryRoom == false ? "checked" : "") />
+                            <label class="form-check-label" for="motherDiedNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="MotherDiedInDeliveryRoom" value="true" id="motherDiedSi"
+                                   @(Model?.MotherDiedInDeliveryRoom == true ? "checked" : "") />
+                            <label class="form-check-label" for="motherDiedSi">si</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <span style="min-width: 40px;">RN</span>
+                    <div class="d-inline-flex ml-1">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="NewbornDiedInDeliveryRoom" value="false" id="rnDiedNo"
+                                   @(Model?.NewbornDiedInDeliveryRoom == false ? "checked" : "") />
+                            <label class="form-check-label" for="rnDiedNo">no</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="NewbornDiedInDeliveryRoom" value="true" id="rnDiedSi"
+                                   @(Model?.NewbornDiedInDeliveryRoom == true ? "checked" : "") />
+                            <label class="form-check-label" for="rnDiedSi">si</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="small font-weight-bold">REFERIDO</label>
+            <div >
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ReferredTo" value="aloj_conj" id="refAlojConj"
+                           @(Model?.ReferredTo == "aloj_conj" ? "checked" : "") />
+                    <label class="form-check-label" for="refAlojConj">aloj. conj.</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ReferredTo" value="neonatolog" id="refNeonatolog"
+                           @(Model?.ReferredTo == "neonatolog" ? "checked" : "") />
+                    <label class="form-check-label" for="refNeonatolog">neonatolog.</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ReferredTo" value="otro_hosp" id="refOtroHosp"
+                           @(Model?.ReferredTo == "otro_hosp" ? "checked" : "") />
+                    <label class="form-check-label" for="refOtroHosp">otro hosp.</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* ============ EGRESO RN ============ *@
+<div class="row mt-2">
+    <div class="col-md-12">
+        <label class="small font-weight-bold">EGRESO RN</label>
+    </div>
+</div>
+<div class="row" >
+    @* vivo/fallece + fecha + hora *@
+    <div class="col-md-3">
+        <div class="d-flex align-items-center mb-1">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="DischargeStatus" value="vivo" id="dischargeVivo"
+                       @(Model?.DischargeStatus == "vivo" ? "checked" : "") />
+                <label class="form-check-label" for="dischargeVivo">vivo</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="DischargeStatus" value="fallece" id="dischargeFallece"
+                       @(Model?.DischargeStatus == "fallece" ? "checked" : "") />
+                <label class="form-check-label" for="dischargeFallece">fallece</label>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <input type="date" class="form-control form-control-sm" id="DischargeDate" name="DischargeDate"
+                   style="width: 130px;"
+                   value="@(Model?.DischargeDate.HasValue == true && Model.DischargeDate.Value != default(DateTime) ? Model.DischargeDate.Value.ToString("yyyy-MM-dd") : "")" />
+            <input type="time" class="form-control form-control-sm ml-1" id="DischargeTime" name="DischargeTime"
+                   style="width: 90px;" value="@Model?.DischargeTime" />
+        </div>
+    </div>
+
+    @* traslado + lugar + fallece durante *@
+    <div class="col-md-3">
+        <div class="d-flex align-items-center mb-1">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Transferred" name="Transferred"
+                       @(Model?.Transferred == true ? "checked" : "") />
+                <label class="form-check-label" for="Transferred">traslado</label>
+            </div>
+        </div>
+        <div class="d-flex align-items-center mb-1">
+            <span class="mr-1">lugar</span>
+            <input type="text" class="form-control form-control-sm" id="TransferLocation" name="TransferLocation"
+                   style="width: 250px;" value="@Model?.TransferLocation" />
+        </div>
+        <div>
+            <span>fallece durante o en lugar de traslado</span>
+            <div class="d-inline-flex ml-1">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="DiedDuringTransferStatus" value="no" id="diedTransfNo"
+                           @(Model?.DiedDuringTransferStatus == "no" ? "checked" : "") />
+                    <label class="form-check-label" for="diedTransfNo">no</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="DiedDuringTransferStatus" value="si" id="diedTransfSi"
+                           @(Model?.DiedDuringTransferStatus == "si" ? "checked" : "") />
+                    <label class="form-check-label" for="diedTransfSi">si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="DiedDuringTransferStatus" value="s/d" id="diedTransfSd"
+                           @(Model?.DiedDuringTransferStatus == "s/d" ? "checked" : "") />
+                    <label class="form-check-label" for="diedTransfSd">s/d</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* EDAD AL EGRESO + ALIMENTO AL ALTA *@
+    <div class="col-md-2">
+        <div class="mb-1">
+            <span class="font-weight-bold">EDAD AL EGRESO</span>
+            <span class="small">días completos</span>
+        </div>
+        <div class="d-flex align-items-center">
+            <input type="number" class="form-control form-control-sm" id="DischargeAge" name="DischargeAge"
+                   style="width: 50px;" min="0"
+                   value="@(Model?.DischargeAge > 0 ? Model.DischargeAge.ToString() : "")" />
+            <div class="form-check ml-2">
+                <input class="form-check-input" type="checkbox" id="DischargeAgeLessThanOneDay" name="DischargeAgeLessThanOneDay"
+                       @(Model?.DischargeAgeLessThanOneDay == true ? "checked" : "") />
+                <label class="form-check-label" for="DischargeAgeLessThanOneDay">&lt; 1 día</label>
+            </div>
+        </div>
+        <div class="mt-2">
+            <span class="font-weight-bold">ALIMENTO AL ALTA</span>
+            <div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="FeedingAtDischarge" value="lact_excl" id="feedingExcl"
+                           @(Model?.FeedingAtDischarge == "lact_excl" ? "checked" : "") />
+                    <label class="form-check-label" for="feedingExcl">lact. excl.</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="FeedingAtDischarge" value="parcial" id="feedingParcial"
+                           @(Model?.FeedingAtDischarge == "parcial" ? "checked" : "") />
+                    <label class="form-check-label" for="feedingParcial">parcial</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="FeedingAtDischarge" value="artificial" id="feedingArtif"
+                           @(Model?.FeedingAtDischarge == "artificial" ? "checked" : "") />
+                    <label class="form-check-label" for="feedingArtif">artificial</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* Boca arriba, BCG, INMUN. HEPATITIS B, Meconio 1er día *@
+    <div class="col-md-2">
+        <div class="mb-1 d-flex align-items-center">
+            <span style="min-width: 115px; display: inline-block;">Boca arriba</span>
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input" type="radio" name="FaceUp" value="false" id="faceUpNo"
+                       @(Model?.FaceUp == false ? "checked" : "") />
+                <label class="form-check-label" for="faceUpNo">no</label>
+            </div>
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input" type="radio" name="FaceUp" value="true" id="faceUpSi"
+                       @(Model?.FaceUp == true ? "checked" : "") />
+                <label class="form-check-label" for="faceUpSi">si</label>
+            </div>
+        </div>
+        <div class="mb-1 d-flex align-items-center">
+            <span style="min-width: 115px; display: inline-block;">BCG</span>
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input" type="radio" name="BCGVaccine" value="false" id="bcgNo"
+                       @(Model?.BCGVaccine == false ? "checked" : "") />
+                <label class="form-check-label" for="bcgNo">no</label>
+            </div>
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input" type="radio" name="BCGVaccine" value="true" id="bcgSi"
+                       @(Model?.BCGVaccine == true ? "checked" : "") />
+                <label class="form-check-label" for="bcgSi">si</label>
+            </div>
+        </div>
+        <div class="mb-1 d-flex align-items-center">
+            <span style="min-width: 115px; display: inline-block;">INMUN. HEPATITIS B</span>
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input" type="radio" name="HepatitisB" value="false" id="hepBNo"
+                       @(Model?.HepatitisB == false ? "checked" : "") />
+                <label class="form-check-label" for="hepBNo">no</label>
+            </div>
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input" type="radio" name="HepatitisB" value="true" id="hepBSi"
+                       @(Model?.HepatitisB == true ? "checked" : "") />
+                <label class="form-check-label" for="hepBSi">si</label>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <span style="min-width: 115px; display: inline-block;">Meconio 1<sup>er</sup> día</span>
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input" type="radio" name="MeconiumFirstDay" value="false" id="meconioNo"
+                       @(Model?.MeconiumFirstDay == false ? "checked" : "") />
+                <label class="form-check-label" for="meconioNo">no</label>
+            </div>
+            <div class="form-check form-check-inline mb-0">
+                <input class="form-check-input" type="radio" name="MeconiumFirstDay" value="true" id="meconioSi"
+                       @(Model?.MeconiumFirstDay == true ? "checked" : "") />
+                <label class="form-check-label" for="meconioSi">si</label>
+            </div>
+        </div>
+    </div>
+
+    @* PESO AL EGRESO *@
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="small font-weight-bold">PESO AL EGRESO</label>
+            <div class="d-flex align-items-center">
+                <input type="number" class="form-control form-control-sm" id="DischargeWeight" name="DischargeWeight"
+                       style="width: 80px;" step="1" min="0"
+                       value="@(Model?.DischargeWeight > 0 ? Model.DischargeWeight.ToString() : "")" />
+                <span class="ml-1 small">g</span>
+            </div>
+        </div>
+    </div>
+</div>

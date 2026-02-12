@@ -1,0 +1,257 @@
+@* Updated _ObstetricBackground.cshtml view *@
+@model Domain.ObstetricBackground
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- Primera fila: Contadores de embarazos -->
+        <div class="row">
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="col-form-label-sm">GESTAS PREVIAS</label>
+                    <input asp-for="PreviousPregnancies" type="number" min="0" class="form-control form-control-sm" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="col-form-label-sm">EMB. ECTÓPICO</label>
+                    <input asp-for="EctopicPregnancy" type="text" class="form-control form-control-sm" placeholder="" />
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="col-form-label-sm">ABORTOS</label>
+                    <input asp-for="Abortions" type="number" min="0" class="form-control form-control-sm" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>3 ABORTOS ESPONT. CONSECUTIVOS</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="ThreeConsecutiveSpontaneousAbortions" value="true" id="threeAbortionsYes" @(Model?.ThreeConsecutiveSpontaneousAbortions == true ? "checked" : "") />
+                        <label class="form-check-label" for="threeAbortionsYes">Sí</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="col-form-label-sm">PARTOS</label>
+                    <input asp-for="Births" type="number" min="0" class="form-control form-control-sm" />
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="col-form-label-sm">P. VAGINALES</label>
+                    <input asp-for="VaginalDeliveries" type="number" min="0" class="form-control form-control-sm" />
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="col-form-label-sm">P. CESÁREAS</label>
+                    <input asp-for="Cesareans" type="number" min="0" class="form-control form-control-sm" />
+                </div>
+            </div>
+         
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="col-form-label-sm">NACIDOS VIVOS</label>
+                    <input asp-for="LivingBorn" type="number" min="0" class="form-control form-control-sm" />
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="col-form-label-sm">VIVEN</label>
+                    <input asp-for="Living" type="number" min="0" class="form-control form-control-sm" id="livingChildren" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="col-form-label-sm">NACIDOS MUERTOS</label>
+                    <input asp-for="DeadBorn" type="number" min="0" class="form-control form-control-sm" />
+                </div>
+            </div>
+           
+       
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="col-form-label-sm">MUERTOS 1ª SEMANA</label>
+                    <input asp-for="DiedFirstWeek" type="number" min="0" class="form-control form-control-sm" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="col-form-label-sm">MUERTOS DESPUÉS 1ª SEMANA</label>
+                    <input asp-for="DiedAfterFirstWeek" type="number" min="0" class="form-control form-control-sm" />
+                </div>
+            </div>
+      
+         
+            <div class="col-md-3">
+                <div class="form-group" style="background-color: #fff3cd; padding: 8px; border-radius: 4px;">
+                    <label>ANTECEDENTES DE GEMELARES</label>
+                    <div class="d-flex gap-2">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="TwinsHistory" value="true" id="twinsYes" @(Model?.TwinsHistory == true ? "checked" : "") />
+                            <label class="form-check-label" for="twinsYes">Sí</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="TwinsHistory" value="false" id="twinsNo" @(Model?.TwinsHistory == false ? "checked" : "") />
+                            <label class="form-check-label" for="twinsNo">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>EMBARAZO PLANEADO</label>
+                    <div class="d-flex gap-2">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="PregnancyPlanned" value="true" id="plannedYes" @(Model?.PregnancyPlanned == true ? "checked" : "") />
+                            <label class="form-check-label" for="plannedYes">Sí</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="PregnancyPlanned" value="false" id="plannedNo" @(Model?.PregnancyPlanned == false ? "checked" : "") />
+                            <label class="form-check-label" for="plannedNo">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>ÚLTIMO PREVIO</label>
+                    <div class="d-flex gap-2">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="1" id="lastPreviousNC" name="LastPreviousBirthWeightType" @(((int?)Model?.LastPreviousBirthWeightType) == 1 ? "checked" : "") />
+                            <label class="form-check-label" for="lastPreviousNC">N/C</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="2" id="lastPreviousNormal" name="LastPreviousBirthWeightType" @(((int?)Model?.LastPreviousBirthWeightType) == 2 ? "checked" : "") />
+                            <label class="form-check-label" for="lastPreviousNormal">Normal</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="3" id="lastPreviousLow" name="LastPreviousBirthWeightType" @(((int?)Model?.LastPreviousBirthWeightType) == 3 ? "checked" : "") />
+                            <label class="form-check-label" for="lastPreviousLow">&lt;2500g</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="4" id="lastPreviousHigh" name="LastPreviousBirthWeightType" @(((int?)Model?.LastPreviousBirthWeightType) == 4 ? "checked" : "") />
+                            <label class="form-check-label" for="lastPreviousHigh">≥4000g</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="col-form-label-sm">FIN EMBARAZO ANTERIOR</label>
+                    <input asp-for="LastPregnancyEndDate" type="date" class="form-control form-control-sm" id="lastPregnancyDate" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>MENOS DE 1 AÑO</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="LastPregnancyLessThanOneYear" value="true" id="lessYearYes" @(Model?.LastPregnancyLessThanOneYear == true ? "checked" : "") />
+                        <label class="form-check-label" for="lessYearYes">Sí</label>
+                    </div>
+                </div>
+            </div>
+       
+         
+            <div class="col-md-9">
+                <div class="form-group">
+                    <label>FRACASO MÉTODO ANTICONCEP.</label>
+                    <div class="d-flex flex-wrap gap-2">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" asp-for="ContraceptiveMethodFailure" value="None" id="methodFailureNone" />
+                            <label class="form-check-label" for="methodFailureNone">No usaba</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" asp-for="ContraceptiveMethodFailure" value="Barrier" id="methodFailureBarrier" />
+                            <label class="form-check-label" for="methodFailureBarrier">Barrera</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" asp-for="ContraceptiveMethodFailure" value="IUD" id="methodFailureIUD" />
+                            <label class="form-check-label" for="methodFailureIUD">DIU</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" asp-for="ContraceptiveMethodFailure" value="Hormonal" id="methodFailureHormonal" />
+                            <label class="form-check-label" for="methodFailureHormonal">Hormonal</label>
+                        </div> 
+                       
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" asp-for="ContraceptiveMethodFailure" value="Emergency" id="methodFailureEmergency" />
+                            <label class="form-check-label" for="methodFailureEmergency">Emergencia</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" asp-for="ContraceptiveMethodFailure" value="Natural" id="methodFailureNatural" />
+                            <label class="form-check-label" for="methodFailureNatural">Natural</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    function calculateLivingChildren() {
+        const livingBorn = parseInt(document.querySelector('input[name="LivingBorn"]').value) || 0;
+        const diedFirstWeek = parseInt(document.querySelector('input[name="DiedFirstWeek"]').value) || 0;
+        const diedAfterFirstWeek = parseInt(document.querySelector('input[name="DiedAfterFirstWeek"]').value) || 0;
+        
+        const living = livingBorn - diedFirstWeek - diedAfterFirstWeek;
+        document.getElementById('livingChildren').value = living >= 0 ? living : 0;
+    }
+
+    
+    ['LivingBorn', 'DiedFirstWeek', 'DiedAfterFirstWeek'].forEach(fieldName => {
+        const field = document.querySelector(`input[name="${fieldName}"]`);
+        if (field) {
+            field.addEventListener('input', calculateLivingChildren);
+        }
+    });
+
+    
+    calculateLivingChildren();
+    
+    
+    const lastPregnancyDate = document.getElementById('lastPregnancyDate');
+    if (lastPregnancyDate) {
+        lastPregnancyDate.addEventListener('change', function() {
+            if (this.value) {
+                const lastDate = new Date(this.value);
+                const today = new Date();
+                const diffTime = Math.abs(today - lastDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                
+                document.getElementById('lessYearYes').checked = (diffDays < 365);
+            }
+        });
+    }
+});
+</script>
+
+<style>
+
+.form-group label {
+    font-weight: bold;
+    font-size: 11px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.form-control-sm {
+    height: calc(1.5em + .5rem + 2px);
+    font-size: .875rem;
+}
+
+
+.form-group:has(input[name="TwinsHistory"]) {
+    background-color: #fff3cd;
+    padding: 8px;
+    border-radius: 4px;
+    border-left: 4px solid #ffc107;
+}
+</style>

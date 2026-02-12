@@ -1,0 +1,71 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia Perinatal - Formulario 1</title>
+    
+    <!-- Form 1 CSS -->
+    <link rel="stylesheet" href="~/css/perinatal-form1.css">
+    
+    <style>
+        @@media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body translate="no">
+    <!-- Hidden field for record ID -->
+    <input type="hidden" id="recordId" value="@ViewBag.RecordId" />
+    
+    <!-- Navigation buttons -->
+    <div class="no-print" style="position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; gap: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+        <a href="@Url.Action("PrintForm2", new { id = ViewBag.RecordId })" 
+           style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 500; font-size: 14px; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);"
+           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(102, 126, 234, 0.4)';"
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(102, 126, 234, 0.3)';">
+            <span>Ver Formulario 2</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+        <button onclick="window.print()" 
+                style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; border: none; border-radius: 8px; font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(17, 153, 142, 0.3);"
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(17, 153, 142, 0.4)';"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(17, 153, 142, 0.3)';">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 5V2H12V5M4 11H12M4 11V14H12V11M4 11H2V7H14V11H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Imprimir</span>
+        </button>
+    </div>
+    
+    <!-- Form 1 (Front Side - Anverso) -->
+    <partial name="_Form1" />
+    
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/perinatal/print/print-core.js"></script>
+    <script src="~/js/perinatal/print/print-form1.js"></script>
+    <script src="~/js/perinatal/print/print-form-controls.js"></script>
+    <script src="~/js/perinatal/print/prevent-yellow-interaction.js"></script>
+    <script src="~/js/perinatal/print/convert-checkboxes-to-inputs.js"></script>
+    <!-- <script src="~/js/perinatal/print/fix-yellow-inputs.js"></script> -->
+    
+    <script>
+        // Initialize print with record ID
+        document.addEventListener('DOMContentLoaded', function() {
+            const recordId = document.getElementById('recordId').value;
+            if (recordId && PerinatalPrint && typeof PerinatalPrint.init === 'function') {
+                PerinatalPrint.init(recordId);
+            }
+        });
+    </script>
+</body>
+</html>

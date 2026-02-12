@@ -1,0 +1,279 @@
+﻿@* SolMed 2026 - Modern Perinatal History Form *@
+@model Domain.PerinatalHistoryRecord
+
+@{
+    ViewData["Title"] = ViewBag.IsNew ? "Create Perinatal History" : "Edit Perinatal History";
+}
+
+<!-- Medical Page Header -->
+<div class="medical-card no-print" style="margin-bottom: var(--space-2xl);">
+    <div class="medical-card-header">
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <div>
+                <h1 class="medical-card-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+                        <path d="M12 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z" />
+                        <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
+                    </svg>
+                    @(ViewBag.IsNew ? "Crear" : "Editar") Historia Perinatal - CLAP/SMR - OPS/OMS
+                </h1>
+              
+            </div>
+            <div class="d-flex gap-3">  
+                @if (!ViewBag.IsNew)
+                {
+                    <a asp-action="Print" asp-route-id="@Model.Id" target="_blank" class="medical-btn medical-btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                            <rect x="6" y="14" width="12" height="8"></rect>
+                        </svg>
+                        Imprimir Historia
+                    </a>
+                }
+                <a asp-action="Index" class="medical-btn medical-btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m15 18-6-6 6-6" />
+                    </svg>
+                    Volver a las Historias Perinatales
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alert Container -->
+<div id="formStatusAlert" class="alert d-none" role="alert"></div>
+
+<!-- Medical Form Container -->
+<div id="perinatalHistoryForm" class="medical-form">
+    @* Hidden field for record ID *@
+    <input type="hidden" id="recordId" value="@Model.Id" />
+    <input type="hidden" id="patientId" value="@(ViewBag.PatientId ?? Model.PatientId)" />
+
+    @* Hidden fields for related entity IDs *@
+    <input type="hidden" id="MedicalBackground_Id" value="@(Model.MedicalBackground?.Id ?? 0)" />
+    <input type="hidden" id="ObstetricBackground_Id" value="@(Model.ObstetricBackground?.Id ?? 0)" />
+    <input type="hidden" id="CurrentPregnancy_Id" value="@(Model.CurrentPregnancy?.Id ?? 0)" />
+    <input type="hidden" id="BirthInformation_Id" value="@(Model.BirthInformation?.Id ?? 0)" />
+    <input type="hidden" id="NewbornInformation_Id" value="@(Model.NewbornInformation?.Id ?? 0)" />
+    <input type="hidden" id="PostpartumInformation_Id" value="@(Model.PostpartumInformation?.Id ?? 0)" />
+    <input type="hidden" id="MorbidityInformation_Id" value="@(Model.MorbidityInformation?.Id ?? 0)" />
+    <input type="hidden" id="NearMissVariables_Id" value="@(Model.NearMissVariables?.Id ?? 0)" />
+    <input type="hidden" id="PuerperiumInformation_Id" value="@(Model.PuerperiumInformation?.Id ?? 0)" />
+    <input type="hidden" id="ContraceptionInformation_Id" value="@(Model.ContraceptionInformation?.Id ?? 0)" />
+    <input type="hidden" id="MaternalDischargeInformation_Id" value="@(Model.MaternalDischargeInformation?.Id ?? 0)" />
+
+    <partial name="_PersonalInformation" model="Model" />
+
+
+    <div class="form-section">
+        <div class="section-header border-alert">ANTECEDENTES</div>
+        <partial name="_MedicalBackground" model="Model.MedicalBackground" />
+    </div>
+
+    <div class="form-section">
+        <div class="section-header">OBSTETRICOS</div>
+        <partial name="_ObstetricBackground" model="Model.ObstetricBackground" />
+    </div>
+    <div class="form-section">
+        <div class="section-header">GESTACION ACTUAL</div>
+        <partial name="_CurrentPregnancy" model="Model.CurrentPregnancy" />
+    </div>
+
+    <div class="form-section">
+        <div class="section-header">CONSULTAS ANTENATALES</div>
+        @{
+            ViewBag.RecordId = Model.Id;
+        }
+        <partial name="_PrenatalConsultations" model="Model.PrenatalConsultations" />
+    </div>
+
+
+
+
+
+    <div class="form-section">
+        <div class="section-header">PARTO O ABORTO</div>
+        <partial name="_BirthInformation" model="Model.BirthInformation" />
+    </div>
+
+    <div class="form-section">
+        <div class="section-header">RECIEN NACIDO</div>
+        <partial name="_NewbornInformation" model="Model.NewbornInformation" />
+    </div>
+
+
+
+    <div class="form-section">
+        <div class="section-header">POSTPARTO</div>
+        <partial name="_PostpartumInformation" model="Model.PostpartumInformation" />
+    </div>
+
+
+
+
+
+    <div class="form-section">
+        <div class="section-header">MORBILIDAD</div>
+        <partial name="_MorbidityInformation" model="Model.MorbidityInformation" />
+    </div>
+
+
+    <div class="form-section">
+        <div class="section-header">VARIABLES PARA IDENTIFICAR CASOS DE NEAR MISS</div>
+        <partial name="_NearMissVariables" model="Model.NearMissVariables" />
+    </div>
+
+    <div class="form-section">
+        <div class="section-header">PUERPERIO</div>
+        <partial name="_PuerperiumInformation" model="Model.PuerperiumInformation" />
+    </div>
+    <div class="form-section">
+        <div class="section-header">EGRESO MATERNO</div>
+        <partial name="_MaternalDischargeInformation" model="Model.MaternalDischargeInformation" />
+    </div>
+    <div class="form-section">
+        <div class="section-header">ANTICONCEPCION</div>
+        <partial name="_ContraceptionInformation" model="Model.ContraceptionInformation" />
+    </div>
+
+  
+
+    <!-- Medical Background Section -->
+    <div class="medical-form-section" hidden>
+        <div class="medical-section-header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7z" />
+            </svg>
+            Historia Previa
+        </div>
+        <div class="medical-section-body">
+            <div class="medical-checkbox-group">
+                <div class="medical-checkbox">
+                    <input type="checkbox" class="medical-checkbox-input" id="diabetes" />
+                    <label class="medical-checkbox-label" for="diabetes">Diabetes</label>
+                </div>
+                <div class="medical-checkbox">
+                    <input type="checkbox" class="medical-checkbox-input" id="hypertension" />
+                    <label class="medical-checkbox-label" for="hypertension">Hipertension</label>
+                </div>
+                <div class="medical-checkbox">
+                    <input type="checkbox" class="medical-checkbox-input" id="heart_disease" />
+                    <label class="medical-checkbox-label" for="heart_disease">Cardiopatía</label>
+                </div>
+                <div class="medical-checkbox">
+                    <input type="checkbox" class="medical-checkbox-input" id="kidney_disease" />
+                    <label class="medical-checkbox-label" for="kidney_disease">Nefropatía</label>
+                </div>
+                <div class="medical-checkbox">
+                    <input type="checkbox" class="medical-checkbox-input" id="tuberculosis" />
+                    <label class="medical-checkbox-label" for="tuberculosis">Tuberculosis</label>
+                </div>
+                <div class="medical-checkbox">
+                    <input type="checkbox" class="medical-checkbox-input" id="other_conditions" />
+                    <label class="medical-checkbox-label" for="other_conditions">Otra Condición</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Obstetric History Section -->
+    <div class="medical-form-section" hidden>
+        <div class="medical-section-header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 3a6.364 6.364 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+            </svg>
+           Historia Obstetrica
+        </div>
+        <div class="medical-section-body">
+            <div class="medical-input-group">
+                <div class="medical-form-group">
+                    <label class="medical-label">Gravida (G)</label>
+                    <input type="number" class="medical-input" min="0" placeholder="0" />
+                </div>
+                <div class="medical-form-group">
+                    <label class="medical-label">Para (P)</label>
+                    <input type="number" class="medical-input" min="0" placeholder="0" />
+                </div>
+                <div class="medical-form-group">
+                    <label class="medical-label">Abortos (A)</label>
+                    <input type="number" class="medical-input" min="0" placeholder="0" />
+                </div>
+                <div class="medical-form-group">
+                    <label class="medical-label">Hijos Vivos (L)</label>
+                    <input type="number" class="medical-input" min="0" placeholder="0" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Current Pregnancy Section -->
+    <div class="medical-form-section" hidden>
+        <div class="medical-section-header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+            Embarazo Actual
+        </div>
+        <div class="medical-section-body">
+            <div class="medical-input-group">
+                <div class="medical-form-group">
+                    <label class="medical-label">Último período menstrual (LMP)</label>
+                    <input type="date" class="medical-input" />
+                </div>
+                <div class="medical-form-group">
+                    <label class="medical-label">Fecha Estimada de Parto (EDD)</label>
+                    <input type="date" class="medical-input" />
+                </div>
+                <div class="medical-form-group">
+                    <label class="medical-label">Edad Gestacional</label>
+                    <input type="text" class="medical-input" placeholder="Semanas + Dias" />
+                </div>
+                <div class="medical-form-group">
+                    <label class="medical-label">Tipo de Sangre</label>
+                    <select class="medical-input medical-select">
+                        <option value="">Seleccione un Tipo de Sangre</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+
+    <partial name="_btnSubmitAndCancel" view-data='new ViewDataDictionary(ViewData) { { "ReturnUrl", Url.Action("Index", "PerinatalHistories") } }' />
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/perinatal-form.css" />
+}
+
+@section Scripts {
+    <script src="~/js/perinatal.js"></script>
+    <script>
+        
+        $(document).ready(function() {
+            console.log('📋 Perinatal History Form initialized');
+
+            
+            $('input[required], select[required]').on('blur', function() {
+                if (!$(this).val()) {
+                    $(this).addClass('is-invalid');
+                } else {
+                    $(this).removeClass('is-invalid').addClass('is-valid');
+                }
+            });
+        });
+    </script>
+}

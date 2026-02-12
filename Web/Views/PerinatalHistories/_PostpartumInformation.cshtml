@@ -1,0 +1,139 @@
+@* C:\dev\SolMedProd\SolMed\Web\Views\PerinatalHistory\_PostpartumInformation.cshtml *@
+@model Domain.PostpartumInformation
+
+<div class="table-responsive">
+    <table class="table table-sm table-bordered postpartum-table">
+        <thead class="thead-light">
+            <tr>
+                <th style="display:none;">Día</th>
+                <th>Tiempo</th>
+                <th>Temp °C</th>
+                <th>P.A.</th>
+                <th>Pulso</th>
+                <th>Invol. uterina</th>
+                <th style="display:none;">Loquios</th>
+                <th style="display:none;">Periné</th>
+                <th style="display:none;">Lactancia</th>
+                <th style="display:none;">Observaciones</th>
+                <th>Sangrado</th>
+                <th>Responsable</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var days = new[] { "1er", "2°", "3er", "4°", "5°", "6°", "7°", "8°" };
+                int visitCount = 0;
+            }
+
+            @if (Model?.PostpartumVisits != null && Model.PostpartumVisits.Any())
+            {
+                foreach (var visit in Model.PostpartumVisits)
+                {
+                    visitCount++;
+                    <tr class="postpartum-visit-row" data-visit-id="@visit.Id">
+                        <td style="display:none;">@(visit.Day.HasValue && visit.Day.Value > 0 && visit.Day.Value <= days.Length ? days[visit.Day.Value - 1] : "")</td>
+                        <td>@visit.Time</td>
+                        <td>@visit.Temperature</td>
+                        <td>@visit.BloodPressure</td>
+                        <td>@visit.Pulse</td>
+                        <td>@visit.UterineInvolution</td>
+                        <td style="display:none;">@visit.Lochia</td>
+                        <td style="display:none;">@visit.Perineum</td>
+                        <td style="display:none;">@visit.Breastfeeding</td>
+                        <td style="display:none;">@visit.Observations</td>
+                        <td>@visit.Bleeding</td>
+                        <td>@visit.Responsible</td>
+                    </tr>
+                }
+            }
+
+            @for (int i = visitCount; i < 8; i++)
+            {
+                <tr>
+                    <td style="display:none;">@days[i]</td>
+                    <td><input type="text" class="form-control form-control-sm time" placeholder="" style="width: 200px;" /></td>
+                    <td><input type="number" step="0.1" class="form-control form-control-sm temperature" placeholder="°C" style="width: 60px;" /></td>
+                    <td><input type="text" class="form-control form-control-sm blood-pressure" placeholder="###/##" style="width: 70px;" /></td>
+                    <td><input type="number" class="form-control form-control-sm pulse" min="40" max="200" style="width: 60px;" /></td>
+                    <td>
+                        <select class="form-control form-control-sm uterine-involution">
+                            <option value="">-</option>
+                            <option value="normal">Normal</option>
+                            <option value="anormal">Anormal</option>
+                        </select>
+                    </td>
+                    @* Campos ocultos (legacy) *@
+                    <td style="display:none;">
+                        <select class="form-control form-control-sm lochia">
+                            <option value="">-</option>
+                            <option value="normal">Normal</option>
+                            <option value="anormal">Anormal</option>
+                        </select>
+                    </td>
+                    <td style="display:none;">
+                        <select class="form-control form-control-sm perineum">
+                            <option value="">-</option>
+                            <option value="normal">Normal</option>
+                            <option value="con edema">Con edema</option>
+                            <option value="con hematoma">Con hematoma</option>
+                            <option value="con infección">Con infección</option>
+                        </select>
+                    </td>
+                    <td style="display:none;">
+                        <select class="form-control form-control-sm breastfeeding">
+                            <option value="">-</option>
+                            <option value="exclusiva">Exclusiva</option>
+                            <option value="parcial">Parcial</option>
+                            <option value="no">No</option>
+                        </select>
+                    </td>
+                    <td style="display:none;"><input type="text" class="form-control form-control-sm observations" /></td>
+                    @* Fin campos ocultos *@
+                    <td><input type="text" class="form-control form-control-sm bleeding" placeholder="" style="width: 80px;" /></td>
+                    <td><input type="text" class="form-control form-control-sm responsible" style="width: 240px;" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@* γglobulina anti D - radios desmarcables (nullable) *@
+<div class="mt-2">
+    <div class="d-flex align-items-center">
+        <span class="mr-3">γglobulina anti D</span>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input nullable-radio" type="radio" name="AntiDGlobulin" value="no" id="antiDNo"
+                   @(Model?.AntiDGlobulin == "no" ? "checked" : "") />
+            <label class="form-check-label" for="antiDNo">no</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input nullable-radio" type="radio" name="AntiDGlobulin" value="si" id="antiDSi"
+                   @(Model?.AntiDGlobulin == "si" ? "checked" : "") />
+            <label class="form-check-label" for="antiDSi">si</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input nullable-radio" type="radio" name="AntiDGlobulin" value="n/c" id="antiDNc"
+                   @(Model?.AntiDGlobulin == "n/c" ? "checked" : "") />
+            <label class="form-check-label" for="antiDNc">n/c</label>
+        </div>
+    </div>
+</div>
+
+@* Id RN, Nombre RN, Responsable *@
+<div class="row mt-2">
+    <div class="col-md-4">
+        <label class="small">Id RN</label>
+        <input type="text" class="form-control form-control-sm" name="NewbornId" id="postpartumNewbornId"
+               value="@Model?.NewbornId" />
+    </div>
+    <div class="col-md-4">
+        <label class="small">Nombre RN</label>
+        <input type="text" class="form-control form-control-sm" name="NewbornName" id="postpartumNewbornName"
+               value="@Model?.NewbornName" />
+    </div>
+    <div class="col-md-4">
+        <label class="small">Responsable</label>
+        <input type="text" class="form-control form-control-sm" name="DischargeResponsible" id="postpartumDischargeResponsible"
+               value="@Model?.DischargeResponsible" />
+    </div>
+</div>

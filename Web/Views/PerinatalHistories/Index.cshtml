@@ -1,0 +1,254 @@
+﻿@model IEnumerable<Domain.PerinatalHistoryRecord>
+@{
+    ViewBag.Title = "Historial Perinatal";
+    var patientId = ViewBag.PatientId as int?;
+    var patientName = ViewBag.PatientName as string;
+}
+
+<style>
+    .container-fluid {
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        position: relative;
+        transition: margin-left 0.3s ease;
+    }
+
+    body.menu-expanded .container-fluid {
+        margin-left: 250px;
+    }
+
+    .page-header {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid #3498db;
+    }
+
+    .action-buttons {
+        margin-bottom: 1rem;
+    }
+
+    .history-card {
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 1rem;
+        transition: all 0.2s;
+    }
+
+    .history-card:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .history-card-header {
+        background: #f8f9fa;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid rgba(0,0,0,.125);
+    }
+
+    .history-card-body {
+        padding: 1rem;
+    }
+
+    .info-label {
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 0.25rem;
+    }
+
+    .info-value {
+        color: #34495e;
+    }
+
+    .btn-action {
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: #6c757d;
+    }
+
+    .empty-state i {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+
+    @@media (max-width: 768px) {
+        .container-fluid {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        body.menu-expanded .container-fluid {
+            margin-left: 0;
+        }
+
+        .btn-action {
+            width: 100%;
+            margin-right: 0;
+        }
+    }
+</style>
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h2 class="mb-0">
+            <i class="fas fa-baby"></i> Historial Perinatal
+            @if (!string.IsNullOrEmpty(patientName))
+            {
+                <small class="text-muted"> - @patientName</small>
+            }
+        </h2>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <div class="row">
+            @if (patientId.HasValue)
+            {
+                <div class="col-md-2 col-sm-6 mb-2">
+                    <a class="btn btn-success w-100" href="@Url.Action("Details", "Patients", new { id = patientId.Value })">
+                        <i class="fas fa-reply"></i> Volver al Paciente
+                    </a>
+                </div>
+                <div class="col-md-2 col-sm-6 mb-2">
+                    <a class="btn btn-primary w-100" href="@Url.Action("Create", "PerinatalHistories", new { patientId = patientId.Value })">
+                        <i class="fas fa-plus-circle"></i> Nueva Historia
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-2 col-sm-6 mb-2">
+                    <a class="btn btn-success w-100" href="@Url.Action("Index", "Patients")">
+                        <i class="fas fa-reply"></i> Listado de Pacientes
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- History Records List -->
+    @if (Model != null && Model.Any())
+    {
+        <div class="row">
+            @foreach (var record in Model)
+            {
+                <div class="col-12">
+                    <div class="history-card">
+                        <div class="history-card-header">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-file-medical"></i>
+                                        @if (record.Patient?.Person != null)
+                                        {
+                                            @record.Patient.Person.FullName
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Paciente no disponible</span>
+                                        }
+                                    </h5>
+                                    <small class="text-muted">
+                                        Expediente: @record.Patient?.Person?.Record2
+                                    </small>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <span class="badge bg-info">
+                                        <i class="fas fa-calendar"></i>
+                                        @record.CreatedDate.ToString("dd/MM/yyyy")
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="history-card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="info-label">Fecha de Creación:</div>
+                                    <div class="info-value">@record.CreatedDate.ToString("dd/MM/yyyy HH:mm")</div>
+                                </div>
+                                @if (record.CurrentPregnancy != null)
+                                {
+                                    <div class="col-md-3">
+                                        <div class="info-label">FUM:</div>
+                                        <div class="info-value">
+                                            @(record.CurrentPregnancy.LastMenstrualPeriod?.ToString("dd/MM/yyyy") ?? "No registrada")
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="info-label">FPP:</div>
+                                        <div class="info-value">
+                                            @(record.CurrentPregnancy.EstimatedDueDate?.ToString("dd/MM/yyyy") ?? "No registrada")
+                                        </div>
+                                    </div>
+                                }
+                                @if (record.Patient != null)
+                                {
+                                    <div class="col-md-3">
+                                        <div class="info-label">Edad:</div>
+                                        <div class="info-value">@record.Patient.Age años</div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <a href="@Url.Action("PrintForm1", "PerinatalHistories", new { id = record.Id })" 
+                                       class="btn btn-outline-primary btn-action" 
+                                       target="_blank">
+                                        <i class="fas fa-print"></i> Imprimir
+                                    </a>
+                                    <a href="@Url.Action("Edit", "PerinatalHistories", new { id = record.Id })" 
+                                       class="btn btn-outline-warning btn-action">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
+                                    <a href="@Url.Action("Details", "PerinatalHistories", new { id = record.Id })" 
+                                       class="btn btn-outline-info btn-action">
+                                        <i class="fas fa-eye"></i> Ver Detalles
+                                    </a>
+                                    <a href="@Url.Action("Delete", "PerinatalHistories", new { id = record.Id })" 
+                                       class="btn btn-outline-danger btn-action"
+                                       onclick="return confirm('¿Está seguro que desea eliminar este registro?')">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="history-card">
+            <div class="empty-state">
+                <i class="fas fa-folder-open"></i>
+                <h4>No hay historias perinatales registradas</h4>
+                @if (patientId.HasValue)
+                {
+                    <p class="text-muted">Este paciente no tiene historias perinatales. Haga clic en "Nueva Historia" para crear una.</p>
+                }
+                else
+                {
+                    <p class="text-muted">No hay historias perinatales en el sistema.</p>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            console.log('Perinatal Histories Index loaded');
+        });
+    </script>
+}

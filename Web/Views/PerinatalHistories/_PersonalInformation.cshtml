@@ -1,0 +1,136 @@
+﻿@* C:\dev\SolMedProd\SolMed\Web\Views\PerinatalHistory\_PersonalInformation.cshtml *@
+@model Domain.PerinatalHistoryRecord
+
+<div class="form-section">
+    <div class="section-header bg-primary text-white">INFORMACIÓN DEL PACIENTE</div>
+    
+    @if (Model?.Patient != null)
+    {
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>NOMBRE</label>
+                    <input type="text" class="form-control form-control-sm" value="@Model.Patient.Person.Name" readonly />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>APELLIDO</label>
+                    <input type="text" class="form-control form-control-sm" value="@Model.Patient.Person.LastName" readonly />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>CÉDULA/RNC</label>
+                    <input type="text" class="form-control form-control-sm" value="@Model.Patient.Person.Rnc" readonly />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>FECHA DE NACIMIENTO</label>
+                    <input type="text" class="form-control form-control-sm" value="@(Model.Patient.Person.BornDate?.ToString("dd/MM/yyyy"))" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>EDAD</label>
+                    <input type="text" class="form-control form-control-sm" value="@Model.Patient.Age" readonly />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>TELÉFONO</label>
+                    <input type="text" class="form-control form-control-sm" value="@Model.Patient.Person.Tel" readonly />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>CELULAR</label>
+                    <input type="text" class="form-control form-control-sm" value="@Model.Patient.Person.Cel" readonly />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>DIRECCIÓN</label>
+                    <input type="text" class="form-control form-control-sm" value="@Model.Patient.Person.Address" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>ESTADO CIVIL</label>
+                    <input type="text" class="form-control form-control-sm" value="@Model.Patient.Person.MaritalSituation?.Name" readonly />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>NIVEL ESCOLAR</label>
+                    <input type="text" class="form-control form-control-sm" value="@Model.Patient.Person.SchoolLevel?.Name" readonly />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>NACIONALIDAD</label>
+                    <input type="text" class="form-control form-control-sm" value="@Model.Patient.Person.Country?.Name" readonly />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>ETNIA</label>
+                    <input type="text" class="form-control form-control-sm" value="@Model.Patient.Person.EthnicityId?.ToString()" readonly />
+                </div>
+            </div>
+        </div>
+                <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>ALFABETA</label>
+                    <input type="text" class="form-control form-control-sm" value="@(Model.Patient.Person.Literated ? "Sí" : "No")" readonly />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>AÑOS EN MAYOR NIVEL ESCOLAR</label>
+                    <input type="text" class="form-control form-control-sm" value="@Model.Patient.Person.YearsInTheGreatestLevel" readonly />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>VIVE SOLO/A</label>
+                    <input type="text" class="form-control form-control-sm" value="@(Model.Patient.Person.LiveAlone ? "Sí" : "No")" readonly />
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label>UBICACIÓN</label>
+                    <input type="text" class="form-control form-control-sm" value="@Model.Patient.Person.Location" readonly />
+                </div>
+            </div>
+        </div>
+    }
+
+    <hr />
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>LUGAR CONTROL PRENATAL</label>
+                <input asp-for="PrenatalControlPlace" class="form-control form-control-sm" />
+                <span asp-validation-for="PrenatalControlPlace" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>LUGAR DEL PARTO</label>
+                <input asp-for="BirthPlace" class="form-control form-control-sm" />
+                <span asp-validation-for="BirthPlace" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</div>

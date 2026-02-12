@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <!--<ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Account.cs" />
+    <Compile Remove="AccountingAccount.cs" />
+    <Compile Remove="AccountingAuxiliary.cs" />
+    <Compile Remove="AccountingClassification.cs" />
+    <Compile Remove="AccountingSubAuxiliary.cs" />
+    <Compile Remove="AccountingSubClassification.cs" />
+    <Compile Remove="AccountType.cs" />
+    <Compile Remove="AssetsPlantEquipment.cs" />
+    <Compile Remove="BankCheck.cs" />
+    <Compile Remove="Budget.cs" />
+    <Compile Remove="BudgetDetail.cs" />
+    <Compile Remove="Business.cs" />
+    <Compile Remove="BusinessAccount.cs" />
+    <Compile Remove="BusinessAuxiliary.cs" />
+    <Compile Remove="BusinessBadAccount.cs" />
+    <Compile Remove="BusinessInventory.cs" />
+    <Compile Remove="BusinessSubAuxiliary.cs" />
+    <Compile Remove="BusinessSubClassification.cs" />
+    <Compile Remove="BusinessType.cs" />
+    <Compile Remove="DataContextAzure.cs" />
+    <Compile Remove="Loans.cs" />
+    <Compile Remove="MeasureEquivalence.cs" />
+    <Compile Remove="Operation.cs" />
+    <Compile Remove="OrganizationalExpenses.cs" />
+    <Compile Remove="PerinatalHistory - Copy - Copy.cs" />
+    <Compile Remove="PerinatalHistory - Copy.cs" />
+    <Compile Remove="Perinatal\PerinatalHistory - Copy - Copy.cs" />
+    <Compile Remove="Perinatal\PerinatalHistory - Copy.cs" />
+    <Compile Remove="Perinatal\PerinatalHistory.cs" />
+    <Compile Remove="PrepaidExpense.cs" />
+    <Compile Remove="SaleAsosiation.cs" />
+    <Compile Remove="Tag.cs" />
+    <Compile Remove="Transaction.cs" />
+    <Compile Remove="Wallet.cs" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.7" />
+	</ItemGroup>
+</Project>
