@@ -1,29 +1,17 @@
 // Prevent Yellow Elements from Being Interactive
 // Yellow backgrounds represent "YES" or "ALERT" and should be static visual indicators only
 
-document.addEventListener('DOMContentLoaded', function () {
+// IMPORTANT: Wait for data to be populated before protecting elements
+window.protectYellowElements = function() {
     console.log('Initializing yellow element protection...');
 
     // ========================================
-    // 1. MAKE YELLOW RADIO BUTTONS NON-INTERACTIVE (Keep as inputs but disable)
+    // 1. "SI" RADIOS ARE ALREADY PROTECTED BY CSS - NO JAVASCRIPT NEEDED
     // ========================================
-    const yellowRadios = document.querySelectorAll('input[type="radio"][value="si"]');
+    // All input[value="si"] radios are made yellow and non-interactive via CSS
+    // No need to check or protect them here
     
-    yellowRadios.forEach(radio => {
-        // Disable the radio button so it can't be clicked
-        radio.disabled = true;
-        radio.style.pointerEvents = 'none';
-        radio.style.cursor = 'default';
-        radio.style.opacity = '1'; // Keep full opacity even when disabled
-        
-        // Force it to stay checked
-        radio.checked = true;
-        
-        // Mark as protected
-        radio.setAttribute('data-protected', 'true');
-    });
-    
-    console.log(`Protected ${yellowRadios.length} yellow radio buttons`);
+    console.log('[Protection] SI radios are protected by CSS (always yellow)');
 
     // ========================================
     // 2. MAKE YELLOW CHECKBOXES NON-INTERACTIVE
@@ -196,4 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     console.log('Yellow element protection initialized successfully!');
     console.log('White "NO" elements toggle between ✓ and ✕');
-});
+};
+
+// Don't run automatically - let the data population complete first
+// The print-core.js will call this after data is populated

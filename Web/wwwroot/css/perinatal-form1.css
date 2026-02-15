@@ -101,7 +101,7 @@ body {
 }
 
 .fin {
-    margin-left: 5px;
+    margin-left: 40px;
 }
 
 .first-sec-rb,
@@ -2573,3 +2573,32 @@ label {
     }
 }
 
+
+
+/* ========================================
+   GLOBAL OVERRIDE: "SI" RADIOS ALWAYS YELLOW
+   ======================================== */
+/* ALWAYS make "si" radios yellow (visual indicator only) - HIGHEST PRIORITY */
+input.radio-circle[value="si"],
+input[type="radio"][value="si"],
+.obs-radio-circle[value="si"] {
+    background: #ffd700 !important;
+    box-shadow: 0 0 6px rgba(255, 215, 0, 0.6) !important;
+    cursor: default !important;
+    pointer-events: none !important;
+}
+
+/* Keep "no" radios white and interactive - HIGHEST PRIORITY */
+input.radio-circle[value="no"],
+input[type="radio"][value="no"],
+.obs-radio-circle[value="no"] {
+    background: #fff !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+}
+
+input.radio-circle[value="no"]:checked,
+input[type="radio"][value="no"]:checked,
+.obs-radio-circle[value="no"]:checked {
+    background: #fff !important;
+}

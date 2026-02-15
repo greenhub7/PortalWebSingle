@@ -49,54 +49,62 @@ const PerinatalPrint = (function() {
         if (!state.data) return;
 
         // Populate Form 1 (Front Side)
-        if (PerinatalPrintForm1 && typeof PerinatalPrintForm1.populate === 'function') {
+        if (typeof PerinatalPrintForm1 !== 'undefined' && typeof PerinatalPrintForm1.populate === 'function') {
             PerinatalPrintForm1.populate(state.data);
         }
 
         // Populate Form 2 (Back Side)
-        if (PerinatalPrintForm2 && typeof PerinatalPrintForm2.populate === 'function') {
+        if (typeof PerinatalPrintForm2 !== 'undefined' && typeof PerinatalPrintForm2.populate === 'function') {
             PerinatalPrintForm2.populate(state.data);
         }
 
         
-        if (PerinatalPrintHeader && typeof PerinatalPrintHeader.populate === 'function') {
+        if (typeof PerinatalPrintHeader !== 'undefined' && typeof PerinatalPrintHeader.populate === 'function') {
             PerinatalPrintHeader.populate(state.data);
         }
 
         
-        if (PerinatalPrintMedicalBackground && typeof PerinatalPrintMedicalBackground.populate === 'function') {
+        if (typeof PerinatalPrintMedicalBackground !== 'undefined' && typeof PerinatalPrintMedicalBackground.populate === 'function') {
             PerinatalPrintMedicalBackground.populate(state.data);
         }
 
         
-        if (PerinatalPrintObstetric && typeof PerinatalPrintObstetric.populate === 'function') {
+        if (typeof PerinatalPrintObstetric !== 'undefined' && typeof PerinatalPrintObstetric.populate === 'function') {
             PerinatalPrintObstetric.populate(state.data);
         }
 
         
-        if (PerinatalPrintCurrentPregnancy && typeof PerinatalPrintCurrentPregnancy.populate === 'function') {
+        if (typeof PerinatalPrintCurrentPregnancy !== 'undefined' && typeof PerinatalPrintCurrentPregnancy.populate === 'function') {
             PerinatalPrintCurrentPregnancy.populate(state.data);
         }
 
         
-        if (PerinatalPrintPrenatal && typeof PerinatalPrintPrenatal.populate === 'function') {
+        if (typeof PerinatalPrintPrenatal !== 'undefined' && typeof PerinatalPrintPrenatal.populate === 'function') {
             PerinatalPrintPrenatal.populate(state.data);
         }
 
         
-        if (PerinatalPrintBirth && typeof PerinatalPrintBirth.populate === 'function') {
+        if (typeof PerinatalPrintBirth !== 'undefined' && typeof PerinatalPrintBirth.populate === 'function') {
             PerinatalPrintBirth.populate(state.data);
         }
 
         
-        if (PerinatalPrintScreeningPuerperium && typeof PerinatalPrintScreeningPuerperium.populate === 'function') {
+        if (typeof PerinatalPrintScreeningPuerperium !== 'undefined' && typeof PerinatalPrintScreeningPuerperium.populate === 'function') {
             PerinatalPrintScreeningPuerperium.populate(state.data);
         }
 
         
-        if (PerinatalPrintMorbidityNearMiss && typeof PerinatalPrintMorbidityNearMiss.populate === 'function') {
+        if (typeof PerinatalPrintMorbidityNearMiss !== 'undefined' && typeof PerinatalPrintMorbidityNearMiss.populate === 'function') {
             PerinatalPrintMorbidityNearMiss.populate(state.data);
         }
+        
+        // After all data is populated, protect yellow elements
+        setTimeout(function() {
+            if (typeof window.protectYellowElements === 'function') {
+                window.protectYellowElements();
+                console.log('[PerinatalPrint] Yellow elements protected after data population');
+            }
+        }, 500);
         
         // Auto-print disabled for testing - uncomment when ready
         // setTimeout(function() {

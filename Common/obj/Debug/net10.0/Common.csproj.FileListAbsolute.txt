@@ -15,3 +15,4 @@ E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\obj\Debug\net10.0\refint\Common.dll
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\obj\Debug\net10.0\Common.pdb
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\obj\Debug\net10.0\ref\Common.dll
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Common\obj\Debug\net10.0\Common.sourcelink.json
