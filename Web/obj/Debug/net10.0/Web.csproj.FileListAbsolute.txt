@@ -3490,8 +3490,8 @@ E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\Web.genruntimeconfig.cache
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\ref\Web.dll
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\7hevwpvwqa-{0}-x43vkm0yet-x43vkm0yet.gz
-E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\gd68y0acvb-{0}-dt6gnitirk-dt6gnitirk.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\tgcb6oz1w7-{0}-5zo5fc4fbp-5zo5fc4fbp.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\c2tmt1yct0-{0}-vzqya7owiu-vzqya7owiu.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\2h3t2nlvcv-{0}-728v7youek-728v7youek.gz
-E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\mvffkwqc2l-{0}-hog5luaf8d-hog5luaf8d.gz
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\mvffkwqc2l-{0}-o0crkh8k24-o0crkh8k24.gz
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\gd68y0acvb-{0}-a2hxlykqhl-a2hxlykqhl.gz

@@ -1857,3 +1857,36 @@ input.radio-circle[value="no"]:checked,
 input[type="radio"][value="no"]:checked {
     background: #fff !important;
 }
+
+
+/* ========================================
+   PRINT MEDIA: FIX LONG TEXT WRAPPING
+   ======================================== */
+@media print {
+    /* Force background colors to print */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+    
+    /* Ensure yellow radios keep their background */
+    input.radio-circle[value="si"],
+    input[type="radio"][value="si"] {
+        background: #ffd700 !important;
+        box-shadow: 0 0 6px rgba(255, 215, 0, 0.6) !important;
+    }
+    
+    /* Reduce font size for long labels that wrap in print */
+    .form-label,
+    .meta-item-label {
+        font-size: 11px !important;
+        line-height: 1.2 !important;
+    }
+    
+    /* Specifically target the problematic long labels */
+    .section-one-body .form-label,
+    .section-two-body .form-label {
+        font-size: 10px !important;
+    }
+}

@@ -737,7 +737,7 @@ input.check-box:checked {
     position: absolute;
     height: 1px;
     background-color: #000;
-    width: 126px;
+    width: 117px;
     top: 65%;
     left: -6%;
     rotate: 13deg;
@@ -747,7 +747,7 @@ input.check-box:checked {
     position: absolute;
     height: 1px;
     background-color: #000;
-    width: 124px;
+    width: 117px;
     top: 76%;
     left: -6%;
     rotate: -5deg;
@@ -757,9 +757,9 @@ input.check-box:checked {
     position: absolute;
     height: 1px;
     background-color: #000;
-    width: 114px;
+    width: 102px;
     top: 42%;
-    left: 7%;
+    left: 9%;
     rotate: 67deg;
 }
 
@@ -767,7 +767,7 @@ input.check-box:checked {
     position: absolute;
     height: 1px;
     background-color: #000;
-    width: 46px;
+    width: 38px;
     top: 18%;
     left: 57px;
     /* rotate: 67deg; */
@@ -807,9 +807,9 @@ input.check-box:checked {
     position: absolute;
     height: 1px;
     background-color: #000;
-    width: 24px;
+    width: 20px;
     top: 67%;
-    left: 199px;
+    left: 210px;
     /* rotate: 96deg; */
 }
 
@@ -819,7 +819,7 @@ input.check-box:checked {
     background-color: #000;
     width: 109px;
     top: 42%;
-    left: 168px;
+    left: 175px;
     rotate: 90deg;
 }
 
@@ -827,9 +827,9 @@ input.check-box:checked {
     position: absolute;
     height: 1px;
     background-color: #000;
-    width: 10px;
+    width: 8px;
     top: 17%;
-    left: 213px;
+    left: 222px;
     /* rotate: 90deg; */
 }
 
@@ -839,7 +839,7 @@ input.check-box:checked {
     background-color: #000;
     width: 44px;
     top: 29%;
-    left: 212px;
+    left: 218px;
     rotate: 120deg;
 }
 
@@ -847,10 +847,10 @@ input.check-box:checked {
     position: absolute;
     height: 1px;
     background-color: #000;
-    width: 77px;
+    width: 70px;
     top: 55%;
-    left: 192px;
-    rotate: 80deg;
+    left: 204px;
+    rotate: 72deg;
 }
 
 .line13 {
@@ -859,7 +859,7 @@ input.check-box:checked {
     background-color: #000;
     width: 100px;
     top: 42%;
-    left: 67%;
+    left: 72%;
     rotate: 73deg;
 }
 
@@ -867,9 +867,9 @@ input.check-box:checked {
     position: absolute;
     height: 1px;
     background-color: #000;
-    width: 20px;
+    width: 16px;
     top: 14%;
-    left: 80%;
+    left: 85%;
     /* rotate: 73deg; */
 }
 
@@ -879,7 +879,7 @@ input.check-box:checked {
     background-color: #000;
     width: 20px;
     top: 48%;
-    left: 82%;
+    left: 87%;
     rotate: 123deg;
 }
 
@@ -977,14 +977,16 @@ input.check-box:checked {
     position: relative;
 }
 
-.fami1{
+.fami1 {
     justify-content: space-between;
 }
 
-.fa,.pe{
+.fa,
+.pe {
     width: 110px !important;
 }
-.pe{
+
+.pe {
     border-left: 1px dashed #000;
 }
 
@@ -2425,7 +2427,8 @@ input[type="text"][readonly] {
 }
 
 /* Fix text overflow in small cells */
-td, th {
+td,
+th {
     word-wrap: break-word;
     overflow-wrap: break-word;
     font-size: 10px;
@@ -2553,21 +2556,21 @@ label {
     .container {
         max-width: 1280px !important;
     }
-    
+
     .parent-container {
         max-width: 1330px !important;
     }
-    
+
     body {
         width: 1330px;
         margin: 0 auto;
     }
-    
+
     /* Reduce all fonts slightly for print */
     * {
         font-size: 9px !important;
     }
-    
+
     input {
         font-size: 10px !important;
     }
@@ -2601,4 +2604,42 @@ input.radio-circle[value="no"]:checked,
 input[type="radio"][value="no"]:checked,
 .obs-radio-circle[value="no"]:checked {
     background: #fff !important;
+}
+
+
+
+
+
+/* ========================================
+   PRINT MEDIA: SIMPLIFIED LIKE FORM 2
+   ======================================== */
+@media print {
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .parent-container,
+    .page {
+        transform: scale(0.93) !important;
+        transform-origin: top left !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .side-text {
+        display: none !important;
+    }
+
+    .form-label,
+    .meta-item-label,
+    .pt {
+        font-size: 9px !important;
+        line-height: 1.1 !important;
+    }
 }
