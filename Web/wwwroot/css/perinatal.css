@@ -45,12 +45,12 @@
         margin: 0;
     }
 
-    . {
+    /* .  {
         width: 12px;
         height: 12px;
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
-    }
+    } */
 
     .section-header {
         print-color-adjust: exact;

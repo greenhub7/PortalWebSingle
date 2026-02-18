@@ -16,7 +16,9 @@ window.protectYellowElements = function() {
     // ========================================
     // 2. MAKE YELLOW CHECKBOXES NON-INTERACTIVE
     // ========================================
-    const yellowCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked, input[type="checkbox"][checked]');
+    // IMPORTANT: Only protect checkboxes that are ACTUALLY checked after data population
+    // Do NOT force checkboxes to be checked - respect the data population results
+    const yellowCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
     
     yellowCheckboxes.forEach(checkbox => {
         // Disable the checkbox so it can't be clicked
@@ -25,14 +27,14 @@ window.protectYellowElements = function() {
         checkbox.style.cursor = 'default';
         checkbox.style.opacity = '1'; // Keep full opacity even when disabled
         
-        // Force it to stay checked
-        checkbox.checked = true;
+        // DO NOT force checkbox.checked = true here!
+        // The checkbox is already checked from data population
         
         // Mark as protected
         checkbox.setAttribute('data-protected', 'true');
     });
     
-    console.log(`Protected ${yellowCheckboxes.length} yellow checkboxes`);
+    console.log(`Protected ${yellowCheckboxes.length} yellow checkboxes (that were checked by data)`);
 
     // ========================================
     // 3. DISABLE ALL YELLOW INDICATOR DIVS

@@ -38,7 +38,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> Login(LoginViewModel model)
+        public async Task<JsonResult> Login([FromBody] LoginViewModel model)
         {
             try
             {

@@ -12,6 +12,9 @@ const PerinatalPrintForm2 = (function() {
         console.log('[Form2] Data received:', data);
         console.log('[Form2] ========================================');
 
+        // CRITICAL: Uncheck ALL radios and checkboxes first to clear HTML defaults
+        uncheckAllInputs();
+
         // NOTE: Prenatal Consultations table is in Form 1, not Form 2
         // populatePrenatalConsultations(data);
         
@@ -41,6 +44,11 @@ const PerinatalPrintForm2 = (function() {
         
         console.log('[Form2] ========================================');
         console.log('[Form2] ✅ Form 2 population complete!');
+        
+        // Final count
+        const radiosChecked = document.querySelectorAll('input[type="radio"]:checked').length;
+        const checkboxesChecked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+        console.log(`[Form2] Final state - Radios checked: ${radiosChecked}, Checkboxes checked: ${checkboxesChecked}`);
         console.log('[Form2] ========================================');
     }
 
@@ -123,10 +131,20 @@ const PerinatalPrintForm2 = (function() {
 
         console.log('[Form2] Populating birth information:', birth);
 
-        // Admission Date
+        // Admission Date - set directly with formatted date
         if (birth.admissionDate) {
             const date = new Date(birth.admissionDate);
-            setDateInInputBox('admission-date', date);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            const formattedDate = `${day}/${month}/${year}`;
+            
+            // Try to find admission date input by context (first date input in form)
+            const dateInputs = document.querySelectorAll('input.large-input[type="text"]');
+            if (dateInputs.length > 0) {
+                dateInputs[0].value = formattedDate;
+                console.log(`[Form2] ✓ Set admission date: ${formattedDate}`);
+            }
         }
 
         // Prenatal Consultations Total
@@ -134,16 +152,16 @@ const PerinatalPrintForm2 = (function() {
             setNumericInCheckBoxes('prenatal-total', birth.prenatalConsultationsTotal);
         }
 
-        // Has Prenatal Card
-        setYesNoRadio('prenatal-card', birth.hasPrenatalCard);
+        // Has Prenatal Card (boolean)
+        setYesNoRadio('prenatal-card', birth.hasPrenatalCard, true);
 
         // First Consultation Gestational Age
         if (birth.firstConsultationGestationalAgeWeeks) {
             setNumericInCheckBoxes('first-consultation-weeks', birth.firstConsultationGestationalAgeWeeks);
         }
 
-        // Hospitalized During Pregnancy
-        setYesNoRadio('hospitalized', birth.hospitalizedDuringPregnancy);
+        // Hospitalized During Pregnancy (boolean)
+        setYesNoRadio('hospitalized', birth.hospitalizedDuringPregnancy, true);
 
         // Hospitalization Days
         if (birth.hospitalizationDays) {
@@ -178,18 +196,28 @@ const PerinatalPrintForm2 = (function() {
         setCheckbox('induced-onset', birth.inducedOnset);
         setCheckbox('elective-cesarean', birth.electiveCesareanOnset);
 
-        // Membrane Rupture
-        setYesNoRadio('membrane-rupture', birth.membraneRupture);
+        // Membrane Rupture (boolean)
+        setYesNoRadio('membrane-rupture', birth.membraneRupture, true);
         if (birth.membraneRuptureDate) {
             const date = new Date(birth.membraneRuptureDate);
-            setDateInInputBox('membrane-rupture-date', date);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            const formattedDate = `${day}/${month}/${year}`;
+            
+            // Find membrane rupture date input (look for inputs near membrane rupture field)
+            const dateInputs = document.querySelectorAll('input.large-input[type="text"]');
+            if (dateInputs.length > 1) {
+                dateInputs[1].value = formattedDate; // Second date input
+                console.log(`[Form2] ✓ Set membrane rupture date: ${formattedDate}`);
+            }
         }
         if (birth.membraneRuptureTime) {
             setInputValue('membrane-rupture-time', birth.membraneRuptureTime);
         }
 
-        // Fever During Labor
-        setYesNoRadio('fever', birth.feverDuringLabor);
+        // Fever During Labor (boolean)
+        setYesNoRadio('fever', birth.feverDuringLabor, true);
         if (birth.feverTemperature) {
             setNumericInCheckBoxes('fever-temp', birth.feverTemperature);
         }
@@ -200,23 +228,33 @@ const PerinatalPrintForm2 = (function() {
         setCheckbox('vacuum-birth', birth.vacuumBirth);
         setCheckbox('cesarean-birth', birth.cesareanBirth);
 
-        // Birth Date and Time
+        // Birth Date and Time - set directly with formatted date
         if (birth.birthDate) {
             const date = new Date(birth.birthDate);
-            setDateInInputBox('birth-date', date);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            const formattedDate = `${day}/${month}/${year}`;
+            
+            // Find birth date input (look for inputs in birth section, likely 3rd or 4th date input)
+            const dateInputs = document.querySelectorAll('input.large-input[type="text"]');
+            if (dateInputs.length > 2) {
+                dateInputs[2].value = formattedDate; // Third date input
+                console.log(`[Form2] ✓ Set birth date: ${formattedDate}`);
+            }
         }
         if (birth.birthTime) {
             setInputValue('birth-time', birth.birthTime);
         }
 
-        // Multiple Birth
-        setYesNoRadio('multiple-birth', birth.multipleBirth);
+        // Multiple Birth (boolean)
+        setYesNoRadio('multiple-birth', birth.multipleBirth, true);
         if (birth.birthOrder) {
             setInputValue('birth-order', birth.birthOrder);
         }
 
-        // Live Birth
-        setYesNoRadio('live-birth', birth.isLiveBirth);
+        // Live Birth (boolean)
+        setYesNoRadio('live-birth', birth.isLiveBirth, true);
 
         // Episiotomy and Tear
         setCheckbox('episiotomy', birth.episiotomy);
@@ -292,8 +330,8 @@ const PerinatalPrintForm2 = (function() {
             setNumericInCheckBoxes('apgar-5', newborn.apgarFifthMinute);
         }
 
-        // Early Breastfeeding
-        setYesNoRadio('early-breastfeeding', newborn.earlyBreastfeedingInitiation);
+        // Early Breastfeeding (boolean)
+        setYesNoRadio('early-breastfeeding', newborn.earlyBreastfeedingInitiation, true);
 
         // Resuscitation
         setCheckbox('resuscitation-stimulation', newborn.resuscitationStimulation);
@@ -312,15 +350,15 @@ const PerinatalPrintForm2 = (function() {
             setInputValue('birth-defects-code', newborn.birthDefectsCode);
         }
 
-        // HIV Exposed
+        // HIV Exposed (string: "si"/"no")
         setYesNoRadio('hiv-exposed', newborn.hIVExposedStatus);
         setYesNoRadio('hiv-treatment', newborn.hIVTreatmentStatus);
 
-        // VDRL
+        // VDRL (string: "+"/"−")
         setYesNoRadio('vdrl-result', newborn.vDRLResult);
         setYesNoRadio('vdrl-treatment', newborn.vDRLTreatment);
 
-        // Screenings
+        // Screenings (string: "+"/"−")
         setYesNoRadio('screening-audic', newborn.screeningAudic);
         setYesNoRadio('screening-chagas', newborn.screeningChagas);
         setYesNoRadio('screening-bilirrub', newborn.screeningBilirrub);
@@ -358,11 +396,6 @@ const PerinatalPrintForm2 = (function() {
         }
 
         console.log('[Form2] Populating morbidity information:', morb);
-
-        // First, uncheck all morbidity radios (they're all checked="checked" by default in HTML)
-        document.querySelectorAll('.container input[type="radio"]').forEach(radio => {
-            radio.checked = false;
-        });
 
         // Hypertensive Disorders (TRASTORNOS HIPERTENSIVOS)
         setYesNoRadio('hipertension_cronica', morb.chronicHypertension);
@@ -527,14 +560,6 @@ const PerinatalPrintForm2 = (function() {
         console.log('[Form2] OralCounseling value:', contraception.oralCounseling, 'Type:', typeof contraception.oralCounseling);
         console.log('[Form2] IUDPreferred value:', contraception.iudPreferred, 'Type:', typeof contraception.iudPreferred);
         console.log('[Form2] IUDAccepted value:', contraception.iudAccepted, 'Type:', typeof contraception.iudAccepted);
-        
-        // First, uncheck all contraception radios to clear defaults
-        document.querySelectorAll('.anticoncepcion-cell input[type="radio"]').forEach(radio => {
-            radio.checked = false;
-        });
-        document.querySelectorAll('.consejeria-cell input[type="radio"]').forEach(radio => {
-            radio.checked = false;
-        });
         
         // Counseling radios - set based on data
         if (contraception.oralCounseling === true || contraception.oralCounseling === 1) {
@@ -781,22 +806,123 @@ const PerinatalPrintForm2 = (function() {
     }
 
     // Helper Functions
-    function setYesNoRadio(name, value) {
-        // "si" radios are always yellow (CSS handles this), so we only need to handle "no" radios
-        // value can be boolean or enum (1=Yes, 2=No, 3=NotRecorded)
+    function uncheckAllInputs() {
+        console.log('[Form2] 🧹 Unchecking all default checked inputs...');
         
-        // Only set "no" radio if the value is explicitly No (false or 2)
-        if (value === false || value === 2) {
+        // Count before
+        const radiosBefore = document.querySelectorAll('input[type="radio"]:checked').length;
+        const checkboxesBefore = document.querySelectorAll('input[type="checkbox"]:checked').length;
+        console.log(`[Form2] Before uncheck - Radios: ${radiosBefore}, Checkboxes: ${checkboxesBefore}`);
+        
+        // Uncheck all radios
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.checked = false;
+        });
+        
+        // Uncheck all checkboxes
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        
+        // Count after
+        const radiosAfter = document.querySelectorAll('input[type="radio"]:checked').length;
+        const checkboxesAfter = document.querySelectorAll('input[type="checkbox"]:checked').length;
+        console.log(`[Form2] After uncheck - Radios: ${radiosAfter}, Checkboxes: ${checkboxesAfter}`);
+        console.log('[Form2] ✓ All inputs unchecked');
+    }
+
+    function setYesNoRadio(name, value, isBoolean = false) {
+        // Handle different field types:
+        // - Enum fields (YesNoNotRecorded): 1=Yes, 2=No, 3=NotRecorded, 0/NULL=not set
+        // - Boolean fields (bool?): true/1=Yes, false/0=No, null=not set
+        // - String fields: "si"/"+"=Yes, "no"/"-"=No
+        
+        // Handle string values (for HIV, VDRL, Screening fields)
+        if (typeof value === 'string') {
+            const lowerValue = value.toLowerCase().trim();
+            if (lowerValue === 'si' || lowerValue === '+' || lowerValue === 'yes') {
+                const siRadio = document.querySelector(`input[name="${name}"][value="si"]`);
+                if (siRadio) {
+                    siRadio.checked = true;
+                    console.log(`[Form2] ✓ Set radio ${name} to si (string: "${value}")`);
+                }
+                return;
+            } else if (lowerValue === 'no' || lowerValue === '-' || lowerValue === 'no') {
+                const noRadio = document.querySelector(`input[name="${name}"][value="no"]`);
+                if (noRadio) {
+                    noRadio.checked = true;
+                    noRadio.setAttribute('data-mark-state', 'check');
+                    console.log(`[Form2] ✓ Set radio ${name} to no (string: "${value}")`);
+                }
+                return;
+            }
+            // For other string values (like "realizado"), just log and skip
+            console.log(`[Form2] ℹ Skipping ${name} - unhandled string value: "${value}"`);
+            return;
+        }
+        
+        // Handle boolean fields
+        if (isBoolean) {
+            if (value === null || value === undefined) {
+                console.log(`[Form2] Skipping ${name} - no value (boolean field)`);
+                return;
+            }
+            
+            // For boolean: 0/false = "No", 1/true = "Yes"
+            if (value === 0 || value === false) {
+                const noRadio = document.querySelector(`input[name="${name}"][value="no"]`);
+                if (noRadio) {
+                    noRadio.checked = true;
+                    noRadio.setAttribute('data-mark-state', 'check');
+                    console.log(`[Form2] ✓ Set radio ${name} to no (boolean: ${value})`);
+                }
+            } else if (value === 1 || value === true) {
+                const siRadio = document.querySelector(`input[name="${name}"][value="si"]`);
+                if (siRadio) {
+                    siRadio.checked = true;
+                    console.log(`[Form2] ✓ Set radio ${name} to si (boolean: ${value})`);
+                }
+            }
+            return;
+        }
+        
+        // Handle enum fields (YesNoNotRecorded)
+        if (value === null || value === undefined) {
+            console.log(`[Form2] Skipping ${name} - no value (enum field)`);
+            return;
+        }
+        
+        // For enum: 0 = not set (BLANK)
+        if (value === 0) {
+            console.log(`[Form2] Skipping ${name} - value is 0 (not set)`);
+            return;
+        }
+        
+        // For enum: 2 = No (explicit)
+        if (value === 2) {
             const noRadio = document.querySelector(`input[name="${name}"][value="no"]`);
             if (noRadio) {
                 noRadio.checked = true;
-                // Add checkmark to "no" radio
                 noRadio.setAttribute('data-mark-state', 'check');
-                console.log(`[Form2] ✓ Set radio ${name} to no`);
+                console.log(`[Form2] ✓ Set radio ${name} to no (enum: 2)`);
+            }
+            return;
+        }
+        
+        // For enum: 3 = NotRecorded (BLANK)
+        if (value === 3) {
+            console.log(`[Form2] Skipping ${name} - not recorded (enum: 3)`);
+            return;
+        }
+        
+        // For enum: 1 = Yes (explicit)
+        if (value === 1) {
+            const siRadio = document.querySelector(`input[name="${name}"][value="si"]`);
+            if (siRadio) {
+                siRadio.checked = true;
+                console.log(`[Form2] ✓ Set radio ${name} to si (enum: 1)`);
             }
         }
-        // If value is Yes (true or 1) or NotRecorded (null/undefined/3), do nothing
-        // The "si" radio is already yellow by default (CSS)
     }
 
     function setCheckbox(name, value) {
@@ -850,27 +976,6 @@ const PerinatalPrintForm2 = (function() {
         }
         
         console.log(`[Form2] ✓ Set numeric value ${baseName} to ${value} (${inputs.length} inputs)`);
-    }
-
-    function setDateInInputBox(prefix, date) {
-        if (!date) return;
-        
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-        
-        // Find inputs within .input-box containers
-        const inputBoxes = document.querySelectorAll('.input-box, .input-box1, .input-box2, .input-box3');
-        inputBoxes.forEach(box => {
-            const inputs = box.querySelectorAll('input');
-            if (inputs.length >= 3) {
-                inputs[0].value = day.toString().padStart(2, '0');
-                inputs[1].value = month.toString().padStart(2, '0');
-                inputs[2].value = year.toString();
-            }
-        });
-        
-        console.log(`[Form2] Set date ${prefix} to ${day}/${month}/${year}`);
     }
 
     function setTableCell(id, value) {

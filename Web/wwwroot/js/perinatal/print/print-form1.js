@@ -12,6 +12,9 @@ const PerinatalPrintForm1 = (function() {
         console.log('[Form1] Data received:', data);
         console.log('[Form1] ========================================');
 
+        // CRITICAL: Uncheck ALL radios and checkboxes first to clear HTML defaults
+        uncheckAllInputs();
+
         // Patient and Person Information
         populatePatientInfo(data);
         
@@ -29,6 +32,11 @@ const PerinatalPrintForm1 = (function() {
         
         console.log('[Form1] ========================================');
         console.log('[Form1] ✅ Form 1 population complete!');
+        
+        // Final count
+        const radiosChecked = document.querySelectorAll('input[type="radio"]:checked').length;
+        const checkboxesChecked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+        console.log(`[Form1] Final state - Radios checked: ${radiosChecked}, Checkboxes checked: ${checkboxesChecked}`);
         console.log('[Form1] ========================================');
     }
 
@@ -84,11 +92,7 @@ const PerinatalPrintForm1 = (function() {
             }
         }
 
-        // Birth Date
-        if (patient.bornDate) {
-            const date = new Date(patient.bornDate);
-            setDateInInputBox('birth-date', date);
-        }
+        // Birth Date - skip for now (not critical for Form 1)
 
         // Identity Number (Cédula)
         if (patient.rnc || patient.record) {
@@ -128,6 +132,7 @@ const PerinatalPrintForm1 = (function() {
         setYesNoRadio('hipertensión33', bg.familyHypertension);
         setYesNoRadio('preeclampsia1', bg.familyPreeclampsia);
         setYesNoRadio('eclampsia1', bg.familyEclampsia);
+        setYesNoRadio('otra cond.', bg.familyOtherSeriousMedicalCondition);
 
         // Personal History - PERSONALES (actual HTML field names)
         setYesNoRadio('TBC1', bg.personalTuberculosis);
@@ -141,6 +146,7 @@ const PerinatalPrintForm1 = (function() {
         setYesNoRadio('nefropatía', bg.personalNephropathy);
         setYesNoRadio('violencia22', bg.personalViolence);
         setYesNoRadio('VIH+', bg.personalHIVPositive);
+        setYesNoRadio('médica grave', bg.personalOtherSeriousMedicalCondition);
 
         console.log('[Form1] Medical background populated');
     }
@@ -166,14 +172,52 @@ const PerinatalPrintForm1 = (function() {
         setNumericInCheckBoxes('después', obs.diedAfterFirstWeek);
         setNumericInCheckBoxes('viven', obs.living);
 
-        // Last pregnancy end date
-        if (obs.lastPregnancyEndDate) {
-            const date = new Date(obs.lastPregnancyEndDate);
-            setDateInInputBox('fin-embarazo', date);
+        // Ectopic Pregnancy - string field, check checkbox if has value
+        if (obs.ectopicPregnancy) {
+            const checkbox = document.querySelector('input[name="ectópico"]');
+            if (checkbox) {
+                checkbox.checked = true;
+                console.log('[Form1] ✓ Set ectopic pregnancy checkbox');
+            }
         }
 
-        // Pregnancy planned
-        setYesNoRadio('PLANEADO', obs.pregnancyPlanned);
+        // Three Consecutive Spontaneous Abortions
+        if (obs.threeConsecutiveSpontaneousAbortions === true || obs.threeConsecutiveSpontaneousAbortions === 1) {
+            const radio = document.querySelector('input[name="consecutivos"][value="no"]');
+            if (radio) {
+                radio.checked = true;
+                console.log('[Form1] ✓ Set three consecutive abortions');
+            }
+        }
+
+        // Last pregnancy end date - fix selector to find the correct input
+        if (obs.lastPregnancyEndDate) {
+            const date = new Date(obs.lastPregnancyEndDate);
+            // Find the "FIN EMBARAZO ANTERIOR" section input
+            const finEmbarazoSection = document.querySelector('.fin');
+            if (finEmbarazoSection) {
+                const dateInput = finEmbarazoSection.querySelector('.input-box.large input.large-input');
+                if (dateInput) {
+                    const day = date.getDate().toString().padStart(2, '0');
+                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    const year = date.getFullYear();
+                    dateInput.value = `${day}/${month}/${year}`;
+                    console.log(`[Form1] ✓ Set last pregnancy end date: ${day}/${month}/${year}`);
+                }
+            }
+        }
+
+        // Last Pregnancy Less Than One Year
+        if (obs.lastPregnancyLessThanOneYear === true || obs.lastPregnancyLessThanOneYear === 1) {
+            const radio = document.querySelector('input[name="menosde1"][value="no"]');
+            if (radio) {
+                radio.checked = true;
+                console.log('[Form1] ✓ Set last pregnancy less than one year');
+            }
+        }
+
+        // Pregnancy planned - handle boolean properly
+        setYesNoRadioBool('PLANEADO', obs.pregnancyPlanned);
 
         // Contraceptive method failure - HTML only has value="no" radios, so just check the matching one
         if (obs.contraceptiveMethodFailure) {
@@ -208,18 +252,40 @@ const PerinatalPrintForm1 = (function() {
 
         console.log('[Form1] Populating current pregnancy:', cp);
 
-        // FUM (Last Menstrual Period)
+        // FUM (Last Menstrual Period) - find first .input-box.large1 input
         if (cp.lastMenstrualPeriod) {
             const date = new Date(cp.lastMenstrualPeriod);
-            setDateInInputBox('fumm', date);
-            console.log('[Form1] Set FUM date:', date);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            const formattedDate = `${day}/${month}/${year}`;
+            
+            const inputBoxes = document.querySelectorAll('.input-box.large1');
+            if (inputBoxes.length > 0) {
+                const input = inputBoxes[0].querySelector('input.large-input');
+                if (input) {
+                    input.value = formattedDate;
+                    console.log(`[Form1] ✓ Set FUM date: ${formattedDate}`);
+                }
+            }
         }
 
-        // FPP (Estimated Due Date)
+        // FPP (Estimated Due Date) - find second .input-box.large1 input
         if (cp.estimatedDueDate) {
             const date = new Date(cp.estimatedDueDate);
-            setDateInInputBox('fpp', date);
-            console.log('[Form1] Set FPP date:', date);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            const formattedDate = `${day}/${month}/${year}`;
+            
+            const inputBoxes = document.querySelectorAll('.input-box.large1');
+            if (inputBoxes.length > 1) {
+                const input = inputBoxes[1].querySelector('input.large-input');
+                if (input) {
+                    input.value = formattedDate;
+                    console.log(`[Form1] ✓ Set FPP date: ${formattedDate}`);
+                }
+            }
         }
 
         // Weight and Height - these use individual digit inputs, not checkboxes
@@ -279,51 +345,71 @@ const PerinatalPrintForm1 = (function() {
         setYesNoRadio('VIOLENCIA1', cp.violenceSecondTrimester);
         setYesNoRadio('VIOLENCIA2', cp.violenceThirdTrimester);
 
-        // Vaccines - these have 4 options: no, si previa, si durante, si postparto
-        // For now, just set "si durante embarazo" (option 2) if vaccine is yes (1)
-        if (cp.vaccineTetanusDiphtheria === 1) {
-            const radio = document.querySelector('input[name="difteria2"][value="si"]');
-            if (radio) {
-                radio.checked = true;
-                console.log('[Form1] ✓ Set radio difteria to si');
-            }
-        }
-        if (cp.vaccineInfluenza === 1) {
-            const radio = document.querySelector('input[name="influenza2"][value="si"]');
-            if (radio) {
-                radio.checked = true;
-                console.log('[Form1] ✓ Set radio influenza to si');
-            }
-        }
-        if (cp.vaccineRubella === 1) {
-            const radio = document.querySelector('input[name="rubeolla2"][value="si"]');
-            if (radio) {
-                radio.checked = true;
-                console.log('[Form1] ✓ Set radio rubella to si');
-            }
-        }
-        if (cp.vaccineHepatitisB === 1) {
-            const radio = document.querySelector('input[name="hepatitisb2"][value="si"]');
-            if (radio) {
-                radio.checked = true;
-                console.log('[Form1] ✓ Set radio hepatitisB to si');
-            }
-        }
-
-        // Lab results - these use text inputs, not checkboxes
-        // TODO: Implement proper text input population for lab values
-        // if (cp.glucoseLessThan20Weeks) {
-        //     setNumericInCheckBoxes('glucose-lt20', cp.glucoseLessThan20Weeks);
-        // }
-        // if (cp.hemoglobinLessThan20Weeks) {
-        //     setNumericInCheckBoxes('hb', cp.hemoglobinLessThan20Weeks);
-        // }
-
-        // HIV and Syphilis tests - check if these fields exist
-        // setYesNoRadio('hiv-test', cp.hIVTestResultLessThan20Weeks);
-        // setYesNoRadio('syphilis', cp.syphilisTestLessThan20Weeks);
+        // Vaccines - COMPLETE REWRITE using correct *Time enum fields
+        // VaccineApplicationTime enum: 1=No, 2=PrePregnancy, 3=DuringPregnancy, 4=PostpartumOrAbortion
+        populateVaccine('difteria', cp.vaccineTetanusDiphtheriaTime, cp.vaccineTetanusDiphtheriaDate, cp.vaccineTetanusDiphtheriaGestationalWeeks);
+        populateVaccine('tdap', cp.vaccineTdapTime, cp.vaccineTdapDate, cp.vaccineTdapGestationalWeeks);
+        populateVaccine('influenza', cp.vaccineInfluenzaTime, cp.vaccineInfluenzaDate, cp.vaccineInfluenzaGestationalWeeks);
+        populateVaccine('rubeolla', cp.vaccineRubellaTime, cp.vaccineRubellaDate, cp.vaccineRubellaGestationalWeeks);
+        populateVaccine('hepatitisb', cp.vaccineHepatitisBTime, cp.vaccineHepatitisBDate, cp.vaccineHepatitisBGestationalWeeks);
+        populateVaccine('hepatitisa', cp.vaccineHepatitisATime, cp.vaccineHepatitisADate, cp.vaccineHepatitisAGestationalWeeks);
 
         console.log('[Form1] Current pregnancy populated');
+    }
+
+    function populateVaccine(baseName, timeEnum, date, gestationalWeeks) {
+        // timeEnum: 1=No, 2=PrePregnancy, 3=DuringPregnancy, 4=PostpartumOrAbortion
+        if (timeEnum === null || timeEnum === undefined) {
+            console.log(`[Form1] Skipping vaccine ${baseName} - no time value`);
+            return;
+        }
+
+        // Map enum to radio button number (1→radio1, 2→radio2, 3→radio3, 4→radio4)
+        const radioName = `${baseName}${timeEnum}`;
+        const radio = document.querySelector(`input[name="${radioName}"]`);
+        if (radio) {
+            radio.checked = true;
+            console.log(`[Form1] ✓ Set vaccine ${baseName} to option ${timeEnum}`);
+        } else {
+            console.warn(`[Form1] ✗ Vaccine radio not found: name="${radioName}"`);
+        }
+
+        // Note: Vaccine dates are complex - each vaccine may have its own date input
+        // For now, skip date population as it requires specific HTML structure analysis
+        
+        // Populate gestational weeks if provided (only if not "No")
+        if (gestationalWeeks !== null && gestationalWeeks !== undefined && timeEnum !== 1) {
+            // Map vaccine to gestational week checkbox names
+            // Based on HTML: universs10/9 (difteria), universs8/7 (tdap), universs6/5 (influenza), 
+            //                universs4/3 (rubeolla), universs2/1 (hepatitisb)
+            const weekCheckboxMap = {
+                'difteria': ['universs10', 'universs9'],
+                'tdap': ['universs8', 'universs7'],
+                'influenza': ['universs6', 'universs5'],
+                'rubeolla': ['universs4', 'universs3'],
+                'hepatitisb': ['universs2', 'universs1'],
+                'hepatitisa': null // No checkboxes for hepatitis A in HTML
+            };
+            
+            const checkboxNames = weekCheckboxMap[baseName];
+            if (checkboxNames) {
+                const weeksStr = gestationalWeeks.toString().padStart(2, '0');
+                
+                // First checkbox = tens digit, second checkbox = ones digit
+                const firstCheckbox = document.querySelector(`input[name="${checkboxNames[0]}"]`);
+                const secondCheckbox = document.querySelector(`input[name="${checkboxNames[1]}"]`);
+                
+                if (firstCheckbox && secondCheckbox) {
+                    firstCheckbox.value = weeksStr[0]; // Tens digit
+                    secondCheckbox.value = weeksStr[1]; // Ones digit
+                    console.log(`[Form1] ✓ Set vaccine ${baseName} gestational weeks: ${gestationalWeeks} (${weeksStr[0]}, ${weeksStr[1]})`);
+                } else {
+                    console.warn(`[Form1] ✗ Gestational week checkboxes not found for ${baseName}`);
+                }
+            } else if (baseName === 'hepatitisa') {
+                console.log(`[Form1] ℹ Hepatitis A has no gestational week checkboxes in HTML`);
+            }
+        }
     }
 
     function populatePrenatalConsultations(data) {
@@ -442,29 +528,146 @@ const PerinatalPrintForm1 = (function() {
     }
 
     // Helper Functions
-    function setYesNoRadio(name, enumValue) {
-        // "si" radios are always yellow (CSS handles this), so we only need to handle "no" radios
-        // enumValue: 1 = Yes, 2 = No, 3 = Not Recorded, or boolean
+    function uncheckAllInputs() {
+        console.log('[Form1] 🧹 Unchecking all default checked inputs...');
         
+        // Count before
+        const radiosBefore = document.querySelectorAll('input[type="radio"]:checked').length;
+        const checkboxesBefore = document.querySelectorAll('input[type="checkbox"]:checked').length;
+        console.log(`[Form1] Before uncheck - Radios: ${radiosBefore}, Checkboxes: ${checkboxesBefore}`);
+        
+        // Uncheck all radios
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.checked = false;
+        });
+        
+        // Uncheck all checkboxes
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        
+        // Count after
+        const radiosAfter = document.querySelectorAll('input[type="radio"]:checked').length;
+        const checkboxesAfter = document.querySelectorAll('input[type="checkbox"]:checked').length;
+        console.log(`[Form1] After uncheck - Radios: ${radiosAfter}, Checkboxes: ${checkboxesAfter}`);
+        console.log('[Form1] ✓ All inputs unchecked');
+    }
+
+    function setYesNoRadio(name, enumValue, isBoolean = false) {
+        // Handle different field types:
+        // - Enum fields (YesNoNotRecorded): 1=Yes, 2=No, 3=NotRecorded, 0/NULL=not set
+        // - Boolean fields (bool?): true/1=Yes, false/0=No, null=not set
+        // - String fields: "si"/"+"=Yes, "no"/"-"=No
+        
+        // Handle string values
+        if (typeof enumValue === 'string') {
+            const lowerValue = enumValue.toLowerCase().trim();
+            if (lowerValue === 'si' || lowerValue === '+' || lowerValue === 'yes') {
+                const siRadio = document.querySelector(`input[name="${name}"][value="si"]`);
+                if (siRadio) {
+                    siRadio.checked = true;
+                    console.log(`[Form1] ✓ Set radio ${name} to si (string: "${enumValue}")`);
+                }
+                return;
+            } else if (lowerValue === 'no' || lowerValue === '-') {
+                const noRadio = document.querySelector(`input[name="${name}"][value="no"]`);
+                if (noRadio) {
+                    noRadio.checked = true;
+                    console.log(`[Form1] ✓ Set radio ${name} to no (string: "${enumValue}")`);
+                }
+                return;
+            }
+            console.log(`[Form1] ℹ Skipping ${name} - unhandled string value: "${enumValue}"`);
+            return;
+        }
+        
+        // Handle boolean fields
+        if (isBoolean) {
+            if (enumValue === null || enumValue === undefined) {
+                console.log(`[Form1] Skipping ${name} - no value (boolean field)`);
+                return;
+            }
+            
+            // For boolean: 0/false = "No", 1/true = "Yes"
+            if (enumValue === 0 || enumValue === false) {
+                const noRadio = document.querySelector(`input[name="${name}"][value="no"]`);
+                if (noRadio) {
+                    noRadio.checked = true;
+                    console.log(`[Form1] ✓ Set radio ${name} to no (boolean: ${enumValue})`);
+                }
+            } else if (enumValue === 1 || enumValue === true) {
+                const siRadio = document.querySelector(`input[name="${name}"][value="si"]`);
+                if (siRadio) {
+                    siRadio.checked = true;
+                    console.log(`[Form1] ✓ Set radio ${name} to si (boolean: ${enumValue})`);
+                }
+            }
+            return;
+        }
+        
+        // Handle enum fields (YesNoNotRecorded)
         if (enumValue === null || enumValue === undefined) {
+            console.log(`[Form1] Skipping ${name} - no value (enum field)`);
+            return;
+        }
+        
+        // Handle 0 (default/not set) - leave BLANK
+        if (enumValue === 0) {
+            console.log(`[Form1] Skipping ${name} - value is 0 (not set)`);
+            return;
+        }
+        
+        // Handle "No" values (ONLY 2, not false or 0)
+        if (enumValue === 2) {
+            const noRadio = document.querySelector(`input[name="${name}"][value="no"]`);
+            if (noRadio) {
+                noRadio.checked = true;
+                console.log(`[Form1] ✓ Set radio ${name} to no (enum: 2)`);
+            } else {
+                console.warn(`[Form1] ✗ Radio not found: name="${name}" value="no"`);
+            }
+            return;
+        }
+        
+        // Handle "Not Recorded" (3) - leave BLANK
+        if (enumValue === 3) {
+            console.log(`[Form1] Skipping ${name} - not recorded (enum: 3)`);
+            return;
+        }
+        
+        // Handle "Yes" values (ONLY 1, not true) - explicitly check "si" radio
+        if (enumValue === 1) {
+            const siRadio = document.querySelector(`input[name="${name}"][value="si"]`);
+            if (siRadio) {
+                siRadio.checked = true;
+                console.log(`[Form1] ✓ Set radio ${name} to si (enum: 1)`);
+            } else {
+                // If no "si" radio found, it might be yellow by default (CSS)
+                console.log(`[Form1] ℹ Radio ${name} - si radio not found (may be CSS default)`);
+            }
+        }
+    }
+
+    // Special function for boolean fields (like PregnancyPlanned)
+    function setYesNoRadioBool(name, boolValue) {
+        if (boolValue === null || boolValue === undefined) {
             console.log(`[Form1] Skipping ${name} - no value`);
             return;
         }
         
-        // Only set "no" radio if the value is explicitly No (2 or false)
-        if (enumValue === 2 || enumValue === false) {
+        if (boolValue === true || boolValue === 1) {
+            const siRadio = document.querySelector(`input[name="${name}"][value="si"]`);
+            if (siRadio) {
+                siRadio.checked = true;
+                console.log(`[Form1] ✓ Set radio ${name} to si (boolean true)`);
+            }
+        } else if (boolValue === false || boolValue === 0 || boolValue === 2) {
             const noRadio = document.querySelector(`input[name="${name}"][value="no"]`);
             if (noRadio) {
                 noRadio.checked = true;
-                console.log(`[Form1] ✓ Set radio ${name} to no`);
-            } else {
-                console.warn(`[Form1] ✗ Radio not found: name="${name}" value="no"`);
+                console.log(`[Form1] ✓ Set radio ${name} to no (boolean false)`);
             }
-        } else if (enumValue === 3) {
-            console.log(`[Form1] Skipping ${name} - not recorded`);
-            return;
         }
-        // If value is Yes (1 or true), do nothing - the "si" radio is already yellow by default (CSS)
     }
 
     function setNumericInCheckBoxes(baseName, value) {
@@ -487,67 +690,6 @@ const PerinatalPrintForm1 = (function() {
         }
         
         console.log(`[Form1] ✓ Set numeric value ${baseName} to ${value} (${inputs.length} inputs)`);
-    }
-
-    function setDateInInputBox(prefix, date) {
-        if (!date) {
-            console.log(`[Form1] Skipping date ${prefix} - no value`);
-            return;
-        }
-        
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-        const formattedDate = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}`;
-        
-        // Strategy 1: Find by looking for .input-box.large1 containers near FUM/FPP text
-        if (prefix === 'fumm' || prefix === 'fpp') {
-            // Find all .input-box.large1 containers
-            const inputBoxes = document.querySelectorAll('.input-box.large1');
-            if (prefix === 'fumm' && inputBoxes.length > 0) {
-                // FUM is the first one
-                const input = inputBoxes[0].querySelector('input.large-input');
-                if (input) {
-                    input.value = formattedDate;
-                    console.log(`[Form1] ✓ Set FUM date to ${formattedDate}`);
-                    return;
-                }
-            } else if (prefix === 'fpp' && inputBoxes.length > 1) {
-                // FPP is the second one
-                const input = inputBoxes[1].querySelector('input.large-input');
-                if (input) {
-                    input.value = formattedDate;
-                    console.log(`[Form1] ✓ Set FPP date to ${formattedDate}`);
-                    return;
-                }
-            }
-        }
-        
-        // Strategy 2: Try to find inputs with name containing the prefix
-        let dateInputs = document.querySelectorAll(`input[name*="${prefix}"]`);
-        
-        // Strategy 3: Look for inputs in .input-box containers (for other dates)
-        if (dateInputs.length === 0) {
-            const inputBoxes = document.querySelectorAll('.input-box, .input-box1, .input-box2, .input-box3');
-            inputBoxes.forEach(box => {
-                const inputs = box.querySelectorAll('input');
-                if (inputs.length >= 3) {
-                    // Assume order: day, month, year
-                    inputs[0].value = day.toString().padStart(2, '0');
-                    inputs[1].value = month.toString().padStart(2, '0');
-                    inputs[2].value = year.toString();
-                    console.log(`[Form1] ✓ Set date in input-box to ${day}/${month}/${year}`);
-                }
-            });
-        } else if (dateInputs.length >= 3) {
-            // Set the first 3 inputs found
-            dateInputs[0].value = day.toString().padStart(2, '0');
-            dateInputs[1].value = month.toString().padStart(2, '0');
-            dateInputs[2].value = year.toString();
-            console.log(`[Form1] ✓ Set date ${prefix} to ${day}/${month}/${year}`);
-        } else {
-            console.warn(`[Form1] ✗ Could not find date inputs for ${prefix}`);
-        }
     }
 
     // Public API

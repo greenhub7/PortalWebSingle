@@ -1,10 +1,12 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
-using Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Web.Helpers;
 
 namespace Web.Controllers
 {
@@ -17,6 +19,107 @@ namespace Web.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> AddOrUpdate(int? id, int? patientId)
+        {
+            // If id is null, we're creating a new record
+            if (id == null)
+            {
+                // Verificar que tengamos un patientId para el nuevo registro
+                if (!patientId.HasValue)
+                {
+                    TempData["Error"] = "Se requiere un paciente para crear una historia perinatal.";
+                    return RedirectToAction("Index");
+                }
+
+                var patient = await _context.Patients
+                    .Include(p => p.Person)
+                    .FirstOrDefaultAsync(p => p.PatientId == patientId.Value);
+
+                if (patient == null)
+                {
+                    TempData["Error"] = "Paciente no encontrado.";
+                    return RedirectToAction("Index");
+                }
+
+                var perinatalHistoryRecord = new PerinatalHistoryRecord
+                {
+                    PatientId = patientId.Value,
+                    Patient = patient,
+                    CreatedDate = DateTime.Now,
+                    MedicalBackground = new MedicalBackground(),
+                    ObstetricBackground = new ObstetricBackground(),
+                    CurrentPregnancy = new CurrentPregnancy(),
+                    PrenatalConsultations = new List<PrenatalConsultation>(),
+                    BirthInformation = new BirthInformation(),
+                    NewbornInformation = new NewbornInformation(),
+                    PostpartumInformation = new PostpartumInformation
+                    {
+                        PostpartumVisits = new List<PostpartumVisit>()
+                    },
+                    MorbidityInformation = new MorbidityInformation(),
+                    NearMissVariables = new NearMissVariables(),
+                    PuerperiumInformation = new PuerperiumInformation { Days = new List<PuerperiumDay>() },
+                    ContraceptionInformation = new ContraceptionInformation(),
+                    MaternalDischargeInformation = new MaternalDischargeInformation()
+                };
+
+                ViewBag.IsNew = true;
+                ViewBag.PatientId = patientId.Value;
+                ViewBag.PatientName = $"{patient.Person.Name} {patient.Person.LastName}";
+                PopulateViewBagSelectLists();
+                return View(perinatalHistoryRecord);
+            }
+            else
+            {
+                // We're editing an existing record
+                var perinatalHistoryRecord = await _context.PerinatalHistoryRecords
+                    .Include(p => p.Patient)
+                        .ThenInclude(pt => pt.Person)
+                            .ThenInclude(pr => pr.MaritalSituation)
+                    .Include(p => p.Patient)
+                        .ThenInclude(pt => pt.Person)
+                            .ThenInclude(pr => pr.SchoolLevel)
+                    .Include(p => p.Patient)
+                        .ThenInclude(pt => pt.Person)
+                            .ThenInclude(pr => pr.Country)
+                    .Include(p => p.MedicalBackground)
+                    .Include(p => p.ObstetricBackground)
+                    .Include(p => p.CurrentPregnancy)
+                    .Include(p => p.PrenatalConsultations)
+                    .Include(p => p.BirthInformation)
+                    .Include(p => p.NewbornInformation)
+                    .Include(p => p.PostpartumInformation)
+                        .ThenInclude(pp => pp.PostpartumVisits)
+                    .Include(p => p.MorbidityInformation)
+                    .Include(p => p.NearMissVariables)
+                    .Include(p => p.ContraceptionInformation)
+                    .Include(p => p.MaternalDischargeInformation)
+                    .FirstOrDefaultAsync(m => m.Id == id);
+
+                if (perinatalHistoryRecord == null)
+                {
+                    return NotFound();
+                }
+
+                ViewBag.IsNew = false;
+                PopulateViewBagSelectLists();
+                return View(perinatalHistoryRecord);
+            }
+        }
+        private void PopulateViewBagSelectLists()
+        {
+            // YesNoNotRecorded options
+            ViewBag.YesNoNotRecordedOptions = EnumHelpers.GetYesNoNotRecordedSelectList();
+
+            // Diabetes type options
+            ViewBag.DiabetesTypeOptions = EnumHelpers.GetDiabetesTypeSelectList();
+
+            // Blood group options
+            ViewBag.BloodGroupOptions = EnumHelpers.GetBloodGroupSelectList();
+
+            // Rh factor options
+            ViewBag.RhFactorOptions = EnumHelpers.GetRhFactorSelectList();
+        }
         // GET: PerinatalHistories/Index?id=15570
         public async Task<IActionResult> Index(int? id)
         {
