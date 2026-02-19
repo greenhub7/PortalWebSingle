@@ -168,15 +168,124 @@ const PerinatalPrintForm2 = (function() {
             setNumericInCheckBoxes('hospitalization-days', birth.hospitalizationDays);
         }
 
-        // Companion
+        // Companion (Acompañante TDP)
         if (birth.companion) {
-            setInputValue('companion', birth.companion);
+            setRadioByValue('Companion', birth.companion);
+        }
+
+        // CompanionP (Acompañante P)
+        if (birth.companionP) {
+            setRadioByValue('CompanionP', birth.companionP);
+        }
+
+        // Fetal Size Appropriate (boolean)
+        setYesNoRadio('fetal-size-appropriate', birth.fetalSizeAppropriate, true);
+
+        // Partogram Details (boolean)
+        if (birth.partogramDetails !== null && birth.partogramDetails !== undefined) {
+            const radio = document.querySelector(`input[name="PartogramDetails"][value="${birth.partogramDetails}"]`);
+            if (radio) {
+                radio.checked = true;
+                console.log(`[Form2] ✓ Set partogram details: ${birth.partogramDetails}`);
+            }
+        }
+
+        // Meconium Stained Liquor (enum: 1=Yes, 2=No, 3=NC)
+        if (birth.meconiumStainedLiquor) {
+            const radio = document.querySelector(`input[name="MeconiumStainedLiquor"][value="${birth.meconiumStainedLiquor}"]`);
+            if (radio) {
+                radio.checked = true;
+                console.log(`[Form2] ✓ Set meconium stained liquor: ${birth.meconiumStainedLiquor}`);
+            }
+        }
+
+        // Chorioamnionitis (enum: 1=Yes, 2=No, 3=NC) - in birth section
+        if (birth.chorioamnionitis) {
+            const radio = document.querySelector(`input[name="Chorioamnionitis"][value="${birth.chorioamnionitis}"]`);
+            if (radio) {
+                radio.checked = true;
+                console.log(`[Form2] ✓ Set chorioamnionitis: ${birth.chorioamnionitis}`);
+            }
+        }
+
+        // Gestational Age Method Checkboxes
+        if (birth.gestationalAgeByLMP === true || birth.gestationalAgeByLMP === 1) {
+            const checkbox = document.querySelector('input[name="GestationalAgeByLMP"]');
+            if (checkbox) {
+                checkbox.checked = true;
+                console.log('[Form2] ✓ Set gestational age by LMP');
+            }
+        }
+        if (birth.gestationalAgeByUltrasound === true || birth.gestationalAgeByUltrasound === 1) {
+            const checkbox = document.querySelector('input[name="GestationalAgeByUltrasound"]');
+            if (checkbox) {
+                checkbox.checked = true;
+                console.log('[Form2] ✓ Set gestational age by ultrasound');
+            }
+        }
+
+        // Membrane Rupture Additional Checkboxes
+        if (birth.membraneRuptureBefore37Weeks === true || birth.membraneRuptureBefore37Weeks === 1) {
+            const checkbox = document.querySelector('input[name="MembraneRuptureBefore37Weeks"]');
+            if (checkbox) {
+                checkbox.checked = true;
+                console.log('[Form2] ✓ Set membrane rupture before 37 weeks');
+            }
+        }
+        if (birth.membraneRuptureMoreThan18Hours === true || birth.membraneRuptureMoreThan18Hours === 1) {
+            const checkbox = document.querySelector('input[name="MembraneRuptureMoreThan18Hours"]');
+            if (checkbox) {
+                checkbox.checked = true;
+                console.log('[Form2] ✓ Set membrane rupture more than 18 hours');
+            }
+        }
+
+        // Fever Temperature
+        if (birth.feverTemperature) {
+            const input = document.querySelector('input[name="FeverTemperature"]');
+            if (input) {
+                input.value = birth.feverTemperature;
+                console.log(`[Form2] ✓ Set fever temperature: ${birth.feverTemperature}`);
+            }
         }
 
         // Corticosteroids
         setCheckbox('corticosteroids-complete', birth.corticosteroidsComplete);
         setCheckbox('corticosteroids-incomplete', birth.corticosteroidsIncomplete);
         setCheckbox('corticosteroids-none', birth.corticosteroidsNone);
+        setCheckbox('corticosteroids-na', birth.corticosteroidsNA);
+
+        // Corticosteroids Start Week
+        if (birth.corticosteroidsStartWeek) {
+            const input = document.querySelector('input[name="CorticosteroidsStartWeek"]');
+            if (input) {
+                input.value = birth.corticosteroidsStartWeek;
+                console.log(`[Form2] ✓ Set corticosteroids start week: ${birth.corticosteroidsStartWeek}`);
+            }
+        }
+
+        // Birth Test Fields (Syphilis, HIV, TARV)
+        if (birth.birthSyphilisTest) {
+            const radio = document.querySelector(`input[name="BirthSyphilisTest"][value="${birth.birthSyphilisTest}"]`);
+            if (radio) {
+                radio.checked = true;
+                console.log(`[Form2] ✓ Set birth syphilis test: ${birth.birthSyphilisTest}`);
+            }
+        }
+        if (birth.birthHIVTest) {
+            const radio = document.querySelector(`input[name="BirthHIVTest"][value="${birth.birthHIVTest}"]`);
+            if (radio) {
+                radio.checked = true;
+                console.log(`[Form2] ✓ Set birth HIV test: ${birth.birthHIVTest}`);
+            }
+        }
+        if (birth.birthTARV) {
+            const radio = document.querySelector(`input[name="BirthTARV"][value="${birth.birthTARV}"]`);
+            if (radio) {
+                radio.checked = true;
+                console.log(`[Form2] ✓ Set birth TARV: ${birth.birthTARV}`);
+            }
+        }
 
         // Gestational Age at Birth
         if (birth.gestationalAgeAtBirthWeeks) {
@@ -296,12 +405,37 @@ const PerinatalPrintForm2 = (function() {
 
         // Sex
         if (newborn.sex) {
-            setRadioByValue('sex', newborn.sex);
+            setRadioByValue('Sex', newborn.sex);
+        }
+
+        // Gestational Age Method (FUM/ECO/ESTIMADA)
+        if (newborn.gestationalAgeMethod) {
+            setRadioByValue('GestationalAgeMethod', newborn.gestationalAgeMethod);
+        }
+
+        // Weight For Gestational Age (adec./peq./gde.)
+        if (newborn.weightForGestationalAge) {
+            setRadioByValue('WeightForGestationalAge', newborn.weightForGestationalAge);
         }
 
         // Birth Weight
         if (newborn.birthWeight) {
             setNumericInCheckBoxes('birth-weight', newborn.birthWeight);
+            
+            // Birth Weight Category radios
+            if (newborn.birthWeight < 2500) {
+                const radio = document.querySelector('input[name="BirthWeightCategory"][value="low"]');
+                if (radio) {
+                    radio.checked = true;
+                    console.log('[Form2] ✓ Set birth weight category: low');
+                }
+            } else if (newborn.birthWeight >= 4000) {
+                const radio = document.querySelector('input[name="BirthWeightCategory"][value="high"]');
+                if (radio) {
+                    radio.checked = true;
+                    console.log('[Form2] ✓ Set birth weight category: high');
+                }
+            }
         }
 
         // Head Circumference
@@ -345,9 +479,63 @@ const PerinatalPrintForm2 = (function() {
         // Birth Defects
         if (newborn.birthDefectsType) {
             setInputValue('birth-defects-type', newborn.birthDefectsType);
+            setRadioByValue('BirthDefectsType', newborn.birthDefectsType);
         }
         if (newborn.birthDefectsCode) {
             setInputValue('birth-defects-code', newborn.birthDefectsCode);
+        }
+
+        // Diseases Option and Codes
+        if (newborn.diseasesOption) {
+            setRadioByValue('DiseasesOption', newborn.diseasesOption);
+        }
+        if (newborn.diseaseCode1) {
+            const input = document.querySelector('input[name="DiseaseCode1"]');
+            if (input) input.value = newborn.diseaseCode1;
+        }
+        if (newborn.diseaseCode2) {
+            const input = document.querySelector('input[name="DiseaseCode2"]');
+            if (input) input.value = newborn.diseaseCode2;
+        }
+        if (newborn.diseaseCode3) {
+            const input = document.querySelector('input[name="DiseaseCode3"]');
+            if (input) input.value = newborn.diseaseCode3;
+        }
+        if (newborn.diseaseCode4) {
+            const input = document.querySelector('input[name="DiseaseCode4"]');
+            if (input) input.value = newborn.diseaseCode4;
+        }
+        if (newborn.diseaseCode5) {
+            const input = document.querySelector('input[name="DiseaseCode5"]');
+            if (input) input.value = newborn.diseaseCode5;
+        }
+        if (newborn.diseaseCode6) {
+            const input = document.querySelector('input[name="DiseaseCode6"]');
+            if (input) input.value = newborn.diseaseCode6;
+        }
+
+        // Delivery Attendant (ATENDIO PARTO)
+        if (newborn.deliveryAttendantType) {
+            setRadioByValue('DeliveryAttendantType', newborn.deliveryAttendantType);
+        }
+        if (newborn.deliveryAttendantName) {
+            const input = document.querySelector('input[name="DeliveryAttendantName"]');
+            if (input) {
+                input.value = newborn.deliveryAttendantName;
+                console.log(`[Form2] ✓ Set delivery attendant name: ${newborn.deliveryAttendantName}`);
+            }
+        }
+
+        // Neonatal Attendant (ATENDIO NEONATO)
+        if (newborn.neonatalAttendantType) {
+            setRadioByValue('NeonatalAttendantType', newborn.neonatalAttendantType);
+        }
+        if (newborn.neonatalAttendantName) {
+            const input = document.querySelector('input[name="NeonatalAttendantName"]');
+            if (input) {
+                input.value = newborn.neonatalAttendantName;
+                console.log(`[Form2] ✓ Set neonatal attendant name: ${newborn.neonatalAttendantName}`);
+            }
         }
 
         // HIV Exposed (string: "si"/"no")
