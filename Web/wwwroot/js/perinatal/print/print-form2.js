@@ -584,6 +584,17 @@ const PerinatalPrintForm2 = (function() {
         }
 
         console.log('[Form2] Populating morbidity information:', morb);
+        console.log('[Form2] DEBUG - chronicHypertension value:', morb.chronicHypertension, 'type:', typeof morb.chronicHypertension);
+        console.log('[Form2] DEBUG - mildPreeclampsia value:', morb.mildPreeclampsia, 'type:', typeof morb.mildPreeclampsia);
+        console.log('[Form2] DEBUG - hasHypertensiveDisorders value:', morb.hasHypertensiveDisorders, 'type:', typeof morb.hasHypertensiveDisorders);
+
+        // Section Headers - populate the main section toggles
+        setYesNoRadioBool('trashiper', morb.hasHypertensiveDisorders);
+        setYesNoRadioBool('infecc', morb.hasInfections);
+        setYesNoRadioBool('trasmeta', morb.hasMetabolicDisorders);
+        setYesNoRadioBool('dia', morb.hasDiabetes);
+        setYesNoRadioBool('tras', morb.hasThyroidDisorders);
+        setYesNoRadioBool('otrostra', morb.hasOtherDisorders);
 
         // Hypertensive Disorders (TRASTORNOS HIPERTENSIVOS)
         setYesNoRadio('hipertension_cronica', morb.chronicHypertension);
@@ -595,68 +606,72 @@ const PerinatalPrintForm2 = (function() {
         setYesNoRadio('hipertension_cronica_pe', morb.chronicHypertensionWithSuperimposedPreeclampsia);
 
         // Infections (INFECCIONES)
-        setYesNoRadio('sepsis', morb.sepsis);
-        setYesNoRadio('endometritis', morb.endometritis);
-        setYesNoRadio('corioamnionitis', morb.chorioamnionitis);
-        setYesNoRadio('bacteriuria', morb.asymptomaticBacteriuria);
-        setYesNoRadio('pielonefritis', morb.pyelonephritis);
-        setYesNoRadio('neumonia', morb.pneumonia);
-        setYesNoRadio('infeccion_cesarea', morb.cesareanWoundInfection);
-        setYesNoRadio('infeccion_episiorrafia', morb.episiotomyInfection);
-        setYesNoRadio('otra_infeccion', morb.otherInfection);
+        setYesNoRadioBool('sepsis', morb.sepsis);
+        setYesNoRadioBool('endometritis', morb.endometritis);
+        setYesNoRadioBool('corioamnionitis', morb.chorioamnionitis);
+        setYesNoRadioBool('bacteriuria', morb.asymptomaticBacteriuria);
+        setYesNoRadioBool('pielonefritis', morb.pyelonephritis);
+        setYesNoRadioBool('neumonia', morb.pneumonia);
+        setYesNoRadioBool('infeccion_cesarea', morb.cesareanWoundInfection);
+        setYesNoRadioBool('infeccion_episiorrafia', morb.episiotomyInfection);
+        setYesNoRadioBool('otra_infeccion', morb.otherInfection);
 
         // Hemorrhage (HEMORRAGIA) - by trimester
-        setYesNoRadio('post_aborto', morb.postAbortionHemorrhage);
-        setYesNoRadio('mola_hidatiforme', morb.hydatidiformMole);
-        setYesNoRadio('embarazo_ectopico', morb.ectopicPregnancy);
-        setYesNoRadio('placenta_previa', morb.placentaPrevia);
-        setYesNoRadio('acretismo_placentario', morb.accretaPlacentaPP);
-        setYesNoRadio('dppni', morb.abruptioPlacentae);
-        setYesNoRadio('rotura_uterina', morb.uterineRupture);
-        setYesNoRadio('hemorragia_postparto', morb.postpartumHemorrhage);
-        setYesNoRadio('atonia_uterina', morb.uterineAtony);
-        setYesNoRadio('desgarros', morb.placentalTears);
-        setYesNoRadio('restos', morb.retainedPlacenta);
-        setYesNoRadio('defecto_coagulacion', morb.coagulationDefect);
+        setYesNoRadioBool('1tri', morb.hasFirstTrimesterHemorrhage);
+        setYesNoRadioBool('2tri', morb.hasSecondTrimesterHemorrhage);
+        setYesNoRadioBool('3tri', morb.hasThirdTrimesterHemorrhage);
+        setYesNoRadioBool('post_aborto', morb.postAbortionHemorrhage);
+        setYesNoRadioBool('mola_hidatiforme', morb.hydatidiformMole);
+        setYesNoRadioBool('embarazo_ectopico', morb.ectopicPregnancy);
+        setYesNoRadioBool('placenta_previa', morb.placentaPrevia);
+        setYesNoRadioBool('acretismo_placentario', morb.accretaPlacentaPP);
+        setYesNoRadioBool('dppni', morb.abruptioPlacentae);
+        setYesNoRadioBool('rotura_uterina', morb.uterineRupture);
+        setYesNoRadioBool('hemorragia_postparto', morb.postpartumHemorrhage);
+        setYesNoRadioBool('atonia_uterina', morb.uterineAtony);
+        setYesNoRadioBool('desgarros', morb.placentalTears);
+        setYesNoRadioBool('restos', morb.retainedPlacenta);
+        setYesNoRadioBool('defecto_coagulacion', morb.coagulationDefect);
 
         // Metabolic Disorders (TRASTORNOS METABOLICOS)
         // Diabetes
-        setYesNoRadio('glucosa-anormal', morb.abnormalOralGlucoseTolerance);
-        setYesNoRadio('diabetes-gestacional', morb.gestationalDiabetes);
-        setYesNoRadio('diabetes-pregestacional', morb.preexistingInsulinDependentDM || morb.preexistingNonInsulinDependentDM);
+        setYesNoRadioBool('glucosa-anormal', morb.abnormalOralGlucoseTolerance);
+        setYesNoRadioBool('diabetes-gestacional', morb.gestationalDiabetes);
+        setYesNoRadioBool('diabetes-pregestacional', morb.preexistingInsulinDependentDM || morb.preexistingNonInsulinDependentDM);
         
         // Thyroid
-        setYesNoRadio('hipotiroidismo', morb.hypothyroidism);
-        setYesNoRadio('hipertiroidismo', morb.hyperthyroidism);
-        setYesNoRadio('crisis-tiroidea', morb.thyroidCrisis);
-        setYesNoRadio('otro-metabolico', morb.otherMetabolicDisorder);
+        setYesNoRadioBool('hipotiroidismo', morb.hypothyroidism);
+        setYesNoRadioBool('hipertiroidismo', morb.hyperthyroidism);
+        setYesNoRadioBool('crisis-tiroidea', morb.thyroidCrisis);
+        setYesNoRadioBool('otro-metabolico', morb.otherMetabolicDisorder);
 
         // Other Disorders (OTROS TRASTORNOS)
-        setYesNoRadio('hiperemesis_gravidica', morb.hyperemesisGravidarum);
-        setYesNoRadio('trombosis_venosa_profunda', morb.deepVeinThrombosis);
-        setYesNoRadio('tromboembolismo_pulmonar', morb.pulmonaryThromboembolism);
-        setYesNoRadio('embolia_la', morb.amniocEmbolism);
-        setYesNoRadio('cardiopatia', morb.cardiopathy);
-        setYesNoRadio('valvulopatia', morb.valvulopathy);
-        setYesNoRadio('convulsiones', morb.convulsions);
-        setYesNoRadio('alteracion_conciencia', morb.consciousnessAlteration);
-        setYesNoRadio('oliguria', morb.oliguria);
-        setYesNoRadio('anemia', morb.anemia);
-        setYesNoRadio('anemia_falciforme', morb.sickleCellAnemia);
-        setYesNoRadio('enfermedad_renal', morb.renalDisease);
-        setYesNoRadio('neoplasia_maligna', morb.malignantNeoplasia);
-        setYesNoRadio('trastorno_psiquiatrico', morb.psychiatricDisorder);
-        setYesNoRadio('colestasis', morb.cholestasis);
-        setYesNoRadio('otros_enfermedades', morb.otherDisorder);
+        setYesNoRadioBool('otrostra', morb.hasOtherDisorders);
+        setYesNoRadioBool('hiperemesis_gravidica', morb.hyperemesisGravidarum);
+        setYesNoRadioBool('trombosis_venosa_profunda', morb.deepVeinThrombosis);
+        setYesNoRadioBool('tromboembolismo_pulmonar', morb.pulmonaryThromboembolism);
+        setYesNoRadioBool('embolia_la', morb.amniocEmbolism);
+        setYesNoRadioBool('cardiopatia', morb.cardiopathy);
+        setYesNoRadioBool('valvulopatia', morb.valvulopathy);
+        setYesNoRadioBool('convulsiones', morb.convulsions);
+        setYesNoRadioBool('alteracion_conciencia', morb.consciousnessAlteration);
+        setYesNoRadioBool('oliguria', morb.oliguria);
+        setYesNoRadioBool('anemia', morb.anemia);
+        setYesNoRadioBool('anemia_falciforme', morb.sickleCellAnemia);
+        setYesNoRadioBool('enfermedad_renal', morb.renalDisease);
+        setYesNoRadioBool('neoplasia_maligna', morb.malignantNeoplasia);
+        setYesNoRadioBool('trastorno_psiquiatrico', morb.psychiatricDisorder);
+        setYesNoRadioBool('colestasis', morb.cholestasis);
+        setYesNoRadioBool('otros_enfermedades', morb.otherDisorder);
 
         // Obstetric Complications (COMPLICACIONES OBSTÉTRICAS)
-        setYesNoRadio('parto_obstruido', morb.obstructedLabor);
-        setYesNoRadio('rotura_prematura_membranas', morb.prolongedRuptureOfMembranes);
-        setYesNoRadio('polihidramnios', morb.polyhydramnios);
-        setYesNoRadio('oligohidramnios', morb.oligohydramnios);
-        setYesNoRadio('restriccion_crecimiento', morb.intrauterineGrowthRestriction);
-        setYesNoRadio('sufrimiento_fetal', morb.acuteFetalDistress);
-        setYesNoRadio('otra_complicacion', morb.otherObstetricComplication);
+        setYesNoRadioBool('parto_obstruido', morb.obstructedLabor);
+        setYesNoRadioBool('rotura_prematura_membranas', morb.prolongedRuptureOfMembranes);
+        setYesNoRadioBool('polihidramnios', morb.polyhydramnios);
+        setYesNoRadioBool('oligohidramnios', morb.oligohydramnios);
+        setYesNoRadioBool('restriccion_crecimiento', morb.intrauterineGrowthRestriction);
+        setYesNoRadioBool('sufrimiento_fetal', morb.acuteFetalDistress);
+        setYesNoRadioBool('otra_complicacion', morb.otherObstetricComplication);
 
         console.log('[Form2] Morbidity information populated');
     }
@@ -670,38 +685,63 @@ const PerinatalPrintForm2 = (function() {
 
         console.log('[Form2] Populating near miss variables:', nm);
 
-        // Near Miss Criteria - Clinical
-        setYesNoRadio('shock', nm.shock);
-        setYesNoRadio('cardiac-arrest', nm.cardiacArrest);
-        setYesNoRadio('coma', nm.coma);
-        setYesNoRadio('stroke', nm.strokeOrCVA);
-        setYesNoRadio('respiratory-failure', nm.respiratoryFailure);
-        setYesNoRadio('acute-renal-failure', nm.acuteRenalFailure);
-        setYesNoRadio('coagulopathy', nm.coagulopathy);
+        // CRITERIOS CLÍNICOS / DISFUNCIÓN ÓRGANO-SISTEMA
+        // Cardiovascular
+        setYesNoRadioBool('shock', nm.shock);
+        setYesNoRadioBool('paro_cardiaco', nm.cardiacArrest);
         
-        // Near Miss Criteria - Management
-        setYesNoRadio('hysterectomy', nm.hysterectomy);
-        setYesNoRadio('icu-admission', nm.icuAdmission);
-        setYesNoRadio('transfusion', nm.transfusion);
-        setYesNoRadio('laparotomy', nm.laparotomy);
-        setYesNoRadio('intubation', nm.intubation);
-        setYesNoRadio('dialysis', nm.dialysis);
-        setYesNoRadio('cardiopulmonary-resuscitation', nm.cardiopulmonaryResuscitation);
+        // Hepático
+        setYesNoRadioBool('ictericia_preeclampsia', nm.jaundiceInPreeclampsia);
         
-        // Laboratory criteria
-        setYesNoRadio('severe-acidosis', nm.severeAcidosis);
-        setYesNoRadio('severe-hypoxemia', nm.severeHypoxemia);
-        setYesNoRadio('severe-thrombocytopenia', nm.severeThrombocytopenia);
-        setYesNoRadio('severe-hyperlactatemia', nm.severeHyperlactatemia);
+        // Respiratorio
+        setYesNoRadioBool('cianosis_aguda', nm.acuteCyanosis);
+        setYesNoRadioBool('respiracion_jadeante', nm.gasping);
+        setYesNoRadioBool('taquipnea_severa', nm.severeTachypnea);
+        setYesNoRadioBool('bradipnea_severa', nm.severeBradypnea);
+        
+        // Renal
+        setYesNoRadioBool('oliguria_resistente', nm.oliguriaResistantToFluids);
+        
+        // Hematológica/coagulación
+        setYesNoRadioBool('alteraciones_coagulacion', nm.coagulationDisorders);
+        
+        // Neurológico
+        setYesNoRadioBool('coma', nm.coma);
+        setYesNoRadioBool('inconsciencia_prolongada', nm.prolongedUnconsciousness);
+        setYesNoRadioBool('acv', nm.stroke);
+        setYesNoRadioBool('convulsiones_incontrolables', nm.uncontrollableSeizures);
+        setYesNoRadioBool('paralisis_generalizada', nm.generalizedParalysis);
+        
+        // LABORATORIO
+        setYesNoRadioBool('plaquetas_bajas', nm.plateletsLessThan50000);
+        setYesNoRadioBool('creatinina_alta', nm.creatinineGreaterOrEqual300);
+        setYesNoRadioBool('bilirrubina_alta', nm.bilirubinGreaterThan100);
+        setYesNoRadioBool('ph_bajo', nm.phLessThan7_1);
+        setYesNoRadioBool('sat_hb_bajo', nm.hemoglobinSaturationLessThan90PercentForOverOneHour);
+        setYesNoRadioBool('pao2_fio2_bajo', nm.paO2FiO2LessThan200);
+        setYesNoRadioBool('lactato_alto', nm.lactateGreaterThan5);
+        
+        // INTERVENCIONES
+        setYesNoRadioBool('vasoactivos', nm.continuousVasoactiveAgentsAdministration);
+        setYesNoRadioBool('intubacion', nm.intubationAndVentilationNotRelatedToAnesthesia);
+        setYesNoRadioBool('hemocomponentes', nm.bloodProductsAdministrationGreaterOrEqualThreeUnits);
+        setYesNoRadioBool('uci-7dias', nm.icuAdmissionLessThanSevenDays);
+        setYesNoRadioBool('histerectomia', nm.hysterectomy);
+        setYesNoRadioBool('dialisis', nm.dialysisForAcuteRenalFailure);
+        setYesNoRadioBool('reanimacion', nm.cardiopulmonaryResuscitation);
 
         console.log('[Form2] Near miss variables populated');
     }
 
     function populatePuerperiumInfo(data) {
         const puerperium = data.puerperiumInformation;
-        if (!puerperium) return;
+        if (!puerperium) {
+            console.log('[Form2] No puerperium information data');
+            return;
+        }
 
         console.log('[Form2] Populating puerperium information:', puerperium);
+        console.log('[Form2] Puerperium days count:', puerperium.days ? puerperium.days.length : 0);
         
         // Populate puerperium days table
         if (puerperium.days && puerperium.days.length > 0) {
@@ -712,9 +752,12 @@ const PerinatalPrintForm2 = (function() {
             }
             
             const rows = table.querySelectorAll('tr');
+            console.log('[Form2] Puerperio table rows found:', rows.length);
             
             puerperium.days.forEach((day, index) => {
                 if (index >= rows.length) return;
+                
+                console.log(`[Form2] Processing puerperium day ${index + 1}:`, day);
                 
                 const row = rows[index];
                 const inputs = row.querySelectorAll('input[type="text"]');
@@ -732,8 +775,12 @@ const PerinatalPrintForm2 = (function() {
                     if (day.responsible) inputs[8].value = day.responsible;
                     
                     console.log(`[Form2] ✓ Populated puerperium day ${day.dayNumber || index + 1}`);
+                } else {
+                    console.warn(`[Form2] ✗ Not enough inputs in row ${index + 1}, found: ${inputs.length}`);
                 }
             });
+        } else {
+            console.log('[Form2] No puerperium days data to populate');
         }
     }
 
@@ -945,14 +992,20 @@ const PerinatalPrintForm2 = (function() {
 
     function populateMaternalDischargeInfo(data) {
         const discharge = data.maternalDischargeInformation;
-        if (!discharge) return;
+        if (!discharge) {
+            console.log('[Form2] No maternal discharge information data');
+            return;
+        }
 
         console.log('[Form2] Populating maternal discharge information:', discharge);
+        console.log('[Form2] DischargeDate value:', discharge.dischargeDate, 'Type:', typeof discharge.dischargeDate);
+        console.log('[Form2] DischargeTime value:', discharge.dischargeTime, 'Type:', typeof discharge.dischargeTime);
         
         // Discharge date - find the date input in EGRESO MATERNO section
         if (discharge.dischargeDate) {
             const date = new Date(discharge.dischargeDate);
             const dateInputs = document.querySelectorAll('.egreso-wrapper .date-grid .input-box.large input.large-input');
+            console.log('[Form2] Date inputs found:', dateInputs.length);
             if (dateInputs.length > 0) {
                 const day = String(date.getDate()).padStart(2, '0');
                 const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -960,11 +1013,14 @@ const PerinatalPrintForm2 = (function() {
                 dateInputs[0].value = `${day}/${month}/${year}`;
                 console.log(`[Form2] ✓ Set discharge date: ${day}/${month}/${year}`);
             }
+        } else {
+            console.log('[Form2] Skipping discharge date - value is null/undefined');
         }
         
         // Discharge time - find the time input (second large-input in date-grid)
         if (discharge.dischargeTime) {
             const timeInputs = document.querySelectorAll('.egreso-wrapper .date-grid .input-box.small input.large-input');
+            console.log('[Form2] Time inputs found:', timeInputs.length);
             if (timeInputs.length > 0) {
                 const timeParts = discharge.dischargeTime.split(':');
                 if (timeParts.length >= 2) {
@@ -972,25 +1028,88 @@ const PerinatalPrintForm2 = (function() {
                     console.log(`[Form2] ✓ Set discharge time: ${discharge.dischargeTime}`);
                 }
             }
+        } else {
+            console.log('[Form2] Skipping discharge time - value is null/undefined');
         }
         
-        // Discharge condition/type radios - check for "sana" (healthy)
-        if (discharge.dischargeType) {
-            if (discharge.dischargeType.toLowerCase().includes('sana') || discharge.dischargeType.toLowerCase().includes('alta')) {
-                const radio = document.querySelector('input[name="sana"]');
+        // CONDICIÓN AL EGRESO - DischargeCondition enum: "Healthy", "Not Applicable", "With Pathology", "Death"
+        if (discharge.dischargeCondition) {
+            const condition = discharge.dischargeCondition.toLowerCase();
+            let radioName = '';
+            
+            if (condition.includes('healthy') || condition.includes('sana')) {
+                radioName = 'sana';
+            } else if (condition.includes('not applicable') || condition.includes('n/a')) {
+                radioName = 'NA';
+            } else if (condition.includes('pathology') || condition.includes('patología')) {
+                radioName = 'patologia';
+            } else if (condition.includes('death') || condition.includes('muerte')) {
+                radioName = 'muerte';
+            }
+            
+            if (radioName) {
+                const radio = document.querySelector(`input[name="${radioName}"]`);
                 if (radio) {
                     radio.checked = true;
-                    console.log(`[Form2] ✓ Set discharge condition to sana`);
+                    console.log(`[Form2] ✓ Set discharge condition: ${radioName}`);
+                } else {
+                    console.warn(`[Form2] ✗ Radio not found: name="${radioName}"`);
                 }
             }
         }
         
-        // Egreso medico radio
-        const egresoRadio = document.querySelector('input[name="egreso-medico"]');
-        if (egresoRadio) {
-            egresoRadio.checked = true;
-            console.log(`[Form2] ✓ Set egreso medico`);
+        // Fallece durante o en lugar de traslado
+        setYesNoRadioBool('fallece', discharge.diedDuringOrInTransferLocation);
+        
+        // Autopsia
+        setYesNoRadioBool('autopsia', discharge.autopsy);
+        
+        // Responsable - there are multiple Responsable textareas, need to find the right one
+        if (discharge.responsiblePerson) {
+            // Find the Responsable textarea in the CONDICIÓN AL EGRESO section
+            const responsableTextareas = document.querySelectorAll('.responsable-condi textarea');
+            if (responsableTextareas.length > 0) {
+                responsableTextareas[0].value = discharge.responsiblePerson;
+                console.log(`[Form2] ✓ Set responsable (CONDICIÓN): ${discharge.responsiblePerson}`);
+            }
+            
+            // Also set the main Responsable textarea at the bottom
+            const mainResponsable = document.querySelector('.responsable-header textarea');
+            if (mainResponsable) {
+                mainResponsable.value = discharge.responsiblePerson;
+                console.log(`[Form2] ✓ Set responsable (main): ${discharge.responsiblePerson}`);
+            }
         }
+        
+        // TIPO DE EGRESO - DischargeType: "Fallece", "Contra Consejo Medico", "Egreso Medico"
+        if (discharge.dischargeType) {
+            const type = discharge.dischargeType.toLowerCase().trim();
+            let radioName = '';
+            
+            if (type.includes('fallece')) {
+                radioName = 'fallecee';
+            } else if (type.includes('contra') || type.includes('consejo')) {
+                radioName = 'tipode-egreso';
+            } else if (type.includes('egreso') && type.includes('medico')) {
+                radioName = 'egreso-medico';
+            }
+            
+            if (radioName) {
+                const radio = document.querySelector(`input[name="${radioName}"]`);
+                if (radio) {
+                    radio.checked = true;
+                    console.log(`[Form2] ✓ Set discharge type: ${radioName} (value: ${discharge.dischargeType})`);
+                } else {
+                    console.warn(`[Form2] ✗ Discharge type radio not found: name="${radioName}"`);
+                }
+            } else {
+                console.warn(`[Form2] ⚠ Unknown discharge type value: "${discharge.dischargeType}"`);
+            }
+        } else {
+            console.log('[Form2] Skipping discharge type - value is null/undefined');
+        }
+        
+        console.log('[Form2] Maternal discharge information populated');
     }
 
     // Helper Functions
@@ -1003,7 +1122,12 @@ const PerinatalPrintForm2 = (function() {
         console.log(`[Form2] Before uncheck - Radios: ${radiosBefore}, Checkboxes: ${checkboxesBefore}`);
         
         // Uncheck all radios
-        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        const allRadios = document.querySelectorAll('input[type="radio"]');
+        console.log(`[Form2] Total radios found: ${allRadios.length}`);
+        allRadios.forEach(radio => {
+            if (radio.checked) {
+                console.log(`[Form2] Unchecking radio: name="${radio.name}", value="${radio.value}"`);
+            }
             radio.checked = false;
         });
         
@@ -1024,6 +1148,8 @@ const PerinatalPrintForm2 = (function() {
         // - Enum fields (YesNoNotRecorded): 1=Yes, 2=No, 3=NotRecorded, 0/NULL=not set
         // - Boolean fields (bool?): true/1=Yes, false/0=No, null=not set
         // - String fields: "si"/"+"=Yes, "no"/"-"=No
+        
+        console.log(`[Form2] setYesNoRadio called: name="${name}", value=${value}, type=${typeof value}, isBoolean=${isBoolean}`);
         
         // Handle string values (for HIV, VDRL, Screening fields)
         if (typeof value === 'string') {
@@ -1049,8 +1175,8 @@ const PerinatalPrintForm2 = (function() {
             return;
         }
         
-        // Handle boolean fields
-        if (isBoolean) {
+        // Handle boolean fields OR values that are explicitly boolean type
+        if (isBoolean || typeof value === 'boolean') {
             if (value === null || value === undefined) {
                 console.log(`[Form2] Skipping ${name} - no value (boolean field)`);
                 return;
@@ -1063,12 +1189,16 @@ const PerinatalPrintForm2 = (function() {
                     noRadio.checked = true;
                     noRadio.setAttribute('data-mark-state', 'check');
                     console.log(`[Form2] ✓ Set radio ${name} to no (boolean: ${value})`);
+                } else {
+                    console.warn(`[Form2] ✗ Radio not found: name="${name}" value="no"`);
                 }
             } else if (value === 1 || value === true) {
                 const siRadio = document.querySelector(`input[name="${name}"][value="si"]`);
                 if (siRadio) {
                     siRadio.checked = true;
                     console.log(`[Form2] ✓ Set radio ${name} to si (boolean: ${value})`);
+                } else {
+                    console.warn(`[Form2] ✗ Radio not found: name="${name}" value="si"`);
                 }
             }
             return;
@@ -1093,6 +1223,8 @@ const PerinatalPrintForm2 = (function() {
                 noRadio.checked = true;
                 noRadio.setAttribute('data-mark-state', 'check');
                 console.log(`[Form2] ✓ Set radio ${name} to no (enum: 2)`);
+            } else {
+                console.warn(`[Form2] ✗ Radio not found: name="${name}" value="no"`);
             }
             return;
         }
@@ -1109,6 +1241,32 @@ const PerinatalPrintForm2 = (function() {
             if (siRadio) {
                 siRadio.checked = true;
                 console.log(`[Form2] ✓ Set radio ${name} to si (enum: 1)`);
+            } else {
+                console.warn(`[Form2] ✗ Radio not found: name="${name}" value="si"`);
+            }
+        }
+    }
+
+    // Special function for boolean fields (like HasHypertensiveDisorders)
+    function setYesNoRadioBool(name, boolValue) {
+        if (boolValue === null || boolValue === undefined) {
+            console.log(`[Form2] Skipping ${name} - no value (boolean)`);
+            return;
+        }
+        
+        // For boolean: 0/false = "No", 1/true = "Yes"
+        if (boolValue === 0 || boolValue === false) {
+            const noRadio = document.querySelector(`input[name="${name}"][value="no"]`);
+            if (noRadio) {
+                noRadio.checked = true;
+                noRadio.setAttribute('data-mark-state', 'check');
+                console.log(`[Form2] ✓ Set radio ${name} to no (boolean: ${boolValue})`);
+            }
+        } else if (boolValue === 1 || boolValue === true) {
+            const siRadio = document.querySelector(`input[name="${name}"][value="si"]`);
+            if (siRadio) {
+                siRadio.checked = true;
+                console.log(`[Form2] ✓ Set radio ${name} to si (boolean: ${boolValue})`);
             }
         }
     }

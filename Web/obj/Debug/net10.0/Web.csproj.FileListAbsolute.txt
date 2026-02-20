@@ -3091,6 +3091,8 @@ E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\jja56wl6mu-{0}-3ypbsxl6pq-3ypbsxl6pq.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\aouahjvfez-{0}-fpwemkghw6-fpwemkghw6.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\fyzmp10hx5-{0}-ykrmbwlxbd-ykrmbwlxbd.gz
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\mvffkwqc2l-{0}-o0crkh8k24-o0crkh8k24.gz
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\gd68y0acvb-{0}-a2hxlykqhl-a2hxlykqhl.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\rh8c6qi4op-{0}-raa1fw283p-raa1fw283p.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\yjv3lsmwmw-{0}-rrvntavhya-rrvntavhya.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\1ayw5voaa5-{0}-ugmcd1xa63-ugmcd1xa63.gz
@@ -3131,10 +3133,12 @@ E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\kzj94f4itx-{0}-6z26wja2q6-6z26wja2q6.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\l93it10u4l-{0}-z8m9rxca08-z8m9rxca08.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\ukkjvx0i21-{0}-3kjdpnv4vk-3kjdpnv4vk.gz
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\tgcb6oz1w7-{0}-qz3taj6gy2-qz3taj6gy2.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\vh1agldjkc-{0}-vi2k1jb2kj-vi2k1jb2kj.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\7hevwpvwqa-{0}-x43vkm0yet-x43vkm0yet.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\zsd5zithjr-{0}-cmpaycg31d-cmpaycg31d.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\l7lf0ysmmu-{0}-85hijgabne-85hijgabne.gz
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\2h3t2nlvcv-{0}-ddre6ax0gp-ddre6ax0gp.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\mpxwrmbv46-{0}-gla8i6hkx7-gla8i6hkx7.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\ufnn3to68s-{0}-mvwypskv88-mvwypskv88.gz
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\arp2f57vgd-{0}-bqz35x6929-bqz35x6929.gz
@@ -3490,8 +3494,4 @@ E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\Web.pdb
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\Web.genruntimeconfig.cache
 E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\ref\Web.dll
-E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\tgcb6oz1w7-{0}-qz3taj6gy2-qz3taj6gy2.gz
-E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\mvffkwqc2l-{0}-o0crkh8k24-o0crkh8k24.gz
-E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\gd68y0acvb-{0}-a2hxlykqhl-a2hxlykqhl.gz
-E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\c2tmt1yct0-{0}-sm9a57t2lr-sm9a57t2lr.gz
-E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\2h3t2nlvcv-{0}-l2ievtcp76-l2ievtcp76.gz
+E:\Task\Freelancer tasks\Ongoing\Task-14-.Net-Dominican Republic\PortalWebSingle\Web\obj\Debug\net10.0\compressed\c2tmt1yct0-{0}-5be2p814mm-5be2p814mm.gz

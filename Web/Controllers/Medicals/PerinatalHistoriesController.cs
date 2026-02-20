@@ -1,4 +1,5 @@
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -19,6 +20,7 @@ namespace Web.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> AddOrUpdate(int? id, int? patientId)
         {
             // If id is null, we're creating a new record
@@ -189,6 +191,7 @@ namespace Web.Controllers
         }
 
         // GET: PerinatalHistories/PrintForm1/5
+        [AllowAnonymous]
         public async Task<IActionResult> PrintForm1(int id)
         {
             var perinatalHistory = await _context.PerinatalHistoryRecords
@@ -206,6 +209,7 @@ namespace Web.Controllers
         }
 
         // GET: PerinatalHistories/PrintForm2/5
+        [AllowAnonymous]
         public async Task<IActionResult> PrintForm2(int id)
         {
             var perinatalHistory = await _context.PerinatalHistoryRecords
@@ -223,6 +227,7 @@ namespace Web.Controllers
         }
 
         // API endpoint to get print data as JSON
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetPrintData(int id)
         {
